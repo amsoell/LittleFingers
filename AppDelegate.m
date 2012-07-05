@@ -73,7 +73,7 @@
     // Add Home / Recent / Favorites button    
     UIViewController *vcHome = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
-    [vcHome.view setBackgroundColor:[UIColor redColor]]; 
+    [vcHome.view setBackgroundColor:[UIColor lightGrayColor]]; 
     [viewController addObject:vcHome];
     
     // Add buttons for each media collection
@@ -204,7 +204,7 @@ sizeOfItemForViewController:(UIViewController *)viewController
                    atIndex:(NSUInteger)index 
                   position:(NGTabBarPosition)position {
     if (NGTabBarIsVertical(position)) {
-        return CGSizeMake(60.f, 60.f);
+        return CGSizeMake(100.f, 60.f);
     } else {
         return CGSizeMake(60.f, 49.f);
     }
