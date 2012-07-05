@@ -88,6 +88,8 @@
 		DED2A76115A5D8940085C5BC /* iTunesShared.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A75F15A5D8940085C5BC /* iTunesShared.png */; };
 		DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */; };
 		DED2A76815A604FD0085C5BC /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A76715A604FD0085C5BC /* PlaybackViewController.m */; };
+		DED2A76B15A60D060085C5BC /* film.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A76915A60D060085C5BC /* film.png */; };
+		DED2A76C15A60D060085C5BC /* film@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A76A15A60D060085C5BC /* film@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,6 +214,8 @@
 		DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesShared@2x.png"; sourceTree = "<group>"; };
 		DED2A76615A604FC0085C5BC /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
 		DED2A76715A604FD0085C5BC /* PlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewController.m; sourceTree = "<group>"; };
+		DED2A76915A60D060085C5BC /* film.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = film.png; sourceTree = "<group>"; };
+		DED2A76A15A60D060085C5BC /* film@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "film@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -416,6 +420,8 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DED2A76915A60D060085C5BC /* film.png */,
+				DED2A76A15A60D060085C5BC /* film@2x.png */,
 				DED2A75F15A5D8940085C5BC /* iTunesShared.png */,
 				DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */,
 				DED2A6C915A53BFA0085C5BC /* check.png */,
@@ -580,6 +586,8 @@
 				DED2A73B15A53E510085C5BC /* PlaybackView.xib in Resources */,
 				DED2A76115A5D8940085C5BC /* iTunesShared.png in Resources */,
 				DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */,
+				DED2A76B15A60D060085C5BC /* film.png in Resources */,
+				DED2A76C15A60D060085C5BC /* film@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

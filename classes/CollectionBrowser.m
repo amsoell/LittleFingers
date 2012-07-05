@@ -52,6 +52,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void) dismiss {
+    NSLog(@"dismiss!");
+    [videoPlaybackController dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark -
 #pragma mark TableView Delegate
 
@@ -71,10 +76,13 @@
     return dataSource.count;
 }
 
-- (void) dismiss {
-    NSLog(@"dismiss!");
-    [videoPlaybackController dismissViewControllerAnimated:YES completion:nil];
+/*
+ //todo: implement section headers
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSLog(@"%@", dataSource);
+    return @"Videos";
 }
+*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
@@ -96,7 +104,6 @@
         [videoPlaybackController setTitle:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]];
         NSLog(@"Setting title: %@", [[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]);
         [videoPlaybackController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-//        videoPlaybackController.navigationBar title = [[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"];
         playbackViewController.navigationItem.leftBarButtonItem = done;
         
 		[owner presentViewController:videoPlaybackController animated:YES completion:nil];

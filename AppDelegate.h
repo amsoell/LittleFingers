@@ -10,7 +10,7 @@
 #import "NGTabBarController.h"
 #import "IASKAppSettingsViewController.h"
 
-@class MediaLibrary;
+@class MediaLibrary, ALAssetsLibrary;
 
 @interface AppDelegate : UIResponder <IASKSettingsDelegate, UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate> {
     UIPopoverController* popover;
@@ -18,6 +18,8 @@
     MediaLibrary* mediaIndex;
     NGTabBarController *tbc;
     IASKAppSettingsViewController *appSettingsViewController;    
+	ALAssetsLibrary *assetsLibrary;    
+    NSMutableArray *viewController;
 }
 
 -(void)indexIPodLibrary;

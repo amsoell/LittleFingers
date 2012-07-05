@@ -16,6 +16,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation AppDelegate
 
@@ -30,6 +31,14 @@
 		appSettingsViewController.delegate = self;
 	}
 	return appSettingsViewController;
+}
+
+- (AppDelegate*) init {
+    if (!assetsLibrary) assetsLibrary = [[ALAssetsLibrary alloc] init];
+    if (!viewController) viewController = [[NSMutableArray alloc] init];
+    NSLog(@"assetsLibrary allocinited");    
+    
+    return [super init];
 }
 
 - (void)indexIPodLibrary {
@@ -58,13 +67,14 @@
     }    
 }
 
-- (void)refreshTabBarController:(NGTabBarController*)controller {
-    // Add Home / Recent / Favorites button
-    NSLog(@"refreshing tbc");
+- (void)createTabBarControllerViews:(NGTabBarController*)controller {
+    [viewController removeAllObjects];
+
+    // Add Home / Recent / Favorites button    
     UIViewController *vcHome = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
     [vcHome.view setBackgroundColor:[UIColor redColor]]; 
-    NSMutableArray *viewController = [[NSMutableArray alloc] initWithObjects:vcHome, nil];    
+    [viewController addObject:vcHome];
     
     // Add buttons for each media collection
     NSLog(@"starting loop");
@@ -75,6 +85,7 @@
         [viewController addObject:vc];
     }
     NSLog(@"ending loop");
+    
     
     // Check the Documents folder for media shared via iTunes sharing
     NSLog(@"searching Documents");
@@ -98,13 +109,57 @@
         NSLog(@"iTunes shared media: %@", iTunesSharedCollection);
     }
     
+    // Check the camera roll
+    NSLog(@"checking camera roll");
+	ALAssetsLibrary *assetLibrary = assetsLibrary;
+    NSMutableArray* cameraCollection = [[NSMutableArray alloc] init];        
+	NSLog(@"%@", assetLibrary);
+	[assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if (group) {
+            [group setAssetsFilter:[ALAssetsFilter allVideos]];
+            [group enumerateAssetsUsingBlock:
+             ^(ALAsset *asset, NSUInteger index, BOOL *stop)
+             {
+                 if (asset) {
+                     ALAssetRepresentation *defaultRepresentation = [asset defaultRepresentation];
+                     NSString *uti = [defaultRepresentation UTI];
+                     NSURL *URL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
+                     NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
+                     
+                     NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
+                     NSLog(@"Found camera item %@ at %@", title, URL);                     
+                     [cameraCollection addObject:details];
+                 }
+             }];
+        }
+		// group == nil signals we are done iterating.
+		else {
+            if (cameraCollection.count > 0) {    
+                NSLog(@"adding camera collection");
+                CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:cameraCollection andOwner:controller];
+                vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"film"]];    
+                vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
+                [viewController addObject:vc];        
+            } else {
+                NSLog(@"skipping camera collection");
+            }
+            
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[self updateTabBarController:controller];
+			});            
+		}
+	} failureBlock:^(NSError *error) {
+        NSLog(@"error enumerating AssetLibrary groups %@\n", error);
+    }];
+}
+
+- (void)updateTabBarController:(NGTabBarController*)controller {	
     // Add button for settings gear
     UIViewController *vcSettings = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
     vcSettings.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Settings" image:[UIImage imageNamed:@"gear"]];    
     [vcSettings.view setBackgroundColor:[UIColor redColor]]; 
-    [viewController addObject:vcSettings];    
+    [viewController addObject:vcSettings];      
     
-    // Assign view controller tab buttons to vertical tabbar
     [controller setViewControllers:viewController];
 }
 
@@ -127,12 +182,11 @@
     [tbc setTabBarPosition:NGTabBarPositionLeft];
     [tbc.tabBar setLayoutStrategy:NGTabBarLayoutStrategyStrungTogether];
     [tbc.tabBar setTintColor:[UIColor redColor]];    
-    [self refreshTabBarController:tbc];
+    [self createTabBarControllerViews:tbc];
     
     self.window.rootViewController = tbc;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
     
 	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:NULL];    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged) name:kIASKAppSettingChanged object:nil];    
