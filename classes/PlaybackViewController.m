@@ -192,16 +192,22 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 -(void)showStopButton
 {
     NSMutableArray *toolbarItems = [NSMutableArray arrayWithArray:[mToolbar items]];
-    [toolbarItems replaceObjectAtIndex:0 withObject:mStopButton];
-    mToolbar.items = toolbarItems;
+    if (!toolbarItems && ![toolbarItems count]) {
+        [toolbarItems replaceObjectAtIndex:0 withObject:mStopButton];
+        mToolbar.items = toolbarItems;
+    }
 }
 
 /* Show the play button in the movie player controller. */
 -(void)showPlayButton
 {
     NSMutableArray *toolbarItems = [NSMutableArray arrayWithArray:[mToolbar items]];
-    [toolbarItems replaceObjectAtIndex:0 withObject:mPlayButton];
-    mToolbar.items = toolbarItems;
+    NSLog(@"toolbarItems: %@", toolbarItems);
+    NSLog(@"mToolbar items: %@", [mToolbar items]);
+    if (!toolbarItems && ![toolbarItems count]) {
+        [toolbarItems replaceObjectAtIndex:0 withObject:mPlayButton];
+        mToolbar.items = toolbarItems;
+    }
 }
 
 /* If the media is playing, show the stop button; otherwise, show the play button. */

@@ -23,7 +23,6 @@
 		DED2A70115A53E1A0085C5BC /* MediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A67A15A53BFA0085C5BC /* MediaLibrary.m */; };
 		DED2A70215A53E1A0085C5BC /* NGVTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A67C15A53BFA0085C5BC /* NGVTabBarController.m */; };
 		DED2A70315A53E1A0085C5BC /* PlaybackView.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A67E15A53BFA0085C5BC /* PlaybackView.m */; };
-		DED2A70415A53E1A0085C5BC /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A68015A53BFA0085C5BC /* PlaybackViewController.m */; };
 		DED2A70515A53E1A0085C5BC /* ATMHud.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A68415A53BFA0085C5BC /* ATMHud.m */; };
 		DED2A70615A53E1A0085C5BC /* ATMHudQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A68715A53BFA0085C5BC /* ATMHudQueueItem.m */; };
 		DED2A70715A53E1A0085C5BC /* ATMHudView.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A68915A53BFA0085C5BC /* ATMHudView.m */; };
@@ -86,6 +85,9 @@
 		DED2A74015A53F100085C5BC /* IASKPSTextFieldSpecifierViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED2A6B715A53BFA0085C5BC /* IASKPSTextFieldSpecifierViewCell.xib */; };
 		DED2A74115A53F100085C5BC /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED2A6B815A53BFA0085C5BC /* IASKPSToggleSwitchSpecifierViewCell.xib */; };
 		DED2A74215A53F100085C5BC /* IASKSpecifierValuesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED2A6B915A53BFA0085C5BC /* IASKSpecifierValuesView.xib */; };
+		DED2A76115A5D8940085C5BC /* iTunesShared.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A75F15A5D8940085C5BC /* iTunesShared.png */; };
+		DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */; };
+		DED2A76815A604FD0085C5BC /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A76715A604FD0085C5BC /* PlaybackViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,8 +105,6 @@
 		DED2A67C15A53BFA0085C5BC /* NGVTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NGVTabBarController.m; sourceTree = "<group>"; };
 		DED2A67D15A53BFA0085C5BC /* PlaybackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybackView.h; sourceTree = "<group>"; };
 		DED2A67E15A53BFA0085C5BC /* PlaybackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackView.m; sourceTree = "<group>"; };
-		DED2A67F15A53BFA0085C5BC /* PlaybackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
-		DED2A68015A53BFA0085C5BC /* PlaybackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewController.m; sourceTree = "<group>"; };
 		DED2A68315A53BFA0085C5BC /* ATMHud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATMHud.h; sourceTree = "<group>"; };
 		DED2A68415A53BFA0085C5BC /* ATMHud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATMHud.m; sourceTree = "<group>"; };
 		DED2A68515A53BFA0085C5BC /* ATMHudDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATMHudDelegate.h; sourceTree = "<group>"; };
@@ -208,6 +208,10 @@
 		DED2A6FA15A53CB90085C5BC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		DED2A6FC15A53D460085C5BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DED2A6FD15A53D460085C5BC /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		DED2A75F15A5D8940085C5BC /* iTunesShared.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesShared.png; sourceTree = "<group>"; };
+		DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesShared@2x.png"; sourceTree = "<group>"; };
+		DED2A76615A604FC0085C5BC /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
+		DED2A76715A604FD0085C5BC /* PlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +416,8 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DED2A75F15A5D8940085C5BC /* iTunesShared.png */,
+				DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */,
 				DED2A6C915A53BFA0085C5BC /* check.png */,
 				DED2A6CA15A53BFA0085C5BC /* gear.png */,
 				DED2A6CB15A53BFA0085C5BC /* gear@2x.png */,
@@ -477,10 +483,10 @@
 		DED2A74415A540670085C5BC /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				DED2A76615A604FC0085C5BC /* PlaybackViewController.h */,
+				DED2A76715A604FD0085C5BC /* PlaybackViewController.m */,
 				DED2A67D15A53BFA0085C5BC /* PlaybackView.h */,
 				DED2A67E15A53BFA0085C5BC /* PlaybackView.m */,
-				DED2A67F15A53BFA0085C5BC /* PlaybackViewController.h */,
-				DED2A68015A53BFA0085C5BC /* PlaybackViewController.m */,
 			);
 			name = Playback;
 			sourceTree = "<group>";
@@ -492,6 +498,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DED2A66C15A53BAC0085C5BC /* Build configuration list for PBXNativeTarget "LittleFingers" */;
 			buildPhases = (
+				DED2A75E15A5D4370085C5BC /* ShellScript */,
 				DED2A65015A53BAC0085C5BC /* Sources */,
 				DED2A65115A53BAC0085C5BC /* Frameworks */,
 				DED2A65215A53BAC0085C5BC /* Resources */,
@@ -571,10 +578,29 @@
 				DED2A73915A53E510085C5BC /* CollectionBrowser.xib in Resources */,
 				DED2A73A15A53E510085C5BC /* PlaybackView-iPad.xib in Resources */,
 				DED2A73B15A53E510085C5BC /* PlaybackView.xib in Resources */,
+				DED2A76115A5D8940085C5BC /* iTunesShared.png in Resources */,
+				DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DED2A75E15A5D4370085C5BC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TARGET=\"$PROJECT_DIR/Info.plist\"\necho $TARGET\nif [ ! -f \"$TARGET\" ]; then\necho \"missing file $TARGET\"\nexit 1;\nfi\n\n# the perl regex splits out the last part of a build number (ie: 1.1.1) and increments it by one\n# if you have a build number that is more than 3 components, add a '\\.\\d+' into the first part of the regex.\n\nNEW_VERSION=`/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$TARGET\" | /usr/bin/perl -pe 's/(\\d+)/($1+1)/eg'`\necho $NEW_VERSION;\n/usr/libexec/PListBuddy -c \"Set CFBundleVersion $NEW_VERSION\" \"$TARGET\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DED2A65015A53BAC0085C5BC /* Sources */ = {
@@ -586,7 +612,6 @@
 				DED2A70115A53E1A0085C5BC /* MediaLibrary.m in Sources */,
 				DED2A70215A53E1A0085C5BC /* NGVTabBarController.m in Sources */,
 				DED2A70315A53E1A0085C5BC /* PlaybackView.m in Sources */,
-				DED2A70415A53E1A0085C5BC /* PlaybackViewController.m in Sources */,
 				DED2A70515A53E1A0085C5BC /* ATMHud.m in Sources */,
 				DED2A70615A53E1A0085C5BC /* ATMHudQueueItem.m in Sources */,
 				DED2A70715A53E1A0085C5BC /* ATMHudView.m in Sources */,
@@ -614,6 +639,7 @@
 				DED2A71D15A53E1A0085C5BC /* UINavigationController+NGTabBarNavigationDelegate.m in Sources */,
 				DED2A71E15A53E1A0085C5BC /* UIViewController+NGTabBarItem.m in Sources */,
 				DED2A6FF15A53DCE0085C5BC /* AppDelegate.m in Sources */,
+				DED2A76815A604FD0085C5BC /* PlaybackViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

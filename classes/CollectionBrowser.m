@@ -17,7 +17,7 @@
 
 @implementation CollectionBrowser
 @synthesize dataSource;
-@synthesize owner;
+@synthesize owner, videoPlaybackController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,7 +80,7 @@
     AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
 
 	if (urlAsset) {
-
+        NSLog(@"Playing from asset URL");
 		if (!playbackViewController)
 		{
 			playbackViewController = [[PlaybackViewController alloc] init];
@@ -100,10 +100,7 @@
         playbackViewController.navigationItem.leftBarButtonItem = done;
         
 		[owner presentViewController:videoPlaybackController animated:YES completion:nil];
-
-	}
-	else if (playbackViewController)
-	{
+	} else if (playbackViewController) {
 		[playbackViewController setURL:nil];
 	}
 

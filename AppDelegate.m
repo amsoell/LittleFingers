@@ -12,9 +12,10 @@
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
 #import "CollectionBrowser.h"
+#import "PlaybackViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
-
+#import <CoreMedia/CoreMedia.h>
 
 @implementation AppDelegate
 
@@ -75,6 +76,28 @@
     }
     NSLog(@"ending loop");
     
+    // Check the Documents folder for media shared via iTunes sharing
+    NSLog(@"searching Documents");
+    NSArray *validExtensions = [NSArray arrayWithObjects:@"mp4", nil];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSMutableArray* iTunesSharedCollection = [[NSMutableArray alloc] init];    
+    
+    for (NSString* filename in [fileManager contentsOfDirectoryAtPath:[paths objectAtIndex:0] error:NULL]) if ([validExtensions containsObject:[filename pathExtension]]) {
+        
+        NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:[[[filename stringByDeletingPathExtension] stringByReplacingOccurrencesOfString:@"_" withString:@" "] capitalizedString], @"title", [NSURL fileURLWithPath:[[paths objectAtIndex:0] stringByAppendingPathComponent:filename]], @"url", nil];
+        [iTunesSharedCollection addObject:details];
+    }
+    
+    if (iTunesSharedCollection.count > 0) {        
+        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:iTunesSharedCollection andOwner:controller];
+        vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"iTunes" image:[UIImage imageNamed:@"iTunesShared"]];    
+        vc.ng_tabBarItem.mediaIndex = @"iTunesShared";
+        [viewController addObject:vc];        
+        
+        NSLog(@"iTunes shared media: %@", iTunesSharedCollection);
+    }
+    
     // Add button for settings gear
     UIViewController *vcSettings = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
     vcSettings.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Settings" image:[UIImage imageNamed:@"gear"]];    
@@ -110,12 +133,12 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    
 	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:NULL];    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged) name:kIASKAppSettingChanged object:nil];    
     
     return YES;
 }
-
 
 
 ////////////////////////////////////////////////////////////////////////

@@ -21,5 +21,6 @@
 
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) UIViewController *owner;
+@property (nonatomic, strong) UINavigationController* videoPlaybackController;
 
 @end
