@@ -238,7 +238,6 @@
     [self.window makeKeyAndVisible];
     
 	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:NULL];    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged) name:kIASKAppSettingChanged object:nil];    
     
     return YES;
 }
@@ -308,7 +307,7 @@
     if (tableView == tbfavorite) {
         return favorites.count;
     } else {
-        return history.count;
+        return history.count>3?3:history.count;
     }
 }
 
