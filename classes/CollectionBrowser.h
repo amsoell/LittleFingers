@@ -15,10 +15,11 @@
 	PlaybackViewController* playbackViewController;
     UINavigationController* videoPlaybackController;
     UIViewController *owner;
+    IBOutlet UITableView *tv;
 }
 
 - (id)initWithCollection:(NSDictionary *)collection andOwner:(UIViewController *)viewController;
-
+@property (nonatomic, strong) IBOutlet UITableView *tv;
 @property (nonatomic, strong) NSDictionary *dataSource;
 @property (nonatomic, strong) UIViewController *owner;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;

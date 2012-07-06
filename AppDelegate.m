@@ -60,6 +60,11 @@
         NSURL* url = [NSURL URLWithString:[item objectForKey:@"url"]];
         if (url != nil) [item setObject:url forKey:@"url"];
     }
+    for (NSMutableDictionary* item in [objects objectForKey:@"favorites"]) {
+        NSURL* url = [NSURL URLWithString:[item objectForKey:@"url"]];
+        if (url != nil) [item setObject:url forKey:@"url"];
+    }
+
     
     NSLog(@"loaded: %@", objects);
     
@@ -89,9 +94,28 @@
     [data setObject:h forKey:@"history"];
     [data setObject:f forKey:@"favorites"];  
     
-    
-    
     NSLog(@"saving marks %@ to %@. Successful? %@", data, path, ([data writeToFile:path atomically:YES]?@"yes":@"no"));    
+}
+
+- (void)logHistory:(NSDictionary *)item {
+    [history insertObject:item atIndex:0];
+    history = [NSMutableArray arrayWithArray:[history subarrayWithRange:NSMakeRange(0, history.count<10?history.count:10)]];
+}
+
+- (BOOL)toggleFavorite:(NSDictionary*)item {
+    for (NSDictionary* fav in favorites) {
+        if ([fav isEqualToDictionary:item]) {
+            // remove it
+            [favorites removeObject:fav];
+            NSLog(@"Removed. New favorites: %@", favorites);                
+            return false;
+        }
+    }
+    // add it
+    [favorites addObject:item];
+    
+    NSLog(@"Added. New favorites: %@", favorites);    
+    return true;
 }
 
 - (void)indexIPodLibrary {
@@ -124,13 +148,6 @@
     [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
-/*    
-    UIViewController *vcHome = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
-    vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
-    [vcHome.view setBackgroundColor:[UIColor lightGrayColor]]; 
-    [viewControllers addObject:vcHome];
-*/
-
     CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, @"Recent", favorites, @"Favorites", nil] andOwner:controller];
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";

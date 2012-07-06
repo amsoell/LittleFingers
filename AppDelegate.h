@@ -30,6 +30,8 @@
 -(NSString*)getMarksPath;
 -(NSMutableDictionary*)loadMarks;
 -(void)saveMarks;
+-(void)logHistory:(NSDictionary*)item;
+-(BOOL)toggleFavorite:(NSDictionary*)item;
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int currentIndex;

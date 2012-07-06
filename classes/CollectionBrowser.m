@@ -18,7 +18,7 @@
 
 @implementation CollectionBrowser
 @synthesize dataSource;
-@synthesize owner, videoPlaybackController;
+@synthesize owner, videoPlaybackController, tv;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,6 +58,16 @@
     [videoPlaybackController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL) toggleFavorite:(id)sender forEvent:(UIEvent*)event {
+    NSIndexPath *indexPath = [tv indexPathForRowAtPoint:[[[event touchesForView:sender] anyObject] locationInView:tv]];    
+    NSLog(@"toggle favorite! %@", indexPath);
+    NSArray* itemKeys = [dataSource allKeys];    
+    BOOL isFavorited = [sharedAppDelegate toggleFavorite:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]];
+    
+    [tv reloadData];
+    return isFavorited;
+}
+
 #pragma mark -
 #pragma mark TableView Delegate
 
@@ -68,10 +78,20 @@
     
     NSArray* itemKeys = [dataSource allKeys];
     NSDictionary *item = [[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];    
-    
     [cell.textLabel setText:[item objectForKey:@"title"]];
     
+    UIButton *accessory = [UIButton buttonWithType:UIButtonTypeCustom];
+    [accessory setImage:[UIImage imageNamed:@"star"] forState:UIControlStateNormal];
+    accessory.frame = CGRectMake(0, 0, 26, 26);
+    accessory.userInteractionEnabled = YES;
+    [accessory addTarget:self action:@selector(toggleFavorite:forEvent:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryView = accessory;    
+    
     return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -89,11 +109,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Log it in history
-    
-    NSArray* itemKeys = [dataSource allKeys];    
-
-    [[sharedAppDelegate history] insertObject:[NSDictionary dictionaryWithDictionary:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]] atIndex:0];
-    NSLog(@"posthistory: %@", [sharedAppDelegate history]);
+    NSArray* itemKeys = [dataSource allKeys];        
+    [sharedAppDelegate logHistory:[NSDictionary dictionaryWithDictionary:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]]];
     
     AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
 
