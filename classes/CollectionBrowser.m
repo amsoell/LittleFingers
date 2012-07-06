@@ -29,7 +29,7 @@
     return self;
 }
 
-- (id)initWithCollection:(NSArray *)collection andOwner:(UIViewController *)viewController {
+- (id)initWithCollection:(NSDictionary *)collection andOwner:(UIViewController *)viewController {
     dataSource = collection;
     owner = viewController;
     return [super init];
@@ -66,7 +66,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:@"cell"];      
     
-    NSDictionary *item = [dataSource objectAtIndex:indexPath.row];    
+    NSArray* itemKeys = [dataSource allKeys];
+    NSDictionary *item = [[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];    
     
     [cell.textLabel setText:[item objectForKey:@"title"]];
     
@@ -74,23 +75,27 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return dataSource.count;
+    NSArray* itemKeys = [dataSource allKeys];
+    
+    return [[dataSource objectForKey:[itemKeys objectAtIndex:section]] count];
 }
 
-/*
+
  //todo: implement section headers
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSLog(@"%@", dataSource);
-    return @"Videos";
+    return [[dataSource allKeys] objectAtIndex:section];
 }
-*/
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Log it in history
-    [[sharedAppDelegate history] insertObject:[NSDictionary dictionaryWithDictionary:[dataSource objectAtIndex:indexPath.row]] atIndex:0];
+    
+    NSArray* itemKeys = [dataSource allKeys];    
+
+    [[sharedAppDelegate history] insertObject:[NSDictionary dictionaryWithDictionary:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]] atIndex:0];
     NSLog(@"posthistory: %@", [sharedAppDelegate history]);
     
-    AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
+    AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
 
 	if (urlAsset) {
         NSLog(@"Playing from asset URL");
@@ -103,11 +108,11 @@
         
         UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
         
-        [playbackViewController setVideotitle:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]];
+        [playbackViewController setVideotitle:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"]];
 		
         videoPlaybackController = [[UINavigationController alloc] initWithRootViewController:playbackViewController];
-        [videoPlaybackController setTitle:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]];
-        NSLog(@"Setting title: %@", [[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]);
+        [videoPlaybackController setTitle:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"]];
+        NSLog(@"Setting title: %@", [[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"]);
         [videoPlaybackController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
         playbackViewController.navigationItem.leftBarButtonItem = done;
         
@@ -115,7 +120,6 @@
 	} else if (playbackViewController) {
 		[playbackViewController setURL:nil];
 	}
-
 }
 
 @end

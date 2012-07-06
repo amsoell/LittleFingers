@@ -124,15 +124,24 @@
     [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
+/*    
     UIViewController *vcHome = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
     [vcHome.view setBackgroundColor:[UIColor lightGrayColor]]; 
     [viewControllers addObject:vcHome];
+*/
+
+    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, @"Recent", favorites, @"Favorites", nil] andOwner:controller];
+    vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
+    vcHome.ng_tabBarItem.mediaIndex = @"Home";
+    [viewControllers addObject:vcHome];
+
+
     
     // Add buttons for each media collection
     NSLog(@"starting loop");
     for (NSString* key in mediaIndex.collections) {
-        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"] andOwner:controller];
+        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:controller];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:[UIImage imageNamed:key]];    
         vc.ng_tabBarItem.mediaIndex = key;
         [viewControllers addObject:vc];
@@ -154,7 +163,7 @@
     }
     
     if (iTunesSharedCollection.count > 0) {        
-        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:iTunesSharedCollection andOwner:controller];
+        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, @"iTunes", nil] andOwner:controller];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"iTunes" image:[UIImage imageNamed:@"iTunesShared"]];    
         vc.ng_tabBarItem.mediaIndex = @"iTunesShared";
         [viewControllers addObject:vc];        
@@ -189,7 +198,7 @@
 		else {
             if (cameraCollection.count > 0) {    
                 NSLog(@"adding camera collection");
-                CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:cameraCollection andOwner:controller];
+                CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil] andOwner:controller];
                 vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"film"]];    
                 vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
                 [viewControllers addObject:vc];        
@@ -265,18 +274,6 @@
 
 - (void)tabBarController:(NGTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index{
     NSLog(@"seleted tab: %d", index);
-    if (index == 0) {
-        tbhistory = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, viewController.view.frame.size.width, 200) style:UITableViewStyleGrouped];
-        [tbhistory setDelegate:self];
-        [tbhistory setDataSource:self];        
-        
-        tbfavorite = [[UITableView alloc] initWithFrame:CGRectMake(0, 200, viewController.view.frame.size.width, 400) style:UITableViewStyleGrouped];
-        [tbfavorite setDelegate:self];
-        [tbfavorite setDataSource:self];        
-        
-        [viewController.view addSubview:tbfavorite];
-        [viewController.view addSubview:tbhistory];
-    }
     
     currentIndex = index;    
 }

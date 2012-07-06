@@ -11,15 +11,15 @@
 @class PlaybackViewController;
 
 @interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate> {
-    NSArray *dataSource;   
+    NSDictionary *dataSource;   
 	PlaybackViewController* playbackViewController;
     UINavigationController* videoPlaybackController;
     UIViewController *owner;
 }
 
-- (id)initWithCollection:(NSArray *)collection andOwner:(UIViewController *)viewController;
+- (id)initWithCollection:(NSDictionary *)collection andOwner:(UIViewController *)viewController;
 
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSDictionary *dataSource;
 @property (nonatomic, strong) UIViewController *owner;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;
 
