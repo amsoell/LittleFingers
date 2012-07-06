@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "MediaLibrary.h"
 #import "NGVTabBarController.h"
-#import "IASKSpecifier.h"
-#import "IASKSettingsReader.h"
 #import "CollectionBrowser.h"
 #import "PlaybackViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -22,16 +20,6 @@
 
 @synthesize window = _window;
 @synthesize currentIndex, mediaIndex;
-
-@synthesize appSettingsViewController;
-
-- (IASKAppSettingsViewController*)appSettingsViewController {
-	if (!appSettingsViewController) {
-		appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
-		appSettingsViewController.delegate = self;
-	}
-	return appSettingsViewController;
-}
 
 - (AppDelegate*) init {
     if (!assetsLibrary) assetsLibrary = [[ALAssetsLibrary alloc] init];
@@ -155,11 +143,12 @@
 
 - (void)updateTabBarController:(NGTabBarController*)controller {	
     // Add button for settings gear
+/*    
     UIViewController *vcSettings = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
-    vcSettings.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Settings" image:[UIImage imageNamed:@"gear"]];    
-    [vcSettings.view setBackgroundColor:[UIColor redColor]]; 
+    vcSettings.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Settings" image:[UIImage imageNamed:@"gear"]];     
     [viewController addObject:vcSettings];      
-    
+*/
+        
     [controller setViewControllers:viewController];
 }
 
@@ -189,7 +178,7 @@
     [self.window makeKeyAndVisible];
     
 	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:NULL];    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged) name:kIASKAppSettingChanged object:nil];    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged) name:kIASKAppSettingChanged object:nil];    
     
     return YES;
 }
@@ -214,7 +203,7 @@ sizeOfItemForViewController:(UIViewController *)viewController
  didSelectViewController:(UIViewController *)viewController
                  atIndex:(NSUInteger)index{
     NSLog(@"%@", [tabBarController.tabBar.items objectAtIndex:index]);    
-
+/*
     if (index == (tabBarController.tabBar.items.count - 1)) {  
  
         // Set up the settings view
@@ -234,87 +223,26 @@ sizeOfItemForViewController:(UIViewController *)viewController
 
         
     } else {    
+*/        
         currentIndex = index;    
-    }
-}
-
-#pragma mark -
-#pragma mark IASKAppSettingsViewControllerDelegate protocol
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
-//    [self dismissModalViewControllerAnimated:YES];
-	
-	// your code here to reconfigure the app for changed settings
-}
-
-// optional delegate method for handling mail sending result
-- (void)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-    
-    if ( error != nil ) {
-        // handle error here
-    }
-    
-    if ( result == MFMailComposeResultSent ) {
-        // your code here to handle this result
-    }
-    else if ( result == MFMailComposeResultCancelled ) {
-        // ...
-    }
-    else if ( result == MFMailComposeResultSaved ) {
-        // ...
-    }
-    else if ( result == MFMailComposeResultFailed ) {
-        // ...
-    }
-}
-- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewContoller 
-                        tableView:(UITableView *)tableView 
-        heightForHeaderForSection:(NSInteger)section {
-    NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
-	if ([key isEqualToString:@"IASKLogo"]) {
-		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
-	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
-		return 55.f;    
-    }
-	return 0;
-}
-
-- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewContoller 
-                         tableView:(UITableView *)tableView 
-           viewForHeaderForSection:(NSInteger)section {
-    NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
-	if ([key isEqualToString:@"IASKLogo"]) {
-		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
-		imageView.contentMode = UIViewContentModeCenter;
-		return imageView;
-	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
-        UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
-        label.backgroundColor = [UIColor clearColor];
-        label.textAlignment = UITextAlignmentCenter;
-        label.textColor = [UIColor redColor];
-        label.shadowColor = [UIColor whiteColor];
-        label.shadowOffset = CGSizeMake(0, 1);
-        label.numberOfLines = 0;
-        label.font = [UIFont boldSystemFontOfSize:16.f];
-        
-        //figure out the title from settingsbundle
-        label.text = [settingsViewContoller.settingsReader titleForSection:section];
-        
-        return label;
-    }
-	return nil;
+//    }
 }
 
 
 #pragma mark UITextViewDelegate (for CustomViewCell)
 - (void)textViewDidChange:(UITextView *)textView {
+/*    
     [[NSUserDefaults standardUserDefaults] setObject:textView.text forKey:@"customCell"];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:@"customCell"];
+*/
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
+/*    
 	if ([specifier.key isEqualToString:@"customCell"]) {
 		return 44*3;
 	}
+*/   
 	return 0;
 }
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE0F3E0F15A622A900EDE5BE /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0B15A622A900EDE5BE /* Icon-iPad.png */; };
+		DE0F3E1015A622A900EDE5BE /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0C15A622A900EDE5BE /* Icon-iPad@2x.png */; };
+		DE0F3E1115A622A900EDE5BE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0D15A622A900EDE5BE /* Icon.png */; };
+		DE0F3E1215A622A900EDE5BE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0E15A622A900EDE5BE /* Icon@2x.png */; };
 		DED2A65915A53BAC0085C5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65815A53BAC0085C5BC /* UIKit.framework */; };
 		DED2A65B15A53BAC0085C5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65A15A53BAC0085C5BC /* Foundation.framework */; };
 		DED2A65D15A53BAC0085C5BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65C15A53BAC0085C5BC /* CoreGraphics.framework */; };
@@ -93,6 +97,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE0F3E0B15A622A900EDE5BE /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = SOURCE_ROOT; };
+		DE0F3E0C15A622A900EDE5BE /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = SOURCE_ROOT; };
+		DE0F3E0D15A622A900EDE5BE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = SOURCE_ROOT; };
+		DE0F3E0E15A622A900EDE5BE /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		DED2A65415A53BAC0085C5BC /* LittleFingers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFingers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED2A65815A53BAC0085C5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DED2A65A15A53BAC0085C5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -420,6 +428,10 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DE0F3E0B15A622A900EDE5BE /* Icon-iPad.png */,
+				DE0F3E0C15A622A900EDE5BE /* Icon-iPad@2x.png */,
+				DE0F3E0D15A622A900EDE5BE /* Icon.png */,
+				DE0F3E0E15A622A900EDE5BE /* Icon@2x.png */,
 				DED2A76915A60D060085C5BC /* film.png */,
 				DED2A76A15A60D060085C5BC /* film@2x.png */,
 				DED2A75F15A5D8940085C5BC /* iTunesShared.png */,
@@ -588,6 +600,10 @@
 				DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */,
 				DED2A76B15A60D060085C5BC /* film.png in Resources */,
 				DED2A76C15A60D060085C5BC /* film@2x.png in Resources */,
+				DE0F3E0F15A622A900EDE5BE /* Icon-iPad.png in Resources */,
+				DE0F3E1015A622A900EDE5BE /* Icon-iPad@2x.png in Resources */,
+				DE0F3E1115A622A900EDE5BE /* Icon.png in Resources */,
+				DE0F3E1215A622A900EDE5BE /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

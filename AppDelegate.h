@@ -12,12 +12,10 @@
 
 @class MediaLibrary, ALAssetsLibrary;
 
-@interface AppDelegate : UIResponder <IASKSettingsDelegate, UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate> {
-    UIPopoverController* popover;
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate> {
     int currentIndex;
     MediaLibrary* mediaIndex;
     NGTabBarController *tbc;
-    IASKAppSettingsViewController *appSettingsViewController;    
 	ALAssetsLibrary *assetsLibrary;    
     NSMutableArray *viewController;
 }
@@ -27,6 +25,5 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int currentIndex;
 @property (nonatomic) MediaLibrary* mediaIndex;
-@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
 @end

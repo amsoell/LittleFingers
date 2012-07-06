@@ -7,7 +7,15 @@
 //
 
 #import "NGTabBarController.h"
+#import "IASKAppSettingsViewController.h"
 
-@interface NGVTabBarController : NGTabBarController
+@interface NGVTabBarController : NGTabBarController <IASKSettingsDelegate> {
+    UIButton* settingsGear;
+    IASKAppSettingsViewController *appSettingsViewController;       
+    UIPopoverController* popover;    
+}
+
+@property (nonatomic) UIButton* settingsGear;
+@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
 @end
