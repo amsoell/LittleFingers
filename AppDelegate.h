@@ -10,20 +10,31 @@
 #import "NGTabBarController.h"
 #import "IASKAppSettingsViewController.h"
 
+#define sharedAppDelegate (AppDelegate *) [[UIApplication sharedApplication] delegate]
+
 @class MediaLibrary, ALAssetsLibrary;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate> {
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate> {
     int currentIndex;
     MediaLibrary* mediaIndex;
     NGTabBarController *tbc;
 	ALAssetsLibrary *assetsLibrary;    
-    NSMutableArray *viewController;
+    NSMutableArray *viewControllers;
+    NSMutableArray *favorites;
+    NSMutableArray *history;
+    UITableView *tbfavorite;
+    UITableView *tbhistory;
 }
 
 -(void)indexIPodLibrary;
+-(NSString*)getMarksPath;
+-(NSMutableDictionary*)loadMarks;
+-(void)saveMarks;
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int currentIndex;
 @property (nonatomic) MediaLibrary* mediaIndex;
+@property (nonatomic, strong) NSMutableArray* favorites;
+@property (nonatomic, strong) NSMutableArray* history;
 
 @end

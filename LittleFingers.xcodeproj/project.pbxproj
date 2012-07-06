@@ -11,6 +11,7 @@
 		DE0F3E1015A622A900EDE5BE /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0C15A622A900EDE5BE /* Icon-iPad@2x.png */; };
 		DE0F3E1115A622A900EDE5BE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0D15A622A900EDE5BE /* Icon.png */; };
 		DE0F3E1215A622A900EDE5BE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0E15A622A900EDE5BE /* Icon@2x.png */; };
+		DE32D9CF15A73B24003277C3 /* marks.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE32D9CE15A73B24003277C3 /* marks.plist */; };
 		DED2A65915A53BAC0085C5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65815A53BAC0085C5BC /* UIKit.framework */; };
 		DED2A65B15A53BAC0085C5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65A15A53BAC0085C5BC /* Foundation.framework */; };
 		DED2A65D15A53BAC0085C5BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65C15A53BAC0085C5BC /* CoreGraphics.framework */; };
@@ -101,6 +102,7 @@
 		DE0F3E0C15A622A900EDE5BE /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = SOURCE_ROOT; };
 		DE0F3E0D15A622A900EDE5BE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = SOURCE_ROOT; };
 		DE0F3E0E15A622A900EDE5BE /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		DE32D9CE15A73B24003277C3 /* marks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = marks.plist; sourceTree = "<group>"; };
 		DED2A65415A53BAC0085C5BC /* LittleFingers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFingers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED2A65815A53BAC0085C5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DED2A65A15A53BAC0085C5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -481,6 +483,7 @@
 				DED2A6E715A53BFA0085C5BC /* Settings.bundle */,
 				DED2A6FC15A53D460085C5BC /* Info.plist */,
 				DED2A6FD15A53D460085C5BC /* Prefix.pch */,
+				DE32D9CE15A73B24003277C3 /* marks.plist */,
 			);
 			name = support;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				DE0F3E1015A622A900EDE5BE /* Icon-iPad@2x.png in Resources */,
 				DE0F3E1115A622A900EDE5BE /* Icon.png in Resources */,
 				DE0F3E1215A622A900EDE5BE /* Icon@2x.png in Resources */,
+				DE32D9CF15A73B24003277C3 /* marks.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

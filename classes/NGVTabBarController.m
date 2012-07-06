@@ -47,7 +47,7 @@
     UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
     
     // Set up the popover
-    CGRect buttonFrame = CGRectMake(sender.frame.origin.x+30 , sender.frame.origin.y, sender.frame.size.width, sender.frame.size.height);
+    CGRect buttonFrame = CGRectMake(sender.frame.origin.x , sender.frame.origin.y, sender.frame.size.width, sender.frame.size.height);
     popover = [[UIPopoverController alloc] initWithContentViewController:aNavController];
     
     // Put the settings view in the popover
@@ -67,10 +67,10 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
-    float x = 37;
+    float x = 0;
     float y = (toInterfaceOrientation==UIInterfaceOrientationPortrait || toInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)?910:680;
     NSLog(@"moving to %fx%f", x, y);
-    [settingsGear setFrame:CGRectMake(x, y, 26, 26)];
+    [settingsGear setFrame:CGRectMake(x, y, 100, 60)];
     
     [self setupForInterfaceOrientation:toInterfaceOrientation];
 }

@@ -19,14 +19,79 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize currentIndex, mediaIndex;
+@synthesize currentIndex, mediaIndex, favorites, history;
 
 - (AppDelegate*) init {
     if (!assetsLibrary) assetsLibrary = [[ALAssetsLibrary alloc] init];
-    if (!viewController) viewController = [[NSMutableArray alloc] init];
-    NSLog(@"assetsLibrary allocinited");    
+    if (!viewControllers) viewControllers = [[NSMutableArray alloc] init];
+    history = [[self loadMarks] objectForKey:@"history"];
+    favorites = [[self loadMarks] objectForKey:@"favorites"];;
     
     return [super init];
+}
+
+- (NSString*)getMarksPath {
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"marks.plist"]; //3
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path]) {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"marks" ofType:@"plist"]; //5
+        
+        [fileManager copyItemAtPath:bundle toPath:path error:&error]; //6
+    }
+    
+    return path;
+}
+
+- (NSMutableDictionary*)loadMarks {
+    NSString* path = [self getMarksPath];
+    NSMutableDictionary *objects = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
+    
+    NSLog(@"loading marks %@ from %@", objects, path);    
+    
+    if (![objects objectForKey:@"history"]) [objects setObject:[[NSMutableArray alloc] init] forKey:@"history"];
+    if (![objects objectForKey:@"favorites"]) [objects setObject:[[NSMutableArray alloc] init] forKey:@"favorites"];    
+    
+    // Convert url properties to NSURLs
+    for (NSMutableDictionary* item in [objects objectForKey:@"history"]) {
+        NSURL* url = [NSURL URLWithString:[item objectForKey:@"url"]];
+        if (url != nil) [item setObject:url forKey:@"url"];
+    }
+    
+    NSLog(@"loaded: %@", objects);
+    
+    return objects;
+}
+
+- (void)saveMarks {
+    NSString* path = [self getMarksPath];    
+    
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    NSLog(@"presave: %@", data);
+
+    NSMutableArray* h = [[NSMutableArray alloc] init];
+    NSMutableArray* f = [[NSMutableArray alloc] init];
+
+    // Convert NSURLs to NSStrings
+    for (NSMutableDictionary* item in history) {
+        NSDictionary* r = [NSDictionary dictionaryWithObjectsAndKeys:[[item objectForKey:@"url"] absoluteString], @"url", [item objectForKey:@"title"], @"title", nil];
+        if (r.count>0) [h addObject:r];
+    }
+
+    for (NSMutableDictionary* item in favorites) {
+        NSDictionary* r = [NSDictionary dictionaryWithObjectsAndKeys:[[item objectForKey:@"url"] absoluteString], @"url", [item objectForKey:@"title"], @"title", nil];
+        if (r.count>0) [f addObject:r];
+    }
+    
+    [data setObject:h forKey:@"history"];
+    [data setObject:f forKey:@"favorites"];  
+    
+    
+    
+    NSLog(@"saving marks %@ to %@. Successful? %@", data, path, ([data writeToFile:path atomically:YES]?@"yes":@"no"));    
 }
 
 - (void)indexIPodLibrary {
@@ -56,13 +121,13 @@
 }
 
 - (void)createTabBarControllerViews:(NGTabBarController*)controller {
-    [viewController removeAllObjects];
+    [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
     UIViewController *vcHome = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
     [vcHome.view setBackgroundColor:[UIColor lightGrayColor]]; 
-    [viewController addObject:vcHome];
+    [viewControllers addObject:vcHome];
     
     // Add buttons for each media collection
     NSLog(@"starting loop");
@@ -70,7 +135,7 @@
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"] andOwner:controller];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:[UIImage imageNamed:key]];    
         vc.ng_tabBarItem.mediaIndex = key;
-        [viewController addObject:vc];
+        [viewControllers addObject:vc];
     }
     NSLog(@"ending loop");
     
@@ -92,7 +157,7 @@
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:iTunesSharedCollection andOwner:controller];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"iTunes" image:[UIImage imageNamed:@"iTunesShared"]];    
         vc.ng_tabBarItem.mediaIndex = @"iTunesShared";
-        [viewController addObject:vc];        
+        [viewControllers addObject:vc];        
         
         NSLog(@"iTunes shared media: %@", iTunesSharedCollection);
     }
@@ -127,7 +192,7 @@
                 CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:cameraCollection andOwner:controller];
                 vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"film"]];    
                 vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
-                [viewController addObject:vc];        
+                [viewControllers addObject:vc];        
             } else {
                 NSLog(@"skipping camera collection");
             }
@@ -143,13 +208,8 @@
 
 - (void)updateTabBarController:(NGTabBarController*)controller {	
     // Add button for settings gear
-/*    
-    UIViewController *vcSettings = [[UIViewController alloc] initWithNibName:nil bundle:nil]; 
-    vcSettings.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Settings" image:[UIImage imageNamed:@"gear"]];     
-    [viewController addObject:vcSettings];      
-*/
         
-    [controller setViewControllers:viewController];
+    [controller setViewControllers:viewControllers];
 }
 
 - (void) settingsChanged {
@@ -183,15 +243,20 @@
     return YES;
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application {
+    [self saveMarks];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    [self saveMarks];    
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - NGTabBarControllerDelegate
 ////////////////////////////////////////////////////////////////////////
 
-- (CGSize)tabBarController:(NGTabBarController *)tabBarController 
-sizeOfItemForViewController:(UIViewController *)viewController
-                   atIndex:(NSUInteger)index 
-                  position:(NGTabBarPosition)position {
+- (CGSize)tabBarController:(NGTabBarController *)tabBarController sizeOfItemForViewController:(UIViewController *)viewController atIndex:(NSUInteger)index                  position:(NGTabBarPosition)position {
     if (NGTabBarIsVertical(position)) {
         return CGSizeMake(100.f, 60.f);
     } else {
@@ -199,33 +264,22 @@ sizeOfItemForViewController:(UIViewController *)viewController
     }
 }
 
-- (void)tabBarController:(NGTabBarController *)tabBarController 
- didSelectViewController:(UIViewController *)viewController
-                 atIndex:(NSUInteger)index{
-    NSLog(@"%@", [tabBarController.tabBar.items objectAtIndex:index]);    
-/*
-    if (index == (tabBarController.tabBar.items.count - 1)) {  
- 
-        // Set up the settings view
-        appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
-        appSettingsViewController.delegate = self;
-        appSettingsViewController.showDoneButton = NO;
-        UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
-
-        // Set up the popover
-        NGTabBarItem* buttonLocation = [tabBarController.tabBar.items objectAtIndex:index];
-        CGRect buttonFrame = CGRectMake(buttonLocation.frame.origin.x , buttonLocation.frame.origin.y, buttonLocation.frame.size.width, buttonLocation.frame.size.height);
-        popover = [[UIPopoverController alloc] initWithContentViewController:aNavController];
+- (void)tabBarController:(NGTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index{
+    NSLog(@"seleted tab: %d", index);
+    if (index == 0) {
+        tbhistory = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, viewController.view.frame.size.width, 200) style:UITableViewStyleGrouped];
+        [tbhistory setDelegate:self];
+        [tbhistory setDataSource:self];        
         
-        // Put the settings view in the popover
-        [popover presentPopoverFromRect:buttonFrame inView:self.window.rootViewController.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
-        [tabBarController setSelectedIndex:currentIndex];        
-
+        tbfavorite = [[UITableView alloc] initWithFrame:CGRectMake(0, 200, viewController.view.frame.size.width, 400) style:UITableViewStyleGrouped];
+        [tbfavorite setDelegate:self];
+        [tbfavorite setDataSource:self];        
         
-    } else {    
-*/        
-        currentIndex = index;    
-//    }
+        [viewController.view addSubview:tbfavorite];
+        [viewController.view addSubview:tbhistory];
+    }
+    
+    currentIndex = index;    
 }
 
 
@@ -237,31 +291,70 @@ sizeOfItemForViewController:(UIViewController *)viewController
 */
 }
 
-- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
-/*    
-	if ([specifier.key isEqualToString:@"customCell"]) {
-		return 44*3;
-	}
-*/   
-	return 0;
+#pragma mark -
+#pragma mark TableView Delegate
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:@"cell"];      
+    NSDictionary *item = [history objectAtIndex:indexPath.row];    
+    [cell.textLabel setText:[item objectForKey:@"title"]];
+    
+    return cell;
 }
 
-/*
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
-	CustomViewCell *cell = (CustomViewCell*)[tableView dequeueReusableCellWithIdentifier:specifier.key];
-	
-	if (!cell) {
-		cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell" 
-															   owner:self 
-															 options:nil] objectAtIndex:0];
-	}
-	cell.textView.text= [[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] != nil ? 
-    [[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] : [specifier defaultStringValue];
-	cell.textView.delegate = self;
-	[cell setNeedsLayout];
-	return cell;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == tbfavorite) {
+        return favorites.count;
+    } else {
+        return history.count;
+    }
 }
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (tableView == tbfavorite) {
+        return @"Favorites";
+    } else {
+        return @"Recent";
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Log it in history
+    [[sharedAppDelegate history] insertObject:[NSDictionary dictionaryWithDictionary:[favorites objectAtIndex:indexPath.row]] atIndex:0];
+    NSLog(@"posthistory: %@", [sharedAppDelegate history]);
+    
+//    if (tableView == tbfavorite) {    
+    //AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[favorites objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
+/*
+	if (urlAsset) {
+        NSLog(@"Playing from asset URL");
+		if (!playbackViewController)
+		{
+			playbackViewController = [[PlaybackViewController alloc] init];
+		}
+		
+		[playbackViewController setURL:urlAsset.URL];
+        
+        UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+        
+        [playbackViewController setVideotitle:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]];
+		
+        videoPlaybackController = [[UINavigationController alloc] initWithRootViewController:playbackViewController];
+        [videoPlaybackController setTitle:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]];
+        NSLog(@"Setting title: %@", [[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]);
+        [videoPlaybackController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+        playbackViewController.navigationItem.leftBarButtonItem = done;
+        
+		[owner presentViewController:videoPlaybackController animated:YES completion:nil];
+	} else if (playbackViewController) {
+		[playbackViewController setURL:nil];
+	}
 */
+}
+
 
 
 #pragma mark -

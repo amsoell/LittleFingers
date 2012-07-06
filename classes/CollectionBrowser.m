@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 NOUS Wissensmanagement GmbH. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "CollectionBrowser.h"
 #import "PlaybackViewController.h"
 #import <CoreMedia/CoreMedia.h>
@@ -85,6 +86,10 @@
 */
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Log it in history
+    [[sharedAppDelegate history] insertObject:[NSDictionary dictionaryWithDictionary:[dataSource objectAtIndex:indexPath.row]] atIndex:0];
+    NSLog(@"posthistory: %@", [sharedAppDelegate history]);
+    
     AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
 
 	if (urlAsset) {
