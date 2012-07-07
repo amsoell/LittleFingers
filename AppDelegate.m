@@ -243,7 +243,7 @@
 
 - (void)updateTabBarController:(NGTabBarController*)controller {	
     // Add button for settings gear
-        
+    [TestFlight passCheckpoint:@"Media Loaded"];
     [controller setViewControllers:viewControllers];
 }
 
@@ -257,6 +257,7 @@
 {
 #ifndef DEVELOPMENT
     [TestFlight takeOff:@"1271acd37624091e4a1afc0fc79d9a38_MTAwNzEwMjAxMi0wNi0xOCAxMzo1MDozNS40Nzg0NzA"];    
+    [[LocalyticsSession sharedLocalyticsSession] startSession:@"52f16fd1c7e37fed5b0c353-fe2feb12-c869-11e1-4434-00ef75f32667"];
 #ifdef TESTING
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif    
@@ -286,10 +287,25 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     [self saveMarks];
+#ifndef DEVELOPMENT
+    [[LocalyticsSession sharedLocalyticsSession] close];
+    [[LocalyticsSession sharedLocalyticsSession] upload];    
+#endif
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     [self saveMarks];    
+#ifndef DEVELOPMENT
+    [[LocalyticsSession sharedLocalyticsSession] close];
+    [[LocalyticsSession sharedLocalyticsSession] upload];    
+#endif
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+#ifndef DEVELOPMENT
+    [[LocalyticsSession sharedLocalyticsSession] resume];
+    [[LocalyticsSession sharedLocalyticsSession] upload];    
+#endif
 }
 
 
@@ -319,71 +335,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:@"customCell"];
 */
 }
-
-#pragma mark -
-#pragma mark TableView Delegate
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:@"cell"];      
-    NSDictionary *item = [history objectAtIndex:indexPath.row];    
-    [cell.textLabel setText:[item objectForKey:@"title"]];
-    
-    return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == tbfavorite) {
-        return favorites.count;
-    } else {
-        return history.count>3?3:history.count;
-    }
-}
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (tableView == tbfavorite) {
-        return @"Favorites";
-    } else {
-        return @"Recent";
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Log it in history
-    [[sharedAppDelegate history] insertObject:[NSDictionary dictionaryWithDictionary:[favorites objectAtIndex:indexPath.row]] atIndex:0];
-    NSLog(@"posthistory: %@", [sharedAppDelegate history]);
-    
-//    if (tableView == tbfavorite) {    
-    //AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[favorites objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
-/*
-	if (urlAsset) {
-        NSLog(@"Playing from asset URL");
-		if (!playbackViewController)
-		{
-			playbackViewController = [[PlaybackViewController alloc] init];
-		}
-		
-		[playbackViewController setURL:urlAsset.URL];
-        
-        UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-        
-        [playbackViewController setVideotitle:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]];
-		
-        videoPlaybackController = [[UINavigationController alloc] initWithRootViewController:playbackViewController];
-        [videoPlaybackController setTitle:[[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]];
-        NSLog(@"Setting title: %@", [[dataSource objectAtIndex:indexPath.row] objectForKey:@"title"]);
-        [videoPlaybackController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-        playbackViewController.navigationItem.leftBarButtonItem = done;
-        
-		[owner presentViewController:videoPlaybackController animated:YES completion:nil];
-	} else if (playbackViewController) {
-		[playbackViewController setURL:nil];
-	}
-*/
-}
-
 
 
 #pragma mark -

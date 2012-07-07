@@ -76,6 +76,9 @@
     BOOL isFavorited = [sharedAppDelegate toggleFavorite:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]];
     
     [tv reloadData];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Toggled Favorite"];
+    [TestFlight passCheckpoint:@"Toggled Favorite"];
     return isFavorited;
 }
 
@@ -148,6 +151,9 @@
     // Log it in history
     NSArray* itemKeys = [dataSource allKeys];        
     [sharedAppDelegate logHistory:[NSDictionary dictionaryWithDictionary:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]]];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Played video" attributes:[NSDictionary dictionaryWithObject:[[NSDictionary dictionaryWithDictionary:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]] objectForKey:@"title"] forKey:@"Title"]];
+    [TestFlight passCheckpoint:@"Selected video"];
     
     AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
 

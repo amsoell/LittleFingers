@@ -14,7 +14,7 @@
 
 @class MediaLibrary, ALAssetsLibrary;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate> {
     int currentIndex;
     MediaLibrary* mediaIndex;
     NGTabBarController *tbc;

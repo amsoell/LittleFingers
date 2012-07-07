@@ -114,9 +114,11 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 		seekToZeroBeforePlay = NO;
 		[mPlayer seekToTime:kCMTimeZero];
 	}
-    NSLog(@"preplay");
+
 	[mPlayer play];
-    NSLog(@"postplay");
+    [TestFlight passCheckpoint:@"Played video"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Played video" attributes:[NSDictionary dictionaryWithObjectsAndKeys:videotitle, @"Title", [[NSUserDefaults standardUserDefaults] stringForKey:@"autolock"], @"autolock", [[NSUserDefaults standardUserDefaults] stringForKey:@"repeat"], @"repeat", nil]];
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"autolock"] && ![[[self navigationController] navigationBar] isHidden]) {
         [self lockScreen:nil];
     }
@@ -133,6 +135,8 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 - (IBAction)lockScreen:(id)sender
 {
+    [TestFlight passCheckpoint:@"Screen locked"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Screen locked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:videotitle, @"Title", nil]];
     [UIView animateWithDuration:0.2f animations:
      ^{
          [[self navigationController] setNavigationBarHidden:YES animated:YES];
@@ -165,6 +169,9 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 - (void)unlockScreen
 {
+    [TestFlight passCheckpoint:@"Screen unlocked"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Screen unlocked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:videotitle, @"Title", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"], @"Unlock code", nil]];
+    
     [UIView animateWithDuration:0.2f animations:
      ^{
          [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
@@ -540,6 +547,9 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
             hudcaption = @"Locked!";            
             hudimage = [UIImage imageNamed:@"x"]; 
             hudduration = 0.5;
+            
+            [TestFlight passCheckpoint:@"Unlock failed"];
+            [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Unlock failed" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"], @"Unlock code", swipeHistory, @"Attempt", nil]];
         }
                 
         if (hudcaption.length > 0) {
@@ -586,6 +596,9 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	/* After the movie has played to its end time, seek back to time zero 
 		to play it again. */
 	seekToZeroBeforePlay = YES;
+    
+    [TestFlight passCheckpoint:@"Video reached end"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Video reached end" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:@"repeat"], @"repeat", nil]];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"repeat"]) {    
         [self playMedia];

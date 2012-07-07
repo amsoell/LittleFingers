@@ -46,6 +46,10 @@
 #endif
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"App launched" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:@"autolock"], @"autolock", [[NSUserDefaults standardUserDefaults] stringForKey:@"hideprotected"], @"hideprotected", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"], @"unlockcode", [[NSUserDefaults standardUserDefaults] stringForKey:@"repeat"], @"repeat", nil]];
+}
+
 - (void) feedbackPrompt:(UIButton*)sender {
     NSLog(@"getting feedback");
 #ifndef DEVELOPMENT
@@ -96,6 +100,7 @@
     [self setupForInterfaceOrientation:toInterfaceOrientation];
 
 #ifdef TESTING
+    // Show bug / feedback button
     y = (toInterfaceOrientation==UIInterfaceOrientationPortrait || toInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)?850:620;
     [helpButton setFrame:CGRectMake(x, y, 100, 60)];
     
