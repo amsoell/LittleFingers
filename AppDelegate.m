@@ -255,6 +255,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifndef DEVELOPMENT
+    [TestFlight takeOff:@"1271acd37624091e4a1afc0fc79d9a38_MTAwNzEwMjAxMi0wNi0xOCAxMzo1MDozNS40Nzg0NzA"];    
+#ifdef TESTING
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif    
+#endif
+    
     mediaIndex = [[MediaLibrary alloc] init];
     currentIndex = 0;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

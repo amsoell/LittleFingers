@@ -11,11 +11,13 @@
 
 @interface NGVTabBarController : NGTabBarController <IASKSettingsDelegate> {
     UIButton* settingsGear;
+    UIButton* helpButton;    
     IASKAppSettingsViewController *appSettingsViewController;       
     UIPopoverController* popover;    
 }
 
 @property (nonatomic) UIButton* settingsGear;
+@property (nonatomic) UIButton* helpButton;
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
 @end

@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE0F3E0F15A622A900EDE5BE /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0B15A622A900EDE5BE /* Icon-iPad.png */; };
-		DE0F3E1015A622A900EDE5BE /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0C15A622A900EDE5BE /* Icon-iPad@2x.png */; };
-		DE0F3E1115A622A900EDE5BE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0D15A622A900EDE5BE /* Icon.png */; };
-		DE0F3E1215A622A900EDE5BE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0F3E0E15A622A900EDE5BE /* Icon@2x.png */; };
 		DE32D9CF15A73B24003277C3 /* marks.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE32D9CE15A73B24003277C3 /* marks.plist */; };
+		DE81847C15A8BAC7005C9F9F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81847A15A8BAC7005C9F9F /* libTestFlight.a */; };
+		DE81848115A8BB6B005C9F9F /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81847D15A8BB6B005C9F9F /* Icon-iPad.png */; };
+		DE81848215A8BB6B005C9F9F /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81847E15A8BB6B005C9F9F /* Icon-iPad@2x.png */; };
+		DE81848315A8BB6B005C9F9F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81847F15A8BB6B005C9F9F /* Icon.png */; };
+		DE81848415A8BB6B005C9F9F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81848015A8BB6B005C9F9F /* Icon@2x.png */; };
+		DE81848615A8BBF2005C9F9F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81848515A8BBF2005C9F9F /* libz.dylib */; };
+		DE81848915A8BE90005C9F9F /* bug.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81848715A8BE90005C9F9F /* bug.png */; };
+		DE81848A15A8BE90005C9F9F /* bug@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81848815A8BE90005C9F9F /* bug@2x.png */; };
 		DE95258115A780070038677C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = DE95257F15A780070038677C /* star.png */; };
 		DE95258215A780070038677C /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE95258015A780070038677C /* star@2x.png */; };
 		DED2A65915A53BAC0085C5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65815A53BAC0085C5BC /* UIKit.framework */; };
@@ -100,11 +104,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DE0F3E0B15A622A900EDE5BE /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = SOURCE_ROOT; };
-		DE0F3E0C15A622A900EDE5BE /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = SOURCE_ROOT; };
-		DE0F3E0D15A622A900EDE5BE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = SOURCE_ROOT; };
-		DE0F3E0E15A622A900EDE5BE /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		DE32D9CE15A73B24003277C3 /* marks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = marks.plist; sourceTree = "<group>"; };
+		DE81847A15A8BAC7005C9F9F /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		DE81847B15A8BAC7005C9F9F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		DE81847D15A8BB6B005C9F9F /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
+		DE81847E15A8BB6B005C9F9F /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
+		DE81847F15A8BB6B005C9F9F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		DE81848015A8BB6B005C9F9F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		DE81848515A8BBF2005C9F9F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DE81848715A8BE90005C9F9F /* bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bug.png; sourceTree = "<group>"; };
+		DE81848815A8BE90005C9F9F /* bug@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bug@2x.png"; sourceTree = "<group>"; };
 		DE95257F15A780070038677C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		DE95258015A780070038677C /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
 		DED2A65415A53BAC0085C5BC /* LittleFingers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFingers.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,15 +257,27 @@
 				DED2A65915A53BAC0085C5BC /* UIKit.framework in Frameworks */,
 				DED2A65B15A53BAC0085C5BC /* Foundation.framework in Frameworks */,
 				DED2A65D15A53BAC0085C5BC /* CoreGraphics.framework in Frameworks */,
+				DE81847C15A8BAC7005C9F9F /* libTestFlight.a in Frameworks */,
+				DE81848615A8BBF2005C9F9F /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE81847915A8BAC7005C9F9F /* TestFlightSDK */ = {
+			isa = PBXGroup;
+			children = (
+				DE81847A15A8BAC7005C9F9F /* libTestFlight.a */,
+				DE81847B15A8BAC7005C9F9F /* TestFlight.h */,
+			);
+			path = TestFlightSDK;
+			sourceTree = "<group>";
+		};
 		DED2A64915A53BAC0085C5BC = {
 			isa = PBXGroup;
 			children = (
+				DE81848515A8BBF2005C9F9F /* libz.dylib */,
 				DED2A67415A53BFA0085C5BC /* AppDelegate.h */,
 				DED2A67515A53BFA0085C5BC /* AppDelegate.m */,
 				DED2A67615A53BFA0085C5BC /* classes */,
@@ -308,6 +329,7 @@
 		DED2A68115A53BFA0085C5BC /* contrib */ = {
 			isa = PBXGroup;
 			children = (
+				DE81847915A8BAC7005C9F9F /* TestFlightSDK */,
 				DED2A68215A53BFA0085C5BC /* ATMHud */,
 				DED2A69015A53BFA0085C5BC /* InAppSettingsKit */,
 				DED2A6BA15A53BFA0085C5BC /* NGTabBarController */,
@@ -434,12 +456,14 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DE81848715A8BE90005C9F9F /* bug.png */,
+				DE81848815A8BE90005C9F9F /* bug@2x.png */,
+				DE81847D15A8BB6B005C9F9F /* Icon-iPad.png */,
+				DE81847E15A8BB6B005C9F9F /* Icon-iPad@2x.png */,
+				DE81847F15A8BB6B005C9F9F /* Icon.png */,
+				DE81848015A8BB6B005C9F9F /* Icon@2x.png */,
 				DE95257F15A780070038677C /* star.png */,
 				DE95258015A780070038677C /* star@2x.png */,
-				DE0F3E0B15A622A900EDE5BE /* Icon-iPad.png */,
-				DE0F3E0C15A622A900EDE5BE /* Icon-iPad@2x.png */,
-				DE0F3E0D15A622A900EDE5BE /* Icon.png */,
-				DE0F3E0E15A622A900EDE5BE /* Icon@2x.png */,
 				DED2A76915A60D060085C5BC /* film.png */,
 				DED2A76A15A60D060085C5BC /* film@2x.png */,
 				DED2A75F15A5D8940085C5BC /* iTunesShared.png */,
@@ -609,13 +633,15 @@
 				DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */,
 				DED2A76B15A60D060085C5BC /* film.png in Resources */,
 				DED2A76C15A60D060085C5BC /* film@2x.png in Resources */,
-				DE0F3E0F15A622A900EDE5BE /* Icon-iPad.png in Resources */,
-				DE0F3E1015A622A900EDE5BE /* Icon-iPad@2x.png in Resources */,
-				DE0F3E1115A622A900EDE5BE /* Icon.png in Resources */,
-				DE0F3E1215A622A900EDE5BE /* Icon@2x.png in Resources */,
 				DE32D9CF15A73B24003277C3 /* marks.plist in Resources */,
 				DE95258115A780070038677C /* star.png in Resources */,
 				DE95258215A780070038677C /* star@2x.png in Resources */,
+				DE81848115A8BB6B005C9F9F /* Icon-iPad.png in Resources */,
+				DE81848215A8BB6B005C9F9F /* Icon-iPad@2x.png in Resources */,
+				DE81848315A8BB6B005C9F9F /* Icon.png in Resources */,
+				DE81848415A8BB6B005C9F9F /* Icon@2x.png in Resources */,
+				DE81848915A8BE90005C9F9F /* bug.png in Resources */,
+				DE81848A15A8BE90005C9F9F /* bug@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,6 +761,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/contrib/TestFlightSDK\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -743,9 +773,14 @@
 		DED2A66E15A53BAC0085C5BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/contrib/TestFlightSDK\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

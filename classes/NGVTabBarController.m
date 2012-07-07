@@ -17,7 +17,7 @@
 @end
 
 @implementation NGVTabBarController
-@synthesize settingsGear;
+@synthesize settingsGear, helpButton;
 @synthesize appSettingsViewController;
 
 - (id)initWithDelegate:(id<NGTabBarControllerDelegate>)delegate {
@@ -37,6 +37,28 @@
     [settingsGear setImage:[UIImage imageNamed:@"gear"] forState:UIControlStateNormal];
     [settingsGear addTarget:self action:@selector(displaySettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingsGear];
+    
+#ifdef TESTING
+    helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [helpButton setImage:[UIImage imageNamed:@"bug"] forState:UIControlStateNormal];
+    [helpButton addTarget:self action:@selector(feedbackPrompt:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:helpButton];
+#endif
+}
+
+- (void) feedbackPrompt:(UIButton*)sender {
+    NSLog(@"getting feedback");
+#ifndef DEVELOPMENT
+    [TestFlight openFeedbackView];    
+#endif
+#ifdef DEVELOPMENT
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Development flag set"
+                               message: @"TestFlight isn't running."
+                              delegate: self
+                     cancelButtonTitle: @"OK"
+                     otherButtonTitles: nil];
+    [alert show];
+#endif
 }
 
 - (void) displaySettings:(UIButton*)sender {
@@ -69,10 +91,17 @@
     
     float x = 0;
     float y = (toInterfaceOrientation==UIInterfaceOrientationPortrait || toInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)?910:680;
-    NSLog(@"moving to %fx%f", x, y);
     [settingsGear setFrame:CGRectMake(x, y, 100, 60)];
     
     [self setupForInterfaceOrientation:toInterfaceOrientation];
+
+#ifdef TESTING
+    y = (toInterfaceOrientation==UIInterfaceOrientationPortrait || toInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)?850:620;
+    [helpButton setFrame:CGRectMake(x, y, 100, 60)];
+    
+    [self setupForInterfaceOrientation:toInterfaceOrientation];
+    
+#endif
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
