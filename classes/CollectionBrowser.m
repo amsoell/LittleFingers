@@ -11,6 +11,7 @@
 #import "PlaybackViewController.h"
 #import <CoreMedia/CoreMedia.h>
 #import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface CollectionBrowser ()
 
@@ -18,7 +19,7 @@
 
 @implementation CollectionBrowser
 @synthesize dataSource;
-@synthesize owner, videoPlaybackController, tv;
+@synthesize owner, videoPlaybackController, tv, intro;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,7 +39,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
+    if (intro != nil) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [intro.text sizeWithFont:[UIFont fontWithName:intro.font.familyName size:intro.font.pointSize] constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+50)];
+        [intro setFrame:CGRectMake(50, 0, self.view.frame.size.width-100, [intro.text sizeWithFont:[UIFont fontWithName:intro.font.familyName size:intro.font.pointSize] constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+50)];
+        [headerView addSubview:intro];
+        self.tv.tableHeaderView = headerView;
+    }
+    
 }
 
 - (void)viewDidUnload
@@ -71,6 +82,30 @@
 #pragma mark -
 #pragma mark TableView Delegate
 
+- (UIImage*)dotImage {
+    UIView *dotView = [[UIView alloc] initWithFrame:CGRectMake(0,0,4,4)];
+    dotView.backgroundColor = [UIColor darkGrayColor];
+    dotView.alpha = 0.2;
+    dotView.layer.cornerRadius = 2;    
+    UIGraphicsBeginImageContext(dotView.bounds.size);
+    [dotView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *dotImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();    
+    
+    return dotImg;
+}
+
+- (UIImage*)starImage {
+    UIImage* starImg = [UIImage imageNamed:@"star"]; 
+    
+    return starImg;
+}
+
+- (BOOL)isFavorite:(NSDictionary*)item {
+    for (NSDictionary* i in [sharedAppDelegate favorites]) if ([i isEqualToDictionary:item]) return true;
+    return false;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -81,8 +116,10 @@
     [cell.textLabel setText:[item objectForKey:@"title"]];
     
     UIButton *accessory = [UIButton buttonWithType:UIButtonTypeCustom];
-    [accessory setImage:[UIImage imageNamed:@"star"] forState:UIControlStateNormal];
-    accessory.frame = CGRectMake(0, 0, 26, 26);
+    
+    
+    [accessory setImage:([self isFavorite:item]?[self starImage]:[self dotImage]) forState:UIControlStateNormal];
+    accessory.frame = CGRectMake(0, 0, 30, 30);
     accessory.userInteractionEnabled = YES;
     [accessory addTarget:self action:@selector(toggleFavorite:forEvent:) forControlEvents:UIControlEventTouchUpInside];
     cell.accessoryView = accessory;    

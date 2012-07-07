@@ -148,9 +148,18 @@
     [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
-    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, @"Recent", favorites, @"Favorites", nil] andOwner:controller];
+    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, 3)], @"Recent", favorites, @"Favorites", nil] andOwner:controller];
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
+    
+    UILabel* introTextCopy = [[UILabel alloc] init];
+    [introTextCopy setFont:[UIFont fontWithName:@"Trebuchet MS" size:14.0f]];
+    [introTextCopy setTextColor:[UIColor darkGrayColor]];
+    [introTextCopy setBackgroundColor:[UIColor clearColor]];
+    [introTextCopy setNumberOfLines:0]; // Enable word wrapping
+    [introTextCopy setText:@"Welcome to Little Fingers Video Player! Thank you for agreeing to help test this app out. On the left, you will see icons for each of the categories of videos on your device. As you use this app, the 'Home' tab will show you the most recently viewed videos as well as videos you have flagged as your favorites.\n\nIf you come across any problems, please let me know by tapping the question mark button in the lower left corner."];
+    [vcHome setIntro:introTextCopy];
+
     [viewControllers addObject:vcHome];
 
 
