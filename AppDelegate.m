@@ -19,7 +19,7 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize currentIndex, mediaIndex, favorites, history;
+@synthesize currentIndex, mediaIndex, favorites, history, videoPlaybackController;
 
 - (AppDelegate*) init {
     if (!assetsLibrary) assetsLibrary = [[ALAssetsLibrary alloc] init];
@@ -32,15 +32,15 @@
 
 - (NSString*)getMarksPath {
     NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
-    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"marks.plist"]; //3
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"marks.plist"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if (![fileManager fileExistsAtPath: path]) {
-        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"marks" ofType:@"plist"]; //5
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"marks" ofType:@"plist"];
         
-        [fileManager copyItemAtPath:bundle toPath:path error:&error]; //6
+        [fileManager copyItemAtPath:bundle toPath:path error:&error];
     }
     
     return path;
@@ -253,6 +253,34 @@
     //todo: reload tabs and content if "hide protected" has changed
 }
 
+- (void)playVideoWithURL:(AVURLAsset *)url andTitle:(NSString*)title {
+    if (!playbackViewController)
+    {
+        playbackViewController = [[PlaybackViewController alloc] init];
+    }
+    
+    [playbackViewController setURL:url.URL];
+    
+    UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismissVideoPlayer)];
+    
+    [playbackViewController setVideotitle:title];
+    
+    videoPlaybackController = [[UINavigationController alloc] initWithRootViewController:playbackViewController];
+    [videoPlaybackController setTitle:title];
+    NSLog(@"Setting title: %@", title);
+    [videoPlaybackController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    playbackViewController.navigationItem.leftBarButtonItem = done;
+    
+    [self.window.rootViewController presentViewController:videoPlaybackController animated:YES completion:nil];
+    
+}
+
+- (void) dismissVideoPlayer {
+    NSLog(@"dismiss!");
+    [videoPlaybackController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifndef DEVELOPMENT
@@ -262,6 +290,16 @@
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif    
 #endif
+    
+    // Set up application defaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
+	NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:
+								 [NSNumber numberWithBool:NO], @"hideprotected",
+                                 @"321", @"unlockcode",
+                                 [NSNumber numberWithBool:NO], @"autolock",
+                                 [NSNumber numberWithBool:NO], @"repeat", nil];
+                                 
+    [defaults registerDefaults:appDefaults];     
     
     mediaIndex = [[MediaLibrary alloc] init];
     currentIndex = 0;

@@ -8,12 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class PlaybackViewController;
-
 @interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate> {
     NSDictionary *dataSource;   
-	PlaybackViewController* playbackViewController;
-    UINavigationController* videoPlaybackController;
     UIViewController *owner;
     IBOutlet UITableView *tv;
     UILabel *intro;

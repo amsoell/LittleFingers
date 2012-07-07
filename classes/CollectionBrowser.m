@@ -19,7 +19,7 @@
 
 @implementation CollectionBrowser
 @synthesize dataSource;
-@synthesize owner, videoPlaybackController, tv, intro;
+@synthesize owner, tv, intro, videoPlaybackController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,11 +62,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void) dismiss {
-    NSLog(@"dismiss!");
-    [videoPlaybackController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL) toggleFavorite:(id)sender forEvent:(UIEvent*)event {
@@ -165,26 +160,9 @@
 
 	if (urlAsset) {
         NSLog(@"Playing from asset URL");
-		if (!playbackViewController)
-		{
-			playbackViewController = [[PlaybackViewController alloc] init];
-		}
-		
-		[playbackViewController setURL:urlAsset.URL];
-        
-        UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-        
-        [playbackViewController setVideotitle:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"]];
-		
-        videoPlaybackController = [[UINavigationController alloc] initWithRootViewController:playbackViewController];
-        [videoPlaybackController setTitle:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"]];
-        NSLog(@"Setting title: %@", [[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"]);
-        [videoPlaybackController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-        playbackViewController.navigationItem.leftBarButtonItem = done;
-        
-		[owner presentViewController:videoPlaybackController animated:YES completion:nil];
-	} else if (playbackViewController) {
-		[playbackViewController setURL:nil];
+        [sharedAppDelegate playVideoWithURL:urlAsset andTitle:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"]];
+//	} else if (playbackViewController) {
+//		[playbackViewController setURL:nil];
 	}
 }
 
