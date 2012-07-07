@@ -143,7 +143,13 @@
 
  //todo: implement section headers
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[dataSource allKeys] objectAtIndex:section];
+    NSArray* itemKeys = [dataSource allKeys];
+    
+    if ([[dataSource objectForKey:[itemKeys objectAtIndex:section]] count]>0) {
+        return [[dataSource allKeys] objectAtIndex:section];
+    } else {
+        return @"";
+    }
 }
 
 

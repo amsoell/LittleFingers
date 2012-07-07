@@ -148,7 +148,7 @@
     [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
-    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, 3)], @"Recent", favorites, @"Favorites", nil] andOwner:controller];
+    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)], @"Recent", favorites, @"Favorites", nil] andOwner:controller];
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
     
@@ -157,7 +157,7 @@
     [introTextCopy setTextColor:[UIColor darkGrayColor]];
     [introTextCopy setBackgroundColor:[UIColor clearColor]];
     [introTextCopy setNumberOfLines:0]; // Enable word wrapping
-    [introTextCopy setText:@"Welcome to Little Fingers Video Player! Thank you for agreeing to help test this app out. On the left, you will see icons for each of the categories of videos on your device. As you use this app, the 'Home' tab will show you the most recently viewed videos as well as videos you have flagged as your favorites.\n\nIf you come across any problems, please let me know by tapping the question mark button in the lower left corner."];
+    [introTextCopy setText:@"Welcome to LittleFingers Video Player! Thank you for agreeing to help test this app out. On the left, you will see icons for each of the categories of videos on your device. As you use this app, the 'Home' tab will show you the most recently viewed videos as well as videos you have flagged as your favorites.\n\nIf you come across any problems, please let me know by tapping the question mark button in the lower left corner. There will undoubtedly be many bugs and crashes, and the more you tell me about what happened when you did run into trouble, the better I can make the final version of the app.\n\nOf course, please feel free to let me know about any other thoughts or suggestions you have, and thanks again!"];
     [vcHome setIntro:introTextCopy];
 
     [viewControllers addObject:vcHome];
