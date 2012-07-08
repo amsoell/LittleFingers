@@ -307,7 +307,6 @@
 		DED2A64915A53BAC0085C5BC = {
 			isa = PBXGroup;
 			children = (
-				DE81849C15A8FEB8005C9F9F /* CoreLocation.framework */,
 				DED2A67415A53BFA0085C5BC /* AppDelegate.h */,
 				DED2A67515A53BFA0085C5BC /* AppDelegate.m */,
 				DED2A67615A53BFA0085C5BC /* classes */,
@@ -334,6 +333,7 @@
 		DED2A65715A53BAC0085C5BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DE81849C15A8FEB8005C9F9F /* CoreLocation.framework */,
 				DED2A6FA15A53CB90085C5BC /* MessageUI.framework */,
 				DED2A6F815A53CAE0085C5BC /* MediaPlayer.framework */,
 				DED2A6F615A53CA50085C5BC /* AssetsLibrary.framework */,
