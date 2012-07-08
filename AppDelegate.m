@@ -323,7 +323,7 @@
     // Set up application defaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
 	NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:
-								 [NSNumber numberWithBool:NO], @"hideprotected",
+								 [NSNumber numberWithBool:YES], @"hideprotected",
                                  @"321", @"unlockcode",
                                  [NSNumber numberWithBool:NO], @"autolock",
                                  [NSNumber numberWithBool:NO], @"repeat", nil];

@@ -316,8 +316,6 @@
 				DED2A6FE15A53D4D0085C5BC /* support */,
 				DED2A68115A53BFA0085C5BC /* contrib */,
 				DED2A65715A53BAC0085C5BC /* Frameworks */,
-				DE81848515A8BBF2005C9F9F /* libz.dylib */,
-				DE81849A15A8C6B7005C9F9F /* libsqlite3.dylib */,
 				DED2A65515A53BAC0085C5BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -345,6 +343,8 @@
 				DED2A65815A53BAC0085C5BC /* UIKit.framework */,
 				DED2A65A15A53BAC0085C5BC /* Foundation.framework */,
 				DED2A65C15A53BAC0085C5BC /* CoreGraphics.framework */,
+				DE81848515A8BBF2005C9F9F /* libz.dylib */,
+				DE81849A15A8C6B7005C9F9F /* libsqlite3.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
