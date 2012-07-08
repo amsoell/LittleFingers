@@ -222,7 +222,7 @@
     
     // Check the Documents folder for media shared via iTunes sharing
     NSLog(@"searching Documents");
-    NSArray *validExtensions = [NSArray arrayWithObjects:@"mp4", nil];
+    NSArray *validExtensions = [NSArray arrayWithObjects:@"mp4", @"mov", @"qt", @"3gp", @"3gpp", nil];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSMutableArray* iTunesSharedCollection = [[NSMutableArray alloc] init];    
