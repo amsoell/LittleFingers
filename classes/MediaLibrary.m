@@ -8,6 +8,7 @@
 
 #import "MediaLibrary.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
 @implementation MediaLibrary
 @synthesize collections, items;
@@ -20,7 +21,11 @@
 }
 
 - (void)addItem:(MPMediaItem*)item toCollection:(NSString*)collection withCollectionTitle:(NSString*)title {
-    NSMutableDictionary* details = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[item valueForProperty:MPMediaItemPropertyTitle], @"title", [item valueForProperty:MPMediaItemPropertyAssetURL], @"url", nil];
+    NSMutableDictionary* details = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                    [item valueForProperty:MPMediaItemPropertyTitle], @"title", 
+                                    [item valueForProperty:MPMediaItemPropertyAssetURL], @"url", 
+                                    [NSNumber numberWithBool:(([item valueForProperty:MPMediaItemPropertyAssetURL]==nil) || [[AVAsset assetWithURL:[item valueForProperty:MPMediaItemPropertyAssetURL]] hasProtectedContent])?YES:NO], @"hasProtectedContent",
+                                    nil];
     
     // Add it to the collection index
     NSMutableDictionary* c = [collections objectForKey:collection];

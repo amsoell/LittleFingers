@@ -15,6 +15,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <CoreLocation/CoreLocation.h>
 
 @implementation AppDelegate
 
@@ -144,11 +145,55 @@
     }    
 }
 
-- (void)createTabBarControllerViews:(NGTabBarController*)controller {
+- (void)indexCameraRoll {
+    NSLog(@"checking camera roll");
+    ALAssetsLibrary *assetLibrary = assetsLibrary;
+    NSMutableArray* cameraCollection = [[NSMutableArray alloc] init];        
+    NSLog(@"%@", assetLibrary);
+    [assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if (group) {
+            [group setAssetsFilter:[ALAssetsFilter allVideos]];
+            [group enumerateAssetsUsingBlock:
+             ^(ALAsset *asset, NSUInteger index, BOOL *stop)
+             {
+                 if (asset) {
+                     ALAssetRepresentation *defaultRepresentation = [asset defaultRepresentation];
+                     NSString *uti = [defaultRepresentation UTI];
+                     NSURL *URL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
+                     NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
+                     
+                     NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
+                     NSLog(@"Found camera item %@ at %@", title, URL);                     
+                     [cameraCollection addObject:details];
+                 }
+             }];
+        }
+        // group == nil signals we are done iterating.
+        else {
+            if (cameraCollection.count > 0) {    
+                NSLog(@"adding camera collection");
+                CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil] andOwner:tbc];
+                vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"film"]];    
+                vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
+                [viewControllers addObject:vc];        
+            } else {
+                NSLog(@"skipping camera collection");
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateTabBarController:tbc];
+            });            
+        }
+    } failureBlock:^(NSError *error) {
+        NSLog(@"error enumerating AssetLibrary groups %@\n", error);
+    }];    
+}
+
+- (void)createTabBarControllerViews {
     [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
-    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)], @"Recent", favorites, @"Favorites", nil] andOwner:controller];
+    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)], @"Recent", favorites, @"Favorites", nil] andOwner:tbc];
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
     
@@ -167,7 +212,7 @@
     // Add buttons for each media collection
     NSLog(@"starting loop");
     for (NSString* key in mediaIndex.collections) {
-        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:controller];
+        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:tbc];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:[UIImage imageNamed:key]];    
         vc.ng_tabBarItem.mediaIndex = key;
         [viewControllers addObject:vc];
@@ -189,7 +234,7 @@
     }
     
     if (iTunesSharedCollection.count > 0) {        
-        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, @"iTunes", nil] andOwner:controller];
+        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, @"iTunes", nil] andOwner:tbc];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"iTunes" image:[UIImage imageNamed:@"iTunesShared"]];    
         vc.ng_tabBarItem.mediaIndex = @"iTunesShared";
         [viewControllers addObject:vc];        
@@ -198,47 +243,31 @@
     }
     
     // Check the camera roll
-    NSLog(@"checking camera roll");
-	ALAssetsLibrary *assetLibrary = assetsLibrary;
-    NSMutableArray* cameraCollection = [[NSMutableArray alloc] init];        
-	NSLog(@"%@", assetLibrary);
-	[assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group) {
-            [group setAssetsFilter:[ALAssetsFilter allVideos]];
-            [group enumerateAssetsUsingBlock:
-             ^(ALAsset *asset, NSUInteger index, BOOL *stop)
-             {
-                 if (asset) {
-                     ALAssetRepresentation *defaultRepresentation = [asset defaultRepresentation];
-                     NSString *uti = [defaultRepresentation UTI];
-                     NSURL *URL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
-                     NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
-                     
-                     NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
-                     NSLog(@"Found camera item %@ at %@", title, URL);                     
-                     [cameraCollection addObject:details];
-                 }
-             }];
-        }
-		// group == nil signals we are done iterating.
-		else {
-            if (cameraCollection.count > 0) {    
-                NSLog(@"adding camera collection");
-                CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil] andOwner:controller];
-                vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"film"]];    
-                vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
-                [viewControllers addObject:vc];        
-            } else {
-                NSLog(@"skipping camera collection");
-            }
-            
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[self updateTabBarController:controller];
-			});            
-		}
-	} failureBlock:^(NSError *error) {
-        NSLog(@"error enumerating AssetLibrary groups %@\n", error);
-    }];
+//    if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
+        [self indexCameraRoll];
+/*    
+    } else if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
+        CollectionBrowser *vcCamera = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[NSArray alloc] init], @"Camera", nil] andOwner:tbc];
+        vcCamera.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera" image:[UIImage imageNamed:@"film"]];    
+        vcCamera.ng_tabBarItem.mediaIndex = @"Camera";
+        
+        UILabel* introTextCopy = [[UILabel alloc] init];
+        [introTextCopy setFont:[UIFont fontWithName:@"Trebuchet MS" size:14.0f]];
+        [introTextCopy setTextColor:[UIColor darkGrayColor]];
+        [introTextCopy setBackgroundColor:[UIColor clearColor]];
+        [introTextCopy setNumberOfLines:0]; // Enable word wrapping
+        [introTextCopy setText:@"In order to access the videos in your camera roll, we need ask your permission to view your location. This is because your photos and videos contain the location in which they were taken. Your information is never collected. Press the button below to authorize this."];
+        [vcCamera setIntro:introTextCopy];
+        
+        
+        [viewControllers addObject:vcCamera];
+        
+        
+        [self updateTabBarController:tbc];        
+    } else {
+        [self updateTabBarController:tbc];
+    }
+*/
 }
 
 - (void)updateTabBarController:(NGTabBarController*)controller {	
@@ -312,7 +341,7 @@
     [tbc setTabBarPosition:NGTabBarPositionLeft];
     [tbc.tabBar setLayoutStrategy:NGTabBarLayoutStrategyStrungTogether];
     [tbc.tabBar setTintColor:[UIColor redColor]];    
-    [self createTabBarControllerViews:tbc];
+    [self createTabBarControllerViews];
     
     self.window.rootViewController = tbc;
     self.window.backgroundColor = [UIColor whiteColor];

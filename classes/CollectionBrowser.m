@@ -149,21 +149,36 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Log it in history
-    NSArray* itemKeys = [dataSource allKeys];        
-    [sharedAppDelegate logHistory:[NSDictionary dictionaryWithDictionary:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];    
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Played video" attributes:[NSDictionary dictionaryWithObject:[[NSDictionary dictionaryWithDictionary:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]] objectForKey:@"title"] forKey:@"Title"]];
-    [TestFlight passCheckpoint:@"Selected video"];
+    NSArray* itemKeys = [dataSource allKeys];            
+    NSDictionary *item = [[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+    NSLog(@"item: %@", item);
     
-    AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"url"] options:nil];
+    // Make sure it's not DRMed up
+    if ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:NO]] == NSOrderedSame) {
+        
+        // Log it in history
+        [sharedAppDelegate logHistory:[NSDictionary dictionaryWithDictionary:item]];
+        
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Played video" attributes:[NSDictionary dictionaryWithObject:[[NSDictionary dictionaryWithDictionary:item] objectForKey:@"title"] forKey:@"Title"]];
+        [TestFlight passCheckpoint:@"Selected video"];
+        
+        AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[item objectForKey:@"url"] options:nil];
 
-	if (urlAsset) {
-        NSLog(@"Playing from asset URL");
-        [sharedAppDelegate playVideoWithURL:urlAsset andTitle:[[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"]];
-//	} else if (playbackViewController) {
-//		[playbackViewController setURL:nil];
-	}
+        if (urlAsset) {
+            NSLog(@"Playing from asset URL");
+            [sharedAppDelegate playVideoWithURL:urlAsset andTitle:[item objectForKey:@"title"]];
+    //	} else if (playbackViewController) {
+    //		[playbackViewController setURL:nil];
+        }
+    } else {
+        // DRM. Let user know they can hide these.
+        //todo: let user hide them
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:@"Some videos purchased via iTunes cannot be played with LittleFingers. This is one of those videos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+        
+    }
 }
 
 @end
