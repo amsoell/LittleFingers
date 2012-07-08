@@ -103,6 +103,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 - (IBAction)play:(id)sender
 {
+    NSLog(@"play pushed");
     [self playMedia];
 }
 
@@ -128,6 +129,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 - (IBAction)pause:(id)sender
 {
+    NSLog(@"pause pushed");
 	[mPlayer pause];
 
     [self showPlayButton];
@@ -198,8 +200,10 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 /* Show the stop button in the movie player controller. */
 -(void)showStopButton
 {
+    NSLog(@"show stop button");
     NSMutableArray *toolbarItems = [NSMutableArray arrayWithArray:[mToolbar items]];
-    if (!toolbarItems && ![toolbarItems count]) {
+    NSLog(@"toolbar items: %@", toolbarItems);
+    if (toolbarItems && (toolbarItems.count>0)) {
         [toolbarItems replaceObjectAtIndex:0 withObject:mStopButton];
         mToolbar.items = toolbarItems;
     }
@@ -211,7 +215,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     NSMutableArray *toolbarItems = [NSMutableArray arrayWithArray:[mToolbar items]];
     NSLog(@"toolbarItems: %@", toolbarItems);
     NSLog(@"mToolbar items: %@", [mToolbar items]);
-    if (!toolbarItems && ![toolbarItems count]) {
+    if (toolbarItems && (toolbarItems.count>0)) {
         [toolbarItems replaceObjectAtIndex:0 withObject:mPlayButton];
         mToolbar.items = toolbarItems;
     }
@@ -458,7 +462,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     [lockButton addTarget:self action:@selector(lockScreen:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *lockItem = [[UIBarButtonItem alloc] initWithCustomView:lockButton];
     
-    mToolbar.items = [NSArray arrayWithObjects:mPlayButton, flexItem, scrubberItem, lockItem, nil];
+    mToolbar.items = [NSArray arrayWithObjects:mPlayButton, flexItem, scrubberItem, flexItem, lockItem, nil];
 
 	[self initScrubberTimer];
 	
