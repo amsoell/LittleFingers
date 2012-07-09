@@ -2,6 +2,7 @@
 #import "PlaybackView.h"
 #import "ATMHud.h"
 #import "ATMHudQueueItem.h"
+#import <QuartzCore/QuartzCore.h>
 
 //#import "PinDisplay.h"
 
@@ -527,24 +528,62 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
         } else {
             NSLog(@"Swipe history: %@", swipeHistory);        
         }
-
+        
         // How complete is the code?
         UIImage* hudimage;
+        
+        NSString* code1text = [[NSString alloc] init];
+        NSString* code2text = [[NSString alloc] init];
+        UIFont* font1 = [UIFont fontWithName:@"TrebuchetMS-Bold" size:24.0f];
+        UIFont* font2 = [UIFont fontWithName:@"TrebuchetMS" size:24.0f];
+
+        if ((swipeHistory.length>=1) && [[swipeHistory substringFromIndex:[swipeHistory length] - 1] isEqualToString:[unlockCode substringToIndex:1]]) {
+            code1text = [unlockCode substringToIndex:1];
+            code2text = [unlockCode substringFromIndex:1];
+        } else if ((swipeHistory.length>=2) && [[swipeHistory substringFromIndex:[swipeHistory length] - 2] isEqualToString:[unlockCode substringToIndex:2]]) {
+            code1text =[unlockCode substringToIndex:2];  
+            code2text =[unlockCode substringFromIndex:2];
+        } else if ((swipeHistory.length>=3) && [swipeHistory isEqualToString:unlockCode]) {
+            code1text = unlockCode;
+            code2text = @"";
+        }
+        
+        UILabel *code1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [code1text sizeWithFont:font1].width+[code2text sizeWithFont:font2].width, 30)];
+        [code1 setFont:font1];
+        [code1 setTextColor:[UIColor whiteColor]];
+        [code1 setBackgroundColor:[UIColor clearColor]];
+        [code1 setTextAlignment:UITextAlignmentLeft];
+        [code1 setText:code1text];
+        
+        NSLog(@"part 2 is at %f", [code1text sizeWithFont:font1].width);
+        UILabel *code2 = [[UILabel alloc] initWithFrame:CGRectMake([code1text sizeWithFont:font1].width, 0, [code2text sizeWithFont:font2].width+[code1text sizeWithFont:font1].width, 30)];
+        [code2 setFont:[UIFont fontWithName:@"TrebuchetMS" size:24.0f]];
+        [code2 setTextColor:[UIColor lightGrayColor]];
+        [code2 setBackgroundColor:[UIColor clearColor]];
+        [code2 setTextAlignment:UITextAlignmentRight];   
+        [code2 setText:code2text];
+        
+        
+        UIGraphicsBeginImageContext(CGSizeMake(code1.frame.size.width, code1.frame.size.height));
+        [code1.layer setBorderWidth:2.0f];
+        [code2.layer setBorderWidth:2.0f];
+        [code1.layer renderInContext:UIGraphicsGetCurrentContext()];
+        [code2.layer renderInContext:UIGraphicsGetCurrentContext()];        
+        hudimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
         NSString* hudcaption = @"";
         float hudduration = 5.0;
         if ((swipeHistory.length>=3) && [swipeHistory isEqualToString:unlockCode]) {
             NSLog(@"swipe 3/3");
             hudcaption = @"Success!";
-            hudimage = [UIImage imageNamed:@"progress-3-3"];
             hudduration = 0.5;
         } else if ((swipeHistory.length>=2) && [[swipeHistory substringFromIndex:[swipeHistory length] - 2] isEqualToString:[unlockCode substringToIndex:2]]) {
             NSLog(@"swipe 2/3");            
             hudcaption = @"Unlocking...";            
-            hudimage = [UIImage imageNamed:@"progress-2-3"];    
         } else if ((swipeHistory.length>=1) && [[swipeHistory substringFromIndex:[swipeHistory length] - 1] isEqualToString:[unlockCode substringToIndex:1]]) {
             NSLog(@"swipe 1/3");            
             hudcaption = @"Unlocking...";            
-            hudimage = [UIImage imageNamed:@"progress-1-3"];    
         } else if (((swipeHistory.length>=2) && [[swipeHistory substringWithRange:NSMakeRange([swipeHistory length] - 2, 1)] isEqualToString:[unlockCode substringToIndex:1]]) ||
                    ((swipeHistory.length>=3) && ([[swipeHistory substringWithRange:NSMakeRange([swipeHistory length] - 3, 2)] isEqualToString:[unlockCode substringToIndex:2]])))  {
             NSLog(@"locked!");            
