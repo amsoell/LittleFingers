@@ -565,8 +565,6 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
         
         
         UIGraphicsBeginImageContext(CGSizeMake(code1.frame.size.width, code1.frame.size.height));
-        [code1.layer setBorderWidth:2.0f];
-        [code2.layer setBorderWidth:2.0f];
         [code1.layer renderInContext:UIGraphicsGetCurrentContext()];
         [code2.layer renderInContext:UIGraphicsGetCurrentContext()];        
         hudimage = UIGraphicsGetImageFromCurrentImageContext();

@@ -34,7 +34,7 @@
 -(NSString*)getMarksPath;
 -(NSMutableDictionary*)loadMarks;
 -(void)saveMarks;
--(void)logHistory:(NSDictionary*)item;
+-(BOOL)logHistory:(NSDictionary*)item;
 -(BOOL)toggleFavorite:(NSDictionary*)item;
 -(void)playVideoWithURL:(AVURLAsset*)url andTitle:(NSString*)title;
 

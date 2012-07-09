@@ -98,9 +98,12 @@
     NSLog(@"saving marks %@ to %@. Successful? %@", data, path, ([data writeToFile:path atomically:YES]?@"yes":@"no"));    
 }
 
-- (void)logHistory:(NSDictionary *)item {
+- (BOOL)logHistory:(NSDictionary *)item {
+    for (NSDictionary* vid in history) if ([[vid objectForKey:@"url"] isEqual:[item objectForKey:@"url"]]) return NO;
+
     [history insertObject:item atIndex:0];
-    history = [NSMutableArray arrayWithArray:[history subarrayWithRange:NSMakeRange(0, history.count<10?history.count:10)]];
+    history = [NSMutableArray arrayWithArray:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)]];
+    return YES;
 }
 
 - (BOOL)toggleFavorite:(NSDictionary*)item {
