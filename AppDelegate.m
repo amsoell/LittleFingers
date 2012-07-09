@@ -205,7 +205,7 @@
     [introTextCopy setTextColor:[UIColor darkGrayColor]];
     [introTextCopy setBackgroundColor:[UIColor clearColor]];
     [introTextCopy setNumberOfLines:0]; // Enable word wrapping
-    [introTextCopy setText:@"Welcome to LittleFingers Video Player! Thank you for agreeing to help test this app out. On the left, you will see icons for each of the categories of videos on your device. As you use this app, the 'Home' tab will show you the most recently viewed videos as well as videos you have flagged as your favorites.\n\nIf you come across any problems, please let me know by tapping the question mark button in the lower left corner. There will undoubtedly be many bugs and crashes, and the more you tell me about what happened when you did run into trouble, the better I can make the final version of the app.\n\nOf course, please feel free to let me know about any other thoughts or suggestions you have, and thanks again!"];
+    [introTextCopy setText:@"Welcome to LittleFingers Video Player! Thank you for agreeing to help test this app out. On the left, you will see icons for each of the categories of videos on your device. As you use this app, the 'Home' tab will show you the most recently viewed videos as well as videos you have flagged as your favorites.\n\nIf you come across any problems, please let me know by tapping the bug button in the lower left corner. There will undoubtedly be many bugs and crashes, and the more you tell me about what happened when you did run into trouble, the better I can make the final version of the app.\n\nOf course, please feel free to let me know about any other thoughts or suggestions you have, and thanks again!"];
     [vcHome setIntro:introTextCopy];
 
     [viewControllers addObject:vcHome];
@@ -246,31 +246,7 @@
     }
     
     // Check the camera roll
-//    if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
-        [self indexCameraRoll];
-/*    
-    } else if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
-        CollectionBrowser *vcCamera = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[NSArray alloc] init], @"Camera", nil] andOwner:tbc];
-        vcCamera.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera" image:[UIImage imageNamed:@"film"]];    
-        vcCamera.ng_tabBarItem.mediaIndex = @"Camera";
-        
-        UILabel* introTextCopy = [[UILabel alloc] init];
-        [introTextCopy setFont:[UIFont fontWithName:@"Trebuchet MS" size:14.0f]];
-        [introTextCopy setTextColor:[UIColor darkGrayColor]];
-        [introTextCopy setBackgroundColor:[UIColor clearColor]];
-        [introTextCopy setNumberOfLines:0]; // Enable word wrapping
-        [introTextCopy setText:@"In order to access the videos in your camera roll, we need ask your permission to view your location. This is because your photos and videos contain the location in which they were taken. Your information is never collected. Press the button below to authorize this."];
-        [vcCamera setIntro:introTextCopy];
-        
-        
-        [viewControllers addObject:vcCamera];
-        
-        
-        [self updateTabBarController:tbc];        
-    } else {
-        [self updateTabBarController:tbc];
-    }
-*/
+    [self indexCameraRoll];
 }
 
 - (void)updateTabBarController:(NGTabBarController*)controller {	
@@ -337,14 +313,23 @@
     currentIndex = 0;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self indexIPodLibrary];
-            
-    // Create Vertical Tabbar        
-    tbc = [[NGVTabBarController alloc] initWithDelegate:self];
-    [tbc setAnimation:NGTabBarControllerAnimationNone];
-    [tbc setTabBarPosition:NGTabBarPositionLeft];
-    [tbc.tabBar setLayoutStrategy:NGTabBarLayoutStrategyStrungTogether];
-    [tbc.tabBar setTintColor:[UIColor redColor]];    
-    [self createTabBarControllerViews];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {       
+        // iPad Version
+        
+        // Create Vertical Tabbar        
+        tbc = [[NGVTabBarController alloc] initWithDelegate:self];
+        [tbc setAnimation:NGTabBarControllerAnimationNone];
+        [tbc setTabBarPosition:NGTabBarPositionLeft];
+        [tbc.tabBar setLayoutStrategy:NGTabBarLayoutStrategyStrungTogether];
+        [tbc.tabBar setTintColor:[UIColor redColor]];    
+        [self createTabBarControllerViews];
+        
+        self.window.rootViewController = tbc;        
+    } else {
+        // Non-iPad version
+        
+    }
     
     self.window.rootViewController = tbc;
     self.window.backgroundColor = [UIColor whiteColor];
