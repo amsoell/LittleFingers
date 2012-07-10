@@ -436,6 +436,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	UIView* view  = [self view];
 	
     // Set up multitouch queues
+    // down
 	UISwipeGestureRecognizer* swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
 	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];    
     [swipeDownRecognizer setNumberOfTouchesRequired:1];
@@ -450,7 +451,38 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];    
     [swipeDownRecognizer setNumberOfTouchesRequired:3];
 	[view addGestureRecognizer:swipeDownRecognizer];
-
+    
+    // left
+    swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];    
+	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];    
+    [swipeDownRecognizer setNumberOfTouchesRequired:1];
+	[view addGestureRecognizer:swipeDownRecognizer];
+    
+	swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];    
+    [swipeDownRecognizer setNumberOfTouchesRequired:2];
+	[view addGestureRecognizer:swipeDownRecognizer];
+    
+	swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];    
+    [swipeDownRecognizer setNumberOfTouchesRequired:3];
+	[view addGestureRecognizer:swipeDownRecognizer];
+    
+    // right
+    swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];    
+	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];    
+    [swipeDownRecognizer setNumberOfTouchesRequired:1];
+	[view addGestureRecognizer:swipeDownRecognizer];
+    
+	swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];    
+    [swipeDownRecognizer setNumberOfTouchesRequired:2];
+	[view addGestureRecognizer:swipeDownRecognizer];
+    
+	swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];    
+    [swipeDownRecognizer setNumberOfTouchesRequired:3];
+	[view addGestureRecognizer:swipeDownRecognizer];    
 
     UIBarButtonItem *scrubberItem = [[UIBarButtonItem alloc] initWithCustomView:mScrubber];
     UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
