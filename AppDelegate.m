@@ -180,13 +180,23 @@
                 CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil] andOwner:tbc];
                 vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"film"]];    
                 vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
+                vc.title = @"Camera Roll";
                 [viewControllers addObject:vc];        
             } else {
                 NSLog(@"skipping camera collection");
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self updateTabBarController:tbc];
+                NSLog(@"view controllers: %@", viewControllers);
+//                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
+                if (false) {
+                    // Assign iPad tabs
+                    [self updateTabBarController:tbc];
+                } else {
+                    // Assign iPhone / iPod Touch buttons
+                    [gvc.gridView reloadData];
+                    NSLog(@"assign iphone / ipod buttons");
+                }
             });            
         }
     } failureBlock:^(NSError *error) {
@@ -201,6 +211,7 @@
     CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)], @"Recent", favorites, @"Favorites", nil] andOwner:tbc];
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
+    vcHome.title = @"Home";
     
     UILabel* introTextCopy = [[UILabel alloc] init];
     [introTextCopy setFont:[UIFont fontWithName:@"Trebuchet MS" size:14.0f]];
@@ -220,6 +231,7 @@
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:tbc];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:[UIImage imageNamed:key]];    
         vc.ng_tabBarItem.mediaIndex = key;
+        vc.title = key;
         [viewControllers addObject:vc];
     }
     NSLog(@"ending loop");
@@ -242,6 +254,7 @@
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, @"iTunes", nil] andOwner:tbc];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"iTunes" image:[UIImage imageNamed:@"iTunesShared"]];    
         vc.ng_tabBarItem.mediaIndex = @"iTunesShared";
+        vc.title = @"iTunes";
         [viewControllers addObject:vc];        
         
         NSLog(@"iTunes shared media: %@", iTunesSharedCollection);
@@ -316,7 +329,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self indexIPodLibrary];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {       
+//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {       
+    if (false) {
         // iPad Version
         
         // Create Vertical Tabbar        
@@ -354,6 +368,8 @@
         nc = [[UINavigationController alloc] initWithRootViewController:gvc];
         
         self.window.rootViewController = nc;
+        
+        [self createTabBarControllerViews];        
         [gvc.gridView reloadData];
     }
     
@@ -408,33 +424,25 @@
 }
 
 
-#pragma mark UITextViewDelegate (for CustomViewCell)
-- (void)textViewDidChange:(UITextView *)textView {
-/*    
-    [[NSUserDefaults standardUserDefaults] setObject:textView.text forKey:@"customCell"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:@"customCell"];
-*/
-}
-
 #pragma mark -
 #pragma mark Grid View Data Source
 
 - (NSUInteger) numberOfItemsInGridView: (AQGridView *) aGridView
 {
-    return 4;
+    return viewControllers.count;
 }
 
 - (AQGridViewCell *) gridView: (AQGridView *) aGridView cellForItemAtIndex: (NSUInteger) index
 {
-    NSLog(@"Looking for cell at %i", index);
     GridViewCell * cell = (GridViewCell *)[gvc.gridView dequeueReusableCellWithIdentifier:@"gvcell"];
     if ( cell == nil ) {
         cell = [[GridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 140.0, 100.0) reuseIdentifier:@"gvcell"];
     }
     
-    UIImage *img = [UIImage imageNamed:@"bug"];
+    UIImage *img = [[[viewControllers objectAtIndex:index] ng_tabBarItem] image];
+    NSString *caption = [[[viewControllers objectAtIndex:index] ng_tabBarItem] title];
     [cell setImage:img];
-    [cell setTitle:@"Collection"];
+    [cell setTitle:caption];
     
     cell.layer.borderWidth = 1.0f;
     cell.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -443,11 +451,7 @@
 }
 
 - (void) gridView: (AQGridView *) gridView didSelectItemAtIndex: (NSUInteger) index {
-    NSLog(@"tapped %d", index);
-    CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[NSArray alloc] init], @"Movies", nil] andOwner:gvc];
-    [vc setTitle:@"Movies"];
-    
-    [nc pushViewController:vc animated:YES];
+    [nc pushViewController:[viewControllers objectAtIndex:index] animated:YES];
     [gridView deselectItemAtIndex:index animated:YES];
 }
 
