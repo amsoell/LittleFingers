@@ -43,7 +43,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 
-    if (intro != nil) {
+    if ((self.tv.tableHeaderView==nil) && (intro != nil)) {
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [intro.text sizeWithFont:[UIFont fontWithName:intro.font.familyName size:intro.font.pointSize] constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+50)];
         [intro setFrame:CGRectMake(50, 0, self.view.frame.size.width-100, [intro.text sizeWithFont:[UIFont fontWithName:intro.font.familyName size:intro.font.pointSize] constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+50)];
         [headerView addSubview:intro];
