@@ -155,8 +155,17 @@
     NSDictionary *item = [[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     NSLog(@"item: %@", item);
     
-    // Make sure it's not DRMed up
-    if ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:NO]] == NSOrderedSame) {
+    // Make sure it's playable
+    if ([item objectForKey:@"hasProtectedContent"] && ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]] == NSOrderedSame)) {
+        // DRM. Let user know they can hide these.
+        //todo: let user hide them
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:@"Some videos purchased via iTunes cannot be played with LittleFingers. This is one of those videos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];        
+    } else if ([item objectForKey:@"url"] == nil) {
+        // No URL. Probably in the cloud
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:@"This video must be downloaded from iCloud before it can be played in LittleFingers" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];        
+    } else {
         
         // Log it in history
         [sharedAppDelegate logHistory:[NSDictionary dictionaryWithDictionary:item]];
@@ -171,13 +180,7 @@
             [sharedAppDelegate playVideoWithURL:urlAsset andTitle:[item objectForKey:@"title"]];
     //	} else if (playbackViewController) {
     //		[playbackViewController setURL:nil];
-        }
-    } else {
-        // DRM. Let user know they can hide these.
-        //todo: let user hide them
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:@"Some videos purchased via iTunes cannot be played with LittleFingers. This is one of those videos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-        
+        }        
     }
 }
 

@@ -135,7 +135,6 @@
     NSInteger mediaType;
 	for (MPMediaItem *video in videos) {  
         if (!(hideProtected && (([video valueForProperty:MPMediaItemPropertyAssetURL]==nil) || [[AVAsset assetWithURL:[video valueForProperty:MPMediaItemPropertyAssetURL]] hasProtectedContent]))) {
-            NSLog(@"adding asset %@ at %@", [video valueForProperty:MPMediaItemPropertyTitle], [video valueForProperty:MPMediaItemPropertyAssetURL]);
             [mediaIndex addItem:video];        
             
             mediaType = [[video valueForProperty:MPMediaItemPropertyMediaType] integerValue];

@@ -24,9 +24,10 @@
     NSMutableDictionary* details = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     [item valueForProperty:MPMediaItemPropertyTitle], @"title", 
                                     [item valueForProperty:MPMediaItemPropertyAssetURL], @"url", 
-                                    [NSNumber numberWithBool:(([item valueForProperty:MPMediaItemPropertyAssetURL]==nil) || [[AVAsset assetWithURL:[item valueForProperty:MPMediaItemPropertyAssetURL]] hasProtectedContent])?YES:NO], @"hasProtectedContent",
+                                    [NSNumber numberWithBool:[[AVAsset assetWithURL:[item valueForProperty:MPMediaItemPropertyAssetURL]] hasProtectedContent]?YES:NO], @"hasProtectedContent",
                                     nil];
     
+    NSLog(@"adding asset %@: %@", title, details);
     // Add it to the collection index
     NSMutableDictionary* c = [collections objectForKey:collection];
     if (c == nil) c = [[NSMutableDictionary alloc] initWithObjectsAndKeys:title, @"title", nil];
