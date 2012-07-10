@@ -188,8 +188,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"view controllers: %@", viewControllers);
-//                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
-                if (false) {
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
                     // Assign iPad tabs
                     [self updateTabBarController:tbc];
                 } else {
@@ -329,8 +328,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self indexIPodLibrary];
     
-//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {       
-    if (false) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {       
         // iPad Version
         
         // Create Vertical Tabbar        
