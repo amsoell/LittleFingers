@@ -229,6 +229,7 @@
     for (NSString* key in mediaIndex.collections) {
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:tbc];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:[UIImage imageNamed:key]];    
+        NSLog(@"looking for image named %@", key);
         vc.ng_tabBarItem.mediaIndex = key;
         vc.title = key;
         [viewControllers addObject:vc];
