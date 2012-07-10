@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "MediaLibrary.h"
 #import "NGVTabBarController.h"
+#import "GridViewController.h"
+#import "GridViewCell.h"
 #import "CollectionBrowser.h"
 #import "PlaybackViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -16,11 +18,12 @@
 #import <CoreMedia/CoreMedia.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize currentIndex, mediaIndex, favorites, history, videoPlaybackController;
+@synthesize currentIndex, mediaIndex, favorites, history, videoPlaybackController, nc;
 
 - (AppDelegate*) init {
     if (!assetsLibrary) assetsLibrary = [[ALAssetsLibrary alloc] init];
@@ -328,9 +331,32 @@
     } else {
         // Non-iPad version
         
+        
+        // Create the gridview...
+        gvc = [GridViewController alloc];
+        gvc.gridView.autoresizesSubviews = YES;
+        gvc.gridView.delegate = self;
+        gvc.gridView.dataSource = self;
+        
+        CGRect frame = CGRectMake(0, 0, 400, 44);
+        UILabel *label = [[UILabel alloc] initWithFrame:frame];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont fontWithName:@"HoeflerText-Black" size:20.0f];
+        label.textAlignment = UITextAlignmentCenter;
+        label.textColor = [UIColor whiteColor];
+        label.text = @"LittleFingers";
+        // emboss in the same way as the native title
+        [label setShadowColor:[UIColor darkGrayColor]];
+        [label setShadowOffset:CGSizeMake(0, -0.5)];
+        gvc.navigationItem.titleView = label;        
+        
+        // ...and put it in a NavigationController
+        nc = [[UINavigationController alloc] initWithRootViewController:gvc];
+        
+        self.window.rootViewController = nc;
+        [gvc.gridView reloadData];
     }
     
-    self.window.rootViewController = tbc;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
@@ -388,6 +414,46 @@
     [[NSUserDefaults standardUserDefaults] setObject:textView.text forKey:@"customCell"];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:@"customCell"];
 */
+}
+
+#pragma mark -
+#pragma mark Grid View Data Source
+
+- (NSUInteger) numberOfItemsInGridView: (AQGridView *) aGridView
+{
+    return 4;
+}
+
+- (AQGridViewCell *) gridView: (AQGridView *) aGridView cellForItemAtIndex: (NSUInteger) index
+{
+    NSLog(@"Looking for cell at %i", index);
+    GridViewCell * cell = (GridViewCell *)[gvc.gridView dequeueReusableCellWithIdentifier:@"gvcell"];
+    if ( cell == nil ) {
+        cell = [[GridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 140.0, 100.0) reuseIdentifier:@"gvcell"];
+    }
+    
+    UIImage *img = [UIImage imageNamed:@"bug"];
+    [cell setImage:img];
+    [cell setTitle:@"Collection"];
+    
+    cell.layer.borderWidth = 1.0f;
+    cell.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    return cell;
+}
+
+- (void) gridView: (AQGridView *) gridView didSelectItemAtIndex: (NSUInteger) index {
+    NSLog(@"tapped %d", index);
+    CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[NSArray alloc] init], @"Movies", nil] andOwner:gvc];
+    [vc setTitle:@"Movies"];
+    
+    [nc pushViewController:vc animated:YES];
+    [gridView deselectItemAtIndex:index animated:YES];
+}
+
+- (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
+{
+    return ( CGSizeMake(160.0, 120.0) );
 }
 
 

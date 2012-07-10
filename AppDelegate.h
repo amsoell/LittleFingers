@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "NGTabBarController.h"
+#import "GridViewController.h"
 #import "IASKAppSettingsViewController.h"
 
 
@@ -16,10 +17,11 @@
 
 @class MediaLibrary, ALAssetsLibrary, PlaybackViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate> {
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate, AQGridViewDelegate, AQGridViewDataSource> {
     int currentIndex;
     MediaLibrary* mediaIndex;
     NGTabBarController *tbc;
+    GridViewController *gvc;
 	ALAssetsLibrary *assetsLibrary;    
     NSMutableArray *viewControllers;
     NSMutableArray *favorites;
@@ -28,6 +30,7 @@
     UITableView *tbhistory;
 	PlaybackViewController* playbackViewController;
     UINavigationController* videoPlaybackController;
+    UINavigationController* nc;
 }
 
 -(void)indexIPodLibrary;
@@ -44,5 +47,6 @@
 @property (nonatomic, strong) NSMutableArray* favorites;
 @property (nonatomic, strong) NSMutableArray* history;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;
+@property (nonatomic, strong) UINavigationController* nc;
 
 @end
