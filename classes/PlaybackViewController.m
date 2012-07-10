@@ -515,6 +515,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	[mPlayer pause];
 	seekToZeroBeforePlay = YES;
     [mPlayer seekToTime:kCMTimeZero];    
+    [self setTitle:@""];
 	
 	[super viewWillDisappear:animated];
 }
