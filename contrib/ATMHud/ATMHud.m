@@ -234,6 +234,7 @@
 }
 
 - (void)hideAfter:(NSTimeInterval)delay {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hide) object:nil];    
 	[self performSelector:@selector(hide) withObject:nil afterDelay:delay];
 }
 
