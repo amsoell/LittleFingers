@@ -356,14 +356,14 @@
         CGRect frame = CGRectMake(0, 0, 400, 44);
         UILabel *label = [[UILabel alloc] initWithFrame:frame];
         label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont fontWithName:@"HoeflerText-Black" size:20.0f];
+        label.font = [UIFont fontWithName:@"HoneyScript-SemiBold" size:30.0f];
         label.textAlignment = UITextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
         label.text = @"LittleFingers";
         // emboss in the same way as the native title
         [label setShadowColor:[UIColor darkGrayColor]];
         [label setShadowOffset:CGSizeMake(0, -0.5)];
-        gvc.navigationItem.titleView = label;        
+        gvc.navigationItem.titleView = label;    
 
         UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleBordered target:self action:@selector(pushSettings:)];
         [gvc.navigationItem setRightBarButtonItem:settingsButton];        
