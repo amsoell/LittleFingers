@@ -228,7 +228,7 @@
     NSLog(@"starting loop");
     for (NSString* key in mediaIndex.collections) {
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:tbc];
-        UIImage* image = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?key:[key stringByAppendingString:@"Large"]];
+        UIImage* image = [UIImage imageNamed:key];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:image];    
         NSLog(@"looking for image named %@", key);
         vc.ng_tabBarItem.mediaIndex = key;
@@ -353,13 +353,15 @@
         gvc.gridView.dataSource = self;
         gvc.gridView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UIPinStripe"]];
         
-        CGRect frame = CGRectMake(0, 0, 400, 44);
+        NSString *appName = @"LittleFingers";
+        UIFont *displayFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:30.f];
+        CGRect frame = CGRectMake(0, 0, [appName sizeWithFont:displayFont].width , [appName sizeWithFont:displayFont].height);
         UILabel *label = [[UILabel alloc] initWithFrame:frame];
         label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont fontWithName:@"HoneyScript-SemiBold" size:30.0f];
+        label.font = displayFont;
         label.textAlignment = UITextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
-        label.text = @"LittleFingers";
+        label.text = appName;
         // emboss in the same way as the native title
         [label setShadowColor:[UIColor darkGrayColor]];
         [label setShadowOffset:CGSizeMake(0, -0.5)];
@@ -431,8 +433,6 @@
 }
 
 - (void)tabBarController:(NGTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index{
-    NSLog(@"seleted tab: %d", index);
-    
     currentIndex = index;    
 }
 
@@ -449,15 +449,31 @@
 {
     GridViewCell * cell = (GridViewCell *)[gvc.gridView dequeueReusableCellWithIdentifier:@"gvcell"];
     if ( cell == nil ) {
-        cell = [[GridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 140.0, 100.0) reuseIdentifier:@"gvcell"];
+        CGRect cellSize;
+        if (viewControllers.count <= 4) {
+            cellSize = CGRectMake(0.0, 0.0, 140.0, 100.0);            
+        } else {
+            cellSize = CGRectMake(0.0, 0.0, 100.0, 70.0);
+        }
+
+        cell = [[GridViewCell alloc] initWithFrame:cellSize reuseIdentifier:@"gvcell"];
     }
     
     UIImage *img = [[[viewControllers objectAtIndex:index] ng_tabBarItem] image];
     NSString *caption = [[[viewControllers objectAtIndex:index] ng_tabBarItem] title];
     [cell setImage:img];
     [cell setTitle:caption];
+
+    [cell.layer setShadowColor:[UIColor lightGrayColor].CGColor];
+    [cell.layer setShadowRadius:5.0];
+    [cell.layer setShadowOpacity:1.0];
+    [cell.layer setShadowOffset:CGSizeMake(0.0, 0.0)];
+    
+/*    
     [cell.layer setCornerRadius:10];
-    [cell.layer setMasksToBounds:YES];
+    [cell.layer setMasksToBounds:NO];
+    [cell setClipsToBounds:NO];
+*/ 
     
     cell.layer.borderWidth = 1.0f;
     cell.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -472,7 +488,11 @@
 
 - (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
 {
-    return ( CGSizeMake(160.0, 120.0) );
+    if (viewControllers.count <= 4 ) {
+        return CGSizeMake(160.0, 120.0);        
+    } else {        
+        return CGSizeMake(100.0, 80.0);
+    }
 }
 
 

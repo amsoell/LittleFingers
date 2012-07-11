@@ -37,6 +37,7 @@
  */
 
 #import "GridViewCell.h"
+#import <QuartzCore/CALayer.h>
 
 @implementation GridViewCell
 
@@ -95,7 +96,13 @@
     CGRect bounds = CGRectInset( self.contentView.bounds, 10.0, 10.0 );
     
     [_title sizeToFit];
-    [_title setFont:[UIFont fontWithName:@"GillSans-Light" size:16.0f]];
+    [_title setFont:[UIFont fontWithName:@"GillSans-Light" size:14.0f]];
+    [_title setTextColor:[UIColor darkGrayColor]];
+    
+    [_title setShadowColor:[UIColor darkGrayColor]];
+    [_title setShadowOffset:CGSizeMake(0, -0.5)];
+    
+    
     CGRect frame = _title.frame;
     frame.size.width = MIN(frame.size.width, bounds.size.width);
     frame.origin.y = CGRectGetMaxY(bounds) - frame.size.height;
@@ -106,6 +113,7 @@
     bounds.size.height = frame.origin.y - bounds.origin.y;
     
     [_imageView sizeToFit];
+    [_imageView setAlpha:0.6];
     frame = _imageView.frame;
     frame.size.width = floorf(imageSize.width);
     frame.size.height = floorf(imageSize.height);
