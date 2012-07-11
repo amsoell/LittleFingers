@@ -159,7 +159,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
               NSString* hudcaption = [NSString stringWithFormat:@"Locked! To unlock, swipe your fingers down in the following order: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"]];
 
               // How complete is the code?
-              UIImage* hudimage = [UIImage imageNamed:@"check"];
+              UIImage* hudimage = [UIImage imageNamed:@"Lock"];
               float hudduration = 5.0;
               [hud setBlockTouches:NO];
               [hud setCaption:hudcaption];
@@ -487,10 +487,10 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     UIBarButtonItem *scrubberItem = [[UIBarButtonItem alloc] initWithCustomView:mScrubber];
     UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIImage *lockImg = [UIImage imageNamed:@"lock.png"]; 
+    UIImage *lockImg = [UIImage imageNamed:@"Unlock"]; 
     UIButton *lockButton = [UIButton buttonWithType:UIButtonTypeCustom];
     lockButton.userInteractionEnabled = YES;
-    [lockButton setFrame:CGRectMake(0.0,0.0, 28.0, 28.0)];
+    [lockButton setFrame:CGRectMake(0.0,0.0, 30, 36)];
     [lockButton setImage:lockImg forState:UIControlStateNormal];
     [lockButton addTarget:self action:@selector(lockScreen:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *lockItem = [[UIBarButtonItem alloc] initWithCustomView:lockButton];

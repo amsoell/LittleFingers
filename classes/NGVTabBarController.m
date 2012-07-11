@@ -34,13 +34,13 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     settingsGear = [UIButton buttonWithType:UIButtonTypeCustom];
-    [settingsGear setImage:[UIImage imageNamed:@"gear"] forState:UIControlStateNormal];
+    [settingsGear setImage:[UIImage imageNamed:@"Gear.png"] forState:UIControlStateNormal];
     [settingsGear addTarget:self action:@selector(displaySettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingsGear];
     
 #ifdef TESTING
     helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [helpButton setImage:[UIImage imageNamed:@"bug"] forState:UIControlStateNormal];
+    [helpButton setImage:[UIImage imageNamed:@"Bug"] forState:UIControlStateNormal];
     [helpButton addTarget:self action:@selector(feedbackPrompt:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:helpButton];
 #endif

@@ -178,7 +178,7 @@
             if (cameraCollection.count > 0) {    
                 NSLog(@"adding camera collection");
                 CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil] andOwner:tbc];
-                vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"film"]];    
+                vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
                 vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
                 vc.title = @"Camera Roll";
                 [viewControllers addObject:vc];        
@@ -208,7 +208,7 @@
 
     // Add Home / Recent / Favorites button    
     CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)], @"Recent", favorites, @"Favorites", nil] andOwner:tbc];
-    vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"house"]];    
+    vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"Home"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
     vcHome.title = @"Home";
     
@@ -228,7 +228,8 @@
     NSLog(@"starting loop");
     for (NSString* key in mediaIndex.collections) {
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:tbc];
-        vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:[UIImage imageNamed:key]];    
+        UIImage* image = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?key:[key stringByAppendingString:@"Large"])];
+        vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:image];    
         NSLog(@"looking for image named %@", key);
         vc.ng_tabBarItem.mediaIndex = key;
         vc.title = key;
@@ -337,7 +338,7 @@
         [tbc setAnimation:NGTabBarControllerAnimationNone];
         [tbc setTabBarPosition:NGTabBarPositionLeft];
         [tbc.tabBar setLayoutStrategy:NGTabBarLayoutStrategyStrungTogether];
-        [tbc.tabBar setTintColor:[UIColor redColor]];    
+        [tbc.tabBar setTintColor:[UIColor blackColor]];    
         [self createTabBarControllerViews];
         
         self.window.rootViewController = tbc;        

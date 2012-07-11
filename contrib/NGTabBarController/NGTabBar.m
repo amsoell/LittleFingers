@@ -155,7 +155,7 @@
         CGRect bounds = self.bounds;
         
         CGContextSaveGState(context);
-        
+/*        
         if (self.drawGloss) {
             CGContextRef currentContext = UIGraphicsGetCurrentContext();
             
@@ -179,9 +179,10 @@
             
             
         } else {
+*/ 
             CGContextSetFillColorWithColor(context, self.tintColor.CGColor);
             CGContextFillRect(context, bounds);
-        }
+//        }
         
         CGContextRestoreGState(context);
     }
