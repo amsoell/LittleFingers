@@ -364,6 +364,9 @@
         [label setShadowColor:[UIColor darkGrayColor]];
         [label setShadowOffset:CGSizeMake(0, -0.5)];
         gvc.navigationItem.titleView = label;        
+
+        UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleBordered target:self action:@selector(pushSettings:)];
+        [gvc.navigationItem setRightBarButtonItem:settingsButton];        
         
         // ...and put it in a NavigationController
         nc = [[UINavigationController alloc] initWithRootViewController:gvc];
@@ -380,6 +383,15 @@
 	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:NULL];    
     
     return YES;
+}
+
+- (void)pushSettings:(id)sender {
+    NSLog(@"pushed!");
+    IASKAppSettingsViewController *appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+    appSettingsViewController.delegate = self;
+    appSettingsViewController.showDoneButton = NO;
+    
+    [nc pushViewController:appSettingsViewController animated:YES];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
