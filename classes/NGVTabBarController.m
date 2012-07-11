@@ -44,6 +44,8 @@
     [helpButton addTarget:self action:@selector(feedbackPrompt:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:helpButton];
 #endif
+    
+    [self positionBottomButtonsForOrientation:self.interfaceOrientation];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -89,24 +91,22 @@
 	return appSettingsViewController;
 }
 
+- (void)positionBottomButtonsForOrientation:(UIInterfaceOrientation)orientation {
+    float x = 0;
+    float y = UIDeviceOrientationIsPortrait(orientation)?910:680;
+    [settingsGear setFrame:CGRectMake(x, y, 100, 60)];
+
+#ifdef TESTING    
+    y = UIDeviceOrientationIsPortrait(orientation)?850:620;
+    [helpButton setFrame:CGRectMake(x, y, 100, 60)];
+#endif
+}
+
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
-    float x = 0;
-    float y = (toInterfaceOrientation==UIInterfaceOrientationPortrait || toInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)?910:680;
-    [settingsGear setFrame:CGRectMake(x, y, 100, 60)];
-    
+    [self positionBottomButtonsForOrientation:toInterfaceOrientation];
     [self setupForInterfaceOrientation:toInterfaceOrientation];
-
-#ifdef TESTING
-    // Show bug / feedback button
-    y = (toInterfaceOrientation==UIInterfaceOrientationPortrait || toInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)?850:620;
-    [helpButton setFrame:CGRectMake(x, y, 100, 60)];
-    
-    [self setupForInterfaceOrientation:toInterfaceOrientation];
-    
-#endif
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {

@@ -92,41 +92,26 @@
     [super layoutSubviews];
     
     CGSize imageSize = _imageView.image.size;
-    NSLog(@"%f x %f", imageSize.width, imageSize.height);
     CGRect bounds = CGRectInset( self.contentView.bounds, 10.0, 10.0 );
     
     [_title sizeToFit];
+    [_title setFont:[UIFont fontWithName:@"GillSans-Light" size:16.0f]];
     CGRect frame = _title.frame;
     frame.size.width = MIN(frame.size.width, bounds.size.width);
     frame.origin.y = CGRectGetMaxY(bounds) - frame.size.height;
-    frame.origin.x = floorf((bounds.size.width - frame.size.width) * 0.5);
+    frame.origin.x = bounds.size.width/2 - frame.size.width/2 + 10;
     _title.frame = frame;
     
     // adjust the frame down for the image layout calculation
     bounds.size.height = frame.origin.y - bounds.origin.y;
     
-/*    
-    if ( (imageSize.width <= bounds.size.width) &&
-        (imageSize.height <= bounds.size.height) )
-    {
-        NSLog(@"returning: %f x %f", bounds.size.width, bounds.size.height);
-        return;
-    }
- */
-    
-    // scale it down to fit
-    CGFloat hRatio = bounds.size.width / imageSize.width;
-    CGFloat vRatio = bounds.size.height / imageSize.height;
-    CGFloat ratio = MIN(hRatio, vRatio);
-    
-    if (ratio>1) ratio = 1;
-    
     [_imageView sizeToFit];
     frame = _imageView.frame;
-    frame.size.width = floorf(imageSize.width * ratio);
-    frame.size.height = floorf(imageSize.height * ratio);
-    frame.origin.x = floorf((bounds.size.width - frame.size.width) * 0.5);
-    frame.origin.y = floorf((bounds.size.height - frame.size.height) * 0.5);
+    frame.size.width = floorf(imageSize.width);
+    frame.size.height = floorf(imageSize.height);
+    NSLog(@"%f x %f inside %f x %f", frame.size.width, frame.size.height, bounds.size.width, bounds.size.height);
+    frame.origin.x = bounds.size.width/2 - frame.size.width/2 + 10;
+    frame.origin.y = bounds.size.height/2 - frame.size.height/2 + 10;
     _imageView.frame = frame;
 }
 

@@ -39,6 +39,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+        [self.tv setBackgroundView:nil];
+        [self.tv setBackgroundView:[[UIView alloc] init]];
+        [self.tv setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"UIPinStripe"]]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -228,7 +228,7 @@
     NSLog(@"starting loop");
     for (NSString* key in mediaIndex.collections) {
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:tbc];
-        UIImage* image = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?key:[key stringByAppendingString:@"Large"])];
+        UIImage* image = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?key:[key stringByAppendingString:@"Large"]];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:image];    
         NSLog(@"looking for image named %@", key);
         vc.ng_tabBarItem.mediaIndex = key;
@@ -351,6 +351,7 @@
         gvc.gridView.autoresizesSubviews = YES;
         gvc.gridView.delegate = self;
         gvc.gridView.dataSource = self;
+        gvc.gridView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UIPinStripe"]];
         
         CGRect frame = CGRectMake(0, 0, 400, 44);
         UILabel *label = [[UILabel alloc] initWithFrame:frame];
@@ -443,6 +444,8 @@
     NSString *caption = [[[viewControllers objectAtIndex:index] ng_tabBarItem] title];
     [cell setImage:img];
     [cell setTitle:caption];
+    [cell.layer setCornerRadius:10];
+    [cell.layer setMasksToBounds:YES];
     
     cell.layer.borderWidth = 1.0f;
     cell.layer.borderColor = [UIColor lightGrayColor].CGColor;
