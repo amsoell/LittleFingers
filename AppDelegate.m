@@ -105,7 +105,7 @@
     for (NSDictionary* vid in history) if ([[vid objectForKey:@"url"] isEqual:[item objectForKey:@"url"]]) return NO;
 
     [history insertObject:item atIndex:0];
-    history = [NSMutableArray arrayWithArray:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)]];
+    [history removeObjectsInRange:NSMakeRange(3, history.count - 3)];
     return YES;
 }
 
@@ -207,7 +207,7 @@
     [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
-    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)], @"Recent", favorites, @"Favorites", nil]];
+    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, @"Recent", favorites, @"Favorites", nil]];
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"Home"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
     vcHome.title = @"Home";
