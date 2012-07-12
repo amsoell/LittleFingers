@@ -97,8 +97,7 @@
     
     [data setObject:h forKey:@"history"];
     [data setObject:f forKey:@"favorites"];  
-    
-    NSLog(@"saving marks %@ to %@. Successful? %@", data, path, ([data writeToFile:path atomically:YES]?@"yes":@"no"));    
+    [data writeToFile:path atomically:YES];
 }
 
 - (BOOL)logHistory:(NSDictionary *)item {
@@ -212,13 +211,24 @@
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
     vcHome.title = @"Home";
     
-    UILabel* introTextCopy = [[UILabel alloc] init];
-    [introTextCopy setFont:[UIFont fontWithName:@"Trebuchet MS" size:14.0f]];
-    [introTextCopy setTextColor:[UIColor darkGrayColor]];
-    [introTextCopy setBackgroundColor:[UIColor clearColor]];
-    [introTextCopy setNumberOfLines:0]; // Enable word wrapping
-    [introTextCopy setText:@"Welcome to LittleFingers Video Player! Thank you for agreeing to help test this app out. On the left, you will see icons for each of the categories of videos on your device. As you use this app, the 'Home' tab will show you the most recently viewed videos as well as videos you have flagged as your favorites.\n\nIf you come across any problems, please let me know by tapping the bug button in the lower left corner. There will undoubtedly be many bugs and crashes, and the more you tell me about what happened when you did run into trouble, the better I can make the final version of the app.\n\nOf course, please feel free to let me know about any other thoughts or suggestions you have, and thanks again!"];
-    [vcHome setIntro:introTextCopy];
+    UILabel *logo = [[UILabel alloc] init];
+    NSString *logoText = @"Welcome to LittleFingers!";
+    UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:45.0f];
+    [logo setText:logoText];
+    [logo setFont:logoFont];
+    [logo setTextColor:[UIColor darkGrayColor]];
+    [logo setBackgroundColor:[UIColor clearColor]];
+    [logo setShadowColor:[UIColor whiteColor]];
+    [logo setShadowOffset:CGSizeMake(0, -0.5)];
+    
+    
+    CGRect frame = logo.frame;
+    frame.origin.x = 50;
+    frame.origin.y = 30;
+    [logo setFrame:frame];
+    [logo sizeToFit];
+    
+    [vcHome setIntro:logo];
 
     [viewControllers addObject:vcHome];
 

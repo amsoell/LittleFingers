@@ -49,10 +49,17 @@
 - (void)viewWillAppear:(BOOL)animated {
 
     if ((self.tv.tableHeaderView==nil) && (intro != nil)) {
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [intro.text sizeWithFont:[UIFont fontWithName:intro.font.familyName size:intro.font.pointSize] constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+50)];
-        [intro setFrame:CGRectMake(50, 0, self.view.frame.size.width-100, [intro.text sizeWithFont:[UIFont fontWithName:intro.font.familyName size:intro.font.pointSize] constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+50)];
+        
+
+        CGRect newFrame = intro.frame;
+        newFrame.origin.x = 50;
+        newFrame.origin.y = 10;
+        [intro setFrame:newFrame];
+
+        UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, intro.frame.size.width+intro.frame.origin.x, intro.frame.size.height+intro.frame.origin.y)];        
         [headerView addSubview:intro];
-        self.tv.tableHeaderView = headerView;        
+        
+        [tv setTableHeaderView:headerView];
     }
     
 }

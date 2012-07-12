@@ -26,8 +26,6 @@
     NSMutableArray *viewControllers;
     NSMutableArray *favorites;
     NSMutableArray *history;
-    UITableView *tbfavorite;
-    UITableView *tbhistory;
 	PlaybackViewController* playbackViewController;
     UINavigationController* videoPlaybackController;
     UINavigationController* nc;

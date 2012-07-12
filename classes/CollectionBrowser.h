@@ -11,12 +11,12 @@
 @interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate> {
     NSDictionary *dataSource;   
     IBOutlet UITableView *tv;
-    UILabel *intro;
+    UIView *intro;
 }
 
 - (id)initWithCollection:(NSDictionary *)collection;
 @property (nonatomic, strong) IBOutlet UITableView *tv;
-@property (nonatomic, strong) UILabel *intro;
+@property (nonatomic, strong) UIView *intro;
 @property (nonatomic, strong) NSDictionary *dataSource;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;
 
