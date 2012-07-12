@@ -10,7 +10,6 @@
 
 @interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate> {
     NSDictionary *dataSource;   
-    UIViewController *owner;
     IBOutlet UITableView *tv;
     UILabel *intro;
 }
@@ -19,7 +18,6 @@
 @property (nonatomic, strong) IBOutlet UITableView *tv;
 @property (nonatomic, strong) UILabel *intro;
 @property (nonatomic, strong) NSDictionary *dataSource;
-@property (nonatomic, strong) UIViewController *owner;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;
 
 @end
