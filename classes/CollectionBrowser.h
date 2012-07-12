@@ -15,7 +15,7 @@
     UILabel *intro;
 }
 
-- (id)initWithCollection:(NSDictionary *)collection andOwner:(UIViewController *)viewController;
+- (id)initWithCollection:(NSDictionary *)collection;
 @property (nonatomic, strong) IBOutlet UITableView *tv;
 @property (nonatomic, strong) UILabel *intro;
 @property (nonatomic, strong) NSDictionary *dataSource;

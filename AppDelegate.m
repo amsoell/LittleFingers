@@ -177,7 +177,7 @@
         else {
             if (cameraCollection.count > 0) {    
                 NSLog(@"adding camera collection");
-                CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil] andOwner:tbc];
+                CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil]];
                 vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
                 vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
                 vc.title = @"Camera Roll";
@@ -207,7 +207,7 @@
     [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
-    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)], @"Recent", favorites, @"Favorites", nil] andOwner:tbc];
+    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[history subarrayWithRange:NSMakeRange(0, history.count<3?history.count:3)], @"Recent", favorites, @"Favorites", nil]];
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"Home"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
     vcHome.title = @"Home";
@@ -227,7 +227,7 @@
     // Add buttons for each media collection
     NSLog(@"starting loop");
     for (NSString* key in mediaIndex.collections) {
-        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil] andOwner:tbc];
+        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:[[mediaIndex.collections objectForKey:key] objectForKey:@"media"], [[mediaIndex.collections objectForKey:key] objectForKey:@"title"], nil]];
         UIImage* image = [UIImage imageNamed:key];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:image];    
         NSLog(@"looking for image named %@", key);
@@ -252,7 +252,7 @@
     }
     
     if (iTunesSharedCollection.count > 0) {        
-        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, @"iTunes", nil] andOwner:tbc];
+        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, @"iTunes", nil]];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"iTunes" image:[UIImage imageNamed:@"iTunesShared"]];    
         vc.ng_tabBarItem.mediaIndex = @"iTunesShared";
         vc.title = @"iTunes";

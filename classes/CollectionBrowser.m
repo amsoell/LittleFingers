@@ -19,7 +19,7 @@
 
 @implementation CollectionBrowser
 @synthesize dataSource;
-@synthesize owner, tv, intro, videoPlaybackController;
+@synthesize tv, intro, videoPlaybackController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,9 +30,8 @@
     return self;
 }
 
-- (id)initWithCollection:(NSDictionary *)collection andOwner:(UIViewController *)viewController {
+- (id)initWithCollection:(NSDictionary *)collection {
     dataSource = collection;
-    owner = viewController;
     return [super init];
 }
 
