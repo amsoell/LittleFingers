@@ -104,7 +104,9 @@
     for (NSDictionary* vid in history) if ([[vid objectForKey:@"url"] isEqual:[item objectForKey:@"url"]]) return NO;
 
     [history insertObject:item atIndex:0];
-    [history removeObjectsInRange:NSMakeRange(3, history.count - 3)];
+    if (history.count>3) {
+        [history removeObjectsInRange:NSMakeRange(3, history.count - 3)];
+    }
     return YES;
 }
 
@@ -210,6 +212,7 @@
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"Home"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
     vcHome.title = @"Home";
+    [vcHome setEmptyText:@"Thank you for agreeing to help test my little app. Before we get started, a little instruction.\n\nOn the left you will see a series of buttons -- one for each type of video your device has. If you don't see any buttons directly below the Home button, you don't have any videos. To play a video, just pick a tab and then tap a video. Once the video starts, you can lock the screen by tapping the lock icon in the lower right corner of the screen.\n\nTo unlock the screen, you will need to enter the unlock code by using one, two, or three fingers to swipe from top to bottom. So, if the code is \"321\" -- which it is by default -- you will swipe from top to bottom with three fingers, followed by two fingers, and then one. At that point, the video controls will reappear.\n\nAs you continue to use this app, this initial welcome message will be replaced with shortcuts to recently viewed videos and videos you have marked as favorites. To mark a video as a favorite, just tap the small grey dot to the right of the video.\n\nThanks again, and please be sure to send me feedback by tapping the little bug icon in the lower left!"];
     
     UILabel *logo = [[UILabel alloc] init];
     NSString *logoText = @"Welcome to LittleFingers!";

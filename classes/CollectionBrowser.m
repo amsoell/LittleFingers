@@ -19,7 +19,7 @@
 
 @implementation CollectionBrowser
 @synthesize dataSource;
-@synthesize tv, intro, videoPlaybackController;
+@synthesize tv, intro, videoPlaybackController, emptyText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,7 +50,7 @@
 
     if ((self.tv.tableHeaderView==nil) && (intro != nil)) {
         
-
+        // Add logo
         CGRect newFrame = intro.frame;
         newFrame.origin.x = 50;
         newFrame.origin.y = 10;
@@ -59,14 +59,60 @@
         UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, intro.frame.size.width+intro.frame.origin.x, intro.frame.size.height+intro.frame.origin.y)];        
         [headerView addSubview:intro];
         
+        
+        if (emptyText != nil) {
+            NSInteger sections = tv.numberOfSections;
+            NSInteger cellCount = 0;
+            for (NSInteger i = 0; i < sections; i++) {
+                cellCount += [tv numberOfRowsInSection:i];
+            }
+            
+            if (cellCount <= 0) {
+                // Add emptyText header
+                UILabel* introText = [[UILabel alloc] init];
+                [introText setTag:YES]; // tagged indicates it should be removed later
+                [introText setText:emptyText];
+                [introText setTextColor:[UIColor darkGrayColor]];
+                [introText setBackgroundColor:[UIColor clearColor]];
+                [introText setFont:[UIFont fontWithName:@"TrebuchetMS" size:16.0f]];
+                NSLog(@"the width it: %f", self.view.frame.size.width);
+                CGRect newFrame = introText.frame;
+                newFrame.origin.x = 50;
+                newFrame.origin.y = headerView.frame.size.height+10;
+                newFrame.size = [emptyText sizeWithFont:introText.font constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT)];
+                [introText setFrame:newFrame];
+                [introText setNumberOfLines:0];
+                [introText sizeToFit];
+                
+                [headerView addSubview:introText];
+            }
+        }
+        
         [tv setTableHeaderView:headerView];
+        [tv.tableHeaderView.layer setBorderColor:[UIColor greenColor].CGColor];
     }
+    
+    [tv reloadData];    
+    if (tv.tableHeaderView!=nil) {
+        NSInteger sections = tv.numberOfSections;
+        NSInteger cellCount = 0;
+        for (NSInteger i = 0; i < sections; i++) {
+            cellCount += [tv numberOfRowsInSection:i];
+        }
+        
+        if (cellCount > 0) {
+            [self setEmptyText:nil];
+            for (UILabel *v in tv.tableHeaderView.subviews) {
+                if (v.tag) [v setText:@""];
+            }
+        }
+    }
+    
     
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     NSLog(@"reloading data");
-    [tv reloadData];    
 }
 
 - (void)viewDidUnload
@@ -111,7 +157,7 @@
 }
 
 - (UIImage*)starImage {
-    UIImage* starImg = [UIImage imageNamed:@"star"]; 
+    UIImage* starImg = [UIImage imageNamed:@"Star"]; 
     
     return starImg;
 }

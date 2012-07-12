@@ -12,6 +12,7 @@
     NSDictionary *dataSource;   
     IBOutlet UITableView *tv;
     UIView *intro;
+    NSString* emptyText;
 }
 
 - (id)initWithCollection:(NSDictionary *)collection;
@@ -19,5 +20,6 @@
 @property (nonatomic, strong) UIView *intro;
 @property (nonatomic, strong) NSDictionary *dataSource;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;
+@property (nonatomic, strong) NSString* emptyText;
 
 @end
