@@ -36,11 +36,12 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1040</string>
+	<string>1066</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Scribulous_Scrawlin.ttf</string>
 		<string>HoneyScript-SemiBold.ttf</string>
 	</array>
 	<key>UIFileSharingEnabled</key>

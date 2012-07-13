@@ -29,6 +29,8 @@
 	PlaybackViewController* playbackViewController;
     UINavigationController* videoPlaybackController;
     UINavigationController* nc;
+    NSString *shortAppName;
+    NSString *longAppName;
 }
 
 -(void)indexIPodLibrary;
@@ -46,5 +48,7 @@
 @property (nonatomic, strong) NSMutableArray* history;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;
 @property (nonatomic, strong) UINavigationController* nc;
+@property (nonatomic) NSString* shortAppName;
+@property (nonatomic) NSString* longAppName;
 
 @end

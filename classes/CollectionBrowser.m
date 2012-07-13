@@ -222,11 +222,11 @@
     if ([item objectForKey:@"hasProtectedContent"] && ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]] == NSOrderedSame)) {
         // DRM. Let user know they can hide these.
         //todo: let user hide them
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:@"Some videos purchased via iTunes cannot be played with LittleFingers. This is one of those videos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:[NSString stringWithFormat:@"Some videos purchased via iTunes cannot be played with %@. This is one of those videos.", [sharedAppDelegate shortAppName]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];        
     } else if ([item objectForKey:@"url"] == nil) {
         // No URL. Probably in the cloud
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:@"This video must be downloaded from iCloud before it can be played in LittleFingers" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:[NSString stringWithFormat:@"This video must be downloaded from iCloud before it can be played in %@", [sharedAppDelegate shortAppName]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];        
     } else {
         

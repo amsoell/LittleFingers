@@ -123,6 +123,10 @@
 		DED2A76115A5D8940085C5BC /* iTunesShared.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A75F15A5D8940085C5BC /* iTunesShared.png */; };
 		DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */; };
 		DED2A76815A604FD0085C5BC /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A76715A604FD0085C5BC /* PlaybackViewController.m */; };
+		DED85BA515B06C6800001A66 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED85BA415B06C6800001A66 /* WelcomeViewController.m */; };
+		DED85BA715B0765400001A66 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED85BA615B0765400001A66 /* Welcome.xib */; };
+		DED85BA915B0784A00001A66 /* chalkbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DED85BA815B0784A00001A66 /* chalkbg.jpg */; };
+		DED85BAB15B07A5E00001A66 /* Scribulous_Scrawlin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DED85BAA15B07A5E00001A66 /* Scribulous_Scrawlin.ttf */; };
 		DEEB8AB515AC98F800FCD350 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA115AC98F800FCD350 /* AQGridView.m */; };
 		DEEB8AB615AC98F800FCD350 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA315AC98F800FCD350 /* AQGridViewAnimatorItem.m */; };
 		DEEB8AB715AC98F800FCD350 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA615AC98F800FCD350 /* AQGridViewCell.m */; };
@@ -301,6 +305,11 @@
 		DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesShared@2x.png"; sourceTree = "<group>"; };
 		DED2A76615A604FC0085C5BC /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
 		DED2A76715A604FD0085C5BC /* PlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewController.m; sourceTree = "<group>"; };
+		DED85BA315B06C6800001A66 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		DED85BA415B06C6800001A66 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		DED85BA615B0765400001A66 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
+		DED85BA815B0784A00001A66 /* chalkbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chalkbg.jpg; sourceTree = "<group>"; };
+		DED85BAA15B07A5E00001A66 /* Scribulous_Scrawlin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Scribulous_Scrawlin.ttf; path = resources/Scribulous_Scrawlin.ttf; sourceTree = "<group>"; };
 		DEEB8A9E15AC98F800FCD350 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLayout.h"; sourceTree = "<group>"; };
 		DEEB8A9F15AC98F800FCD350 /* AQGridView+CellLocationDelegation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLocationDelegation.h"; sourceTree = "<group>"; };
 		DEEB8AA015AC98F800FCD350 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridView.h; sourceTree = "<group>"; };
@@ -431,6 +440,7 @@
 			children = (
 				DED2A74315A540590085C5BC /* Collections */,
 				DED2A74415A540670085C5BC /* Playback */,
+				DED85BA115B06C1500001A66 /* Welcome */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -567,7 +577,6 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
-				DECAEFE615ADDBA200E5F93E /* UIPinStripe.png */,
 				DE81848715A8BE90005C9F9F /* Bug.png */,
 				DE81848815A8BE90005C9F9F /* Bug@2x.png */,
 				DECAEFD015ADC3FC00E5F93E /* BugLarge.png */,
@@ -576,6 +585,7 @@
 				DECAEFC115ADC06500E5F93E /* CameraRoll@2x.png */,
 				DECAEFC215ADC06500E5F93E /* CameraRollLarge.png */,
 				DECAEFC315ADC06500E5F93E /* CameraRollLarge@2x.png */,
+				DED85BA815B0784A00001A66 /* chalkbg.jpg */,
 				DED2A6C915A53BFA0085C5BC /* check.png */,
 				DED2A6CA15A53BFA0085C5BC /* Gear.png */,
 				DED2A6CB15A53BFA0085C5BC /* Gear@2x.png */,
@@ -613,6 +623,7 @@
 				DED2A6DE15A53BFA0085C5BC /* TVShow@2x.png */,
 				DECAEFB415ADBE7A00E5F93E /* TVShowLarge.png */,
 				DECAEFB515ADBE7A00E5F93E /* TVShowLarge@2x.png */,
+				DECAEFE615ADDBA200E5F93E /* UIPinStripe.png */,
 				DECAEFDE15ADC55E00E5F93E /* Unlock.png */,
 				DECAEFDF15ADC55E00E5F93E /* Unlock@2x.png */,
 				DEEB8AD815ACD38300FCD350 /* VideoPodcast.png */,
@@ -632,6 +643,7 @@
 				DED2A6E315A53BFA0085C5BC /* CollectionBrowser.xib */,
 				DED2A6E415A53BFA0085C5BC /* PlaybackView-iPad.xib */,
 				DED2A6E515A53BFA0085C5BC /* PlaybackView.xib */,
+				DED85BA615B0765400001A66 /* Welcome.xib */,
 			);
 			path = interface;
 			sourceTree = "<group>";
@@ -639,6 +651,7 @@
 		DED2A6FE15A53D4D0085C5BC /* support */ = {
 			isa = PBXGroup;
 			children = (
+				DED85BAA15B07A5E00001A66 /* Scribulous_Scrawlin.ttf */,
 				DECAEFEC15AE0C9F00E5F93E /* HoneyScript-SemiBold.ttf */,
 				DED2A6E715A53BFA0085C5BC /* Settings.bundle */,
 				DED2A6FC15A53D460085C5BC /* Info.plist */,
@@ -670,6 +683,15 @@
 				DED2A67E15A53BFA0085C5BC /* PlaybackView.m */,
 			);
 			name = Playback;
+			sourceTree = "<group>";
+		};
+		DED85BA115B06C1500001A66 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				DED85BA315B06C6800001A66 /* WelcomeViewController.h */,
+				DED85BA415B06C6800001A66 /* WelcomeViewController.m */,
+			);
+			name = Welcome;
 			sourceTree = "<group>";
 		};
 		DEEB8A9D15AC98F800FCD350 /* AQGridView */ = {
@@ -841,6 +863,9 @@
 				DECAEFE315ADC55E00E5F93E /* Unlock@2x.png in Resources */,
 				DECAEFE715ADDBA200E5F93E /* UIPinStripe.png in Resources */,
 				DECAEFED15AE0C9F00E5F93E /* HoneyScript-SemiBold.ttf in Resources */,
+				DED85BA715B0765400001A66 /* Welcome.xib in Resources */,
+				DED85BA915B0784A00001A66 /* chalkbg.jpg in Resources */,
+				DED85BAB15B07A5E00001A66 /* Scribulous_Scrawlin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,6 +941,7 @@
 				DEEB8ABE15AC98F800FCD350 /* UIColor+AQGridView.m in Sources */,
 				DEEB8AC215AC9A4F00FCD350 /* GridViewController.m in Sources */,
 				DEEB8AC915ACA1D500FCD350 /* GridViewCell.m in Sources */,
+				DED85BA515B06C6800001A66 /* WelcomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

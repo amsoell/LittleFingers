@@ -9,6 +9,8 @@
 #import "NGVTabBarController.h"
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
+#import "WelcomeViewController.h"
+#import "AppDelegate.h"
 
 @interface NGVTabBarController ()
 
@@ -58,13 +60,58 @@
     [TestFlight openFeedbackView];    
 #endif
 #ifdef DEVELOPMENT
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Development flag set"
-                               message: @"TestFlight isn't running."
-                              delegate: self
-                     cancelButtonTitle: @"OK"
-                     otherButtonTitles: nil];
-    [alert show];
+    UIViewController *welcomeVC = [[UIViewController alloc] init];
+    NSString *appName = [sharedAppDelegate longAppName];
+    UIFont *displayFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:30.f];
+    CGRect frame = CGRectMake(0, 0, [appName sizeWithFont:displayFont].width , [appName sizeWithFont:displayFont].height);
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = displayFont;
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor colorWithRed:0.9f green:0.9f blue:0.9f alpha:1.0f];
+    label.text = appName;
+    [label setShadowColor:[UIColor darkGrayColor]];
+    [label setShadowOffset:CGSizeMake(0, -0.5)];
+    welcomeVC.navigationItem.titleView = label;    
+    
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] 
+                             initWithTitle:@"Done" 
+                             style:UIBarButtonItemStyleBordered 
+                             target:self action:@selector(dismissSelf:)];
+    [done setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
+    [welcomeVC.navigationItem setRightBarButtonItem:done];
+    
+    NSArray *bundle = [[NSBundle mainBundle] loadNibNamed:@"Welcome" owner:self options:nil];
+    UIView *welcome;
+    for (id object in bundle) {
+        if ([object isKindOfClass:[UIView class]])
+            welcome = (UIView *)object;
+    }       
+    for (id object in welcome.subviews) {
+        if ([object isKindOfClass:[UILabel class]]) {
+            UILabel *label = object;
+            [label setFont:[UIFont fontWithName:@"scrawlin" size:20.0f]];
+        }
+    }
+    [welcome setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"chalkbg.jpg"]]];
+    [welcomeVC setView:welcome];
+    
+    WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithRootViewController:welcomeVC];
+    [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                    
+        [welcomeController setModalPresentationStyle:UIModalPresentationFormSheet];
+        [welcomeController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [welcomeController setModalInPopover:YES];
+    }
+    
+    [self presentModalViewController:welcomeController animated:YES];    
+
 #endif
+}
+
+- (void) dismissSelf:(id)sender {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void) displaySettings:(UIButton*)sender {
