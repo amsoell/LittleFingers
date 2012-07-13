@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WelcomeViewController : UINavigationController
+@interface WelcomeViewController : UINavigationController {
+    UIViewController *welcomeVC;
+    NSMutableArray *pages;
+    int currentPage;
+}
 
+- (IBAction)advancePage:(id)sender;
+
+@property (nonatomic) NSMutableArray *pages;
+@property (nonatomic) int currentPage;
 @end

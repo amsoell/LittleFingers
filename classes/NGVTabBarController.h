@@ -9,7 +9,7 @@
 #import "NGTabBarController.h"
 #import "IASKAppSettingsViewController.h"
 
-@interface NGVTabBarController : NGTabBarController <IASKSettingsDelegate> {
+@interface NGVTabBarController : NGTabBarController <IASKSettingsDelegate, UIScrollViewDelegate> {
     UIButton* settingsGear;
     UIButton* helpButton;    
     IASKAppSettingsViewController *appSettingsViewController;       

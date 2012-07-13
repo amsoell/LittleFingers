@@ -123,10 +123,15 @@
 		DED2A76115A5D8940085C5BC /* iTunesShared.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A75F15A5D8940085C5BC /* iTunesShared.png */; };
 		DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */; };
 		DED2A76815A604FD0085C5BC /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A76715A604FD0085C5BC /* PlaybackViewController.m */; };
-		DED85BA515B06C6800001A66 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED85BA415B06C6800001A66 /* WelcomeViewController.m */; };
 		DED85BA715B0765400001A66 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED85BA615B0765400001A66 /* Welcome.xib */; };
 		DED85BA915B0784A00001A66 /* chalkbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DED85BA815B0784A00001A66 /* chalkbg.jpg */; };
 		DED85BAB15B07A5E00001A66 /* Scribulous_Scrawlin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DED85BAA15B07A5E00001A66 /* Scribulous_Scrawlin.ttf */; };
+		DED85BAD15B0947400001A66 /* SketchRockwell-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DED85BAC15B0947400001A66 /* SketchRockwell-Bold.ttf */; };
+		DED85BC215B0A98200001A66 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED85BC115B0A98200001A66 /* WelcomeViewController.m */; };
+		DED85BCA15B0C08E00001A66 /* CameraRollChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DED85BC915B0C08E00001A66 /* CameraRollChalk.png */; };
+		DED85BCC15B0C17900001A66 /* TVShowChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DED85BCB15B0C17900001A66 /* TVShowChalk.png */; };
+		DED85BCE15B0C24500001A66 /* MovieChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DED85BCD15B0C24500001A66 /* MovieChalk.png */; };
+		DED85BD115B0C6E900001A66 /* TableViewChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DED85BD015B0C6E900001A66 /* TableViewChalk.png */; };
 		DEEB8AB515AC98F800FCD350 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA115AC98F800FCD350 /* AQGridView.m */; };
 		DEEB8AB615AC98F800FCD350 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA315AC98F800FCD350 /* AQGridViewAnimatorItem.m */; };
 		DEEB8AB715AC98F800FCD350 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA615AC98F800FCD350 /* AQGridViewCell.m */; };
@@ -305,11 +310,16 @@
 		DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesShared@2x.png"; sourceTree = "<group>"; };
 		DED2A76615A604FC0085C5BC /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
 		DED2A76715A604FD0085C5BC /* PlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewController.m; sourceTree = "<group>"; };
-		DED85BA315B06C6800001A66 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
-		DED85BA415B06C6800001A66 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		DED85BA615B0765400001A66 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
 		DED85BA815B0784A00001A66 /* chalkbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chalkbg.jpg; sourceTree = "<group>"; };
 		DED85BAA15B07A5E00001A66 /* Scribulous_Scrawlin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Scribulous_Scrawlin.ttf; path = resources/Scribulous_Scrawlin.ttf; sourceTree = "<group>"; };
+		DED85BAC15B0947400001A66 /* SketchRockwell-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SketchRockwell-Bold.ttf"; path = "resources/SketchRockwell-Bold.ttf"; sourceTree = "<group>"; };
+		DED85BC015B0A98200001A66 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		DED85BC115B0A98200001A66 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		DED85BC915B0C08E00001A66 /* CameraRollChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraRollChalk.png; sourceTree = "<group>"; };
+		DED85BCB15B0C17900001A66 /* TVShowChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TVShowChalk.png; sourceTree = "<group>"; };
+		DED85BCD15B0C24500001A66 /* MovieChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MovieChalk.png; sourceTree = "<group>"; };
+		DED85BD015B0C6E900001A66 /* TableViewChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableViewChalk.png; sourceTree = "<group>"; };
 		DEEB8A9E15AC98F800FCD350 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLayout.h"; sourceTree = "<group>"; };
 		DEEB8A9F15AC98F800FCD350 /* AQGridView+CellLocationDelegation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLocationDelegation.h"; sourceTree = "<group>"; };
 		DEEB8AA015AC98F800FCD350 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridView.h; sourceTree = "<group>"; };
@@ -577,6 +587,7 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DED85BCF15B0C6B600001A66 /* chalk */,
 				DE81848715A8BE90005C9F9F /* Bug.png */,
 				DE81848815A8BE90005C9F9F /* Bug@2x.png */,
 				DECAEFD015ADC3FC00E5F93E /* BugLarge.png */,
@@ -651,6 +662,7 @@
 		DED2A6FE15A53D4D0085C5BC /* support */ = {
 			isa = PBXGroup;
 			children = (
+				DED85BAC15B0947400001A66 /* SketchRockwell-Bold.ttf */,
 				DED85BAA15B07A5E00001A66 /* Scribulous_Scrawlin.ttf */,
 				DECAEFEC15AE0C9F00E5F93E /* HoneyScript-SemiBold.ttf */,
 				DED2A6E715A53BFA0085C5BC /* Settings.bundle */,
@@ -688,10 +700,21 @@
 		DED85BA115B06C1500001A66 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				DED85BA315B06C6800001A66 /* WelcomeViewController.h */,
-				DED85BA415B06C6800001A66 /* WelcomeViewController.m */,
+				DED85BC015B0A98200001A66 /* WelcomeViewController.h */,
+				DED85BC115B0A98200001A66 /* WelcomeViewController.m */,
 			);
 			name = Welcome;
+			sourceTree = "<group>";
+		};
+		DED85BCF15B0C6B600001A66 /* chalk */ = {
+			isa = PBXGroup;
+			children = (
+				DED85BD015B0C6E900001A66 /* TableViewChalk.png */,
+				DED85BCD15B0C24500001A66 /* MovieChalk.png */,
+				DED85BCB15B0C17900001A66 /* TVShowChalk.png */,
+				DED85BC915B0C08E00001A66 /* CameraRollChalk.png */,
+			);
+			name = chalk;
 			sourceTree = "<group>";
 		};
 		DEEB8A9D15AC98F800FCD350 /* AQGridView */ = {
@@ -866,6 +889,11 @@
 				DED85BA715B0765400001A66 /* Welcome.xib in Resources */,
 				DED85BA915B0784A00001A66 /* chalkbg.jpg in Resources */,
 				DED85BAB15B07A5E00001A66 /* Scribulous_Scrawlin.ttf in Resources */,
+				DED85BAD15B0947400001A66 /* SketchRockwell-Bold.ttf in Resources */,
+				DED85BCA15B0C08E00001A66 /* CameraRollChalk.png in Resources */,
+				DED85BCC15B0C17900001A66 /* TVShowChalk.png in Resources */,
+				DED85BCE15B0C24500001A66 /* MovieChalk.png in Resources */,
+				DED85BD115B0C6E900001A66 /* TableViewChalk.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,7 +969,7 @@
 				DEEB8ABE15AC98F800FCD350 /* UIColor+AQGridView.m in Sources */,
 				DEEB8AC215AC9A4F00FCD350 /* GridViewController.m in Sources */,
 				DEEB8AC915ACA1D500FCD350 /* GridViewCell.m in Sources */,
-				DED85BA515B06C6800001A66 /* WelcomeViewController.m in Sources */,
+				DED85BC215B0A98200001A66 /* WelcomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,8 +982,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Soell";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Andrew Soell";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andy Soell (C395UDHLJ4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andy Soell (C395UDHLJ4)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -970,8 +998,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PROVISIONING_PROFILE = "D8974F51-7350-4298-BA12-DEAA387C1F14";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D8974F51-7350-4298-BA12-DEAA387C1F14";
+				PROVISIONING_PROFILE = "4977C79E-A398-4AF6-BBC8-68398A8E0182";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4977C79E-A398-4AF6-BBC8-68398A8E0182";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -983,8 +1011,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Soell";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Andrew Soell";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andy Soell (C395UDHLJ4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andy Soell (C395UDHLJ4)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -993,8 +1021,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "D8974F51-7350-4298-BA12-DEAA387C1F14";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D8974F51-7350-4298-BA12-DEAA387C1F14";
+				PROVISIONING_PROFILE = "4977C79E-A398-4AF6-BBC8-68398A8E0182";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4977C79E-A398-4AF6-BBC8-68398A8E0182";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1004,7 +1032,8 @@
 		DED2A66D15A53BAC0085C5BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Soell";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andy Soell (C395UDHLJ4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andy Soell (C395UDHLJ4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
@@ -1014,7 +1043,8 @@
 					"\"$(SRCROOT)/contrib/TestFlightSDK\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D8974F51-7350-4298-BA12-DEAA387C1F14";
+				PROVISIONING_PROFILE = "4977C79E-A398-4AF6-BBC8-68398A8E0182";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4977C79E-A398-4AF6-BBC8-68398A8E0182";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1023,7 +1053,8 @@
 		DED2A66E15A53BAC0085C5BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Soell";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andy Soell (C395UDHLJ4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andy Soell (C395UDHLJ4)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
@@ -1034,7 +1065,8 @@
 					"\"$(SRCROOT)/contrib/TestFlightSDK\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D8974F51-7350-4298-BA12-DEAA387C1F14";
+				PROVISIONING_PROFILE = "4977C79E-A398-4AF6-BBC8-68398A8E0182";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4977C79E-A398-4AF6-BBC8-68398A8E0182";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
