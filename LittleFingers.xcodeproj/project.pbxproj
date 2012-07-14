@@ -28,6 +28,9 @@
 		DE9EDF9615B1127300E7E558 /* iPadChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9515B1127300E7E558 /* iPadChalk.png */; };
 		DE9EDF9915B1E9CA00E7E558 /* backChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9715B1E9CA00E7E558 /* backChalk.png */; };
 		DE9EDF9A15B1E9CA00E7E558 /* nextChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9815B1E9CA00E7E558 /* nextChalk.png */; };
+		DE9EDF9D15B2258600E7E558 /* doneChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9C15B2258600E7E558 /* doneChalk.png */; };
+		DE9EDF9F15B229D200E7E558 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9E15B229D200E7E558 /* Welcome.xib */; };
+		DE9EDFA115B22F3900E7E558 /* iPhoneChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */; };
 		DECAEFAB15ADBCF200E5F93E /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFA715ADBCF200E5F93E /* Home.png */; };
 		DECAEFAC15ADBCF200E5F93E /* Home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFA815ADBCF200E5F93E /* Home@2x.png */; };
 		DECAEFAD15ADBCF200E5F93E /* HomeLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFA915ADBCF200E5F93E /* HomeLarge.png */; };
@@ -128,7 +131,7 @@
 		DED2A76115A5D8940085C5BC /* iTunesShared.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A75F15A5D8940085C5BC /* iTunesShared.png */; };
 		DED2A76215A5D8940085C5BC /* iTunesShared@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */; };
 		DED2A76815A604FD0085C5BC /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED2A76715A604FD0085C5BC /* PlaybackViewController.m */; };
-		DED85BA715B0765400001A66 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED85BA615B0765400001A66 /* Welcome.xib */; };
+		DED85BA715B0765400001A66 /* Welcome-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED85BA615B0765400001A66 /* Welcome-iPad.xib */; };
 		DED85BA915B0784A00001A66 /* chalkbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DED85BA815B0784A00001A66 /* chalkbg.jpg */; };
 		DED85BAD15B0947400001A66 /* SketchRockwell-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DED85BAC15B0947400001A66 /* SketchRockwell-Bold.ttf */; };
 		DED85BC215B0A98200001A66 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED85BC115B0A98200001A66 /* WelcomeViewController.m */; };
@@ -179,6 +182,9 @@
 		DE9EDF9515B1127300E7E558 /* iPadChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadChalk.png; sourceTree = "<group>"; };
 		DE9EDF9715B1E9CA00E7E558 /* backChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backChalk.png; sourceTree = "<group>"; };
 		DE9EDF9815B1E9CA00E7E558 /* nextChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextChalk.png; sourceTree = "<group>"; };
+		DE9EDF9C15B2258600E7E558 /* doneChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doneChalk.png; sourceTree = "<group>"; };
+		DE9EDF9E15B229D200E7E558 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
+		DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneChalk.png; sourceTree = "<group>"; };
 		DECAEFA715ADBCF200E5F93E /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		DECAEFA815ADBCF200E5F93E /* Home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home@2x.png"; sourceTree = "<group>"; };
 		DECAEFA915ADBCF200E5F93E /* HomeLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeLarge.png; sourceTree = "<group>"; };
@@ -319,7 +325,7 @@
 		DED2A76015A5D8940085C5BC /* iTunesShared@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesShared@2x.png"; sourceTree = "<group>"; };
 		DED2A76615A604FC0085C5BC /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
 		DED2A76715A604FD0085C5BC /* PlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewController.m; sourceTree = "<group>"; };
-		DED85BA615B0765400001A66 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
+		DED85BA615B0765400001A66 /* Welcome-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Welcome-iPad.xib"; sourceTree = "<group>"; };
 		DED85BA815B0784A00001A66 /* chalkbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chalkbg.jpg; sourceTree = "<group>"; };
 		DED85BAC15B0947400001A66 /* SketchRockwell-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SketchRockwell-Bold.ttf"; path = "resources/SketchRockwell-Bold.ttf"; sourceTree = "<group>"; };
 		DED85BC015B0A98200001A66 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
@@ -670,7 +676,8 @@
 				DED2A6E315A53BFA0085C5BC /* CollectionBrowser.xib */,
 				DED2A6E415A53BFA0085C5BC /* PlaybackView-iPad.xib */,
 				DED2A6E515A53BFA0085C5BC /* PlaybackView.xib */,
-				DED85BA615B0765400001A66 /* Welcome.xib */,
+				DED85BA615B0765400001A66 /* Welcome-iPad.xib */,
+				DE9EDF9E15B229D200E7E558 /* Welcome.xib */,
 			);
 			path = interface;
 			sourceTree = "<group>";
@@ -724,6 +731,8 @@
 		DED85BCF15B0C6B600001A66 /* chalk */ = {
 			isa = PBXGroup;
 			children = (
+				DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */,
+				DE9EDF9C15B2258600E7E558 /* doneChalk.png */,
 				DE9EDF9715B1E9CA00E7E558 /* backChalk.png */,
 				DE9EDF9815B1E9CA00E7E558 /* nextChalk.png */,
 				DE9EDF9515B1127300E7E558 /* iPadChalk.png */,
@@ -906,7 +915,7 @@
 				DECAEFE315ADC55E00E5F93E /* Unlock@2x.png in Resources */,
 				DECAEFE715ADDBA200E5F93E /* UIPinStripe.png in Resources */,
 				DECAEFED15AE0C9F00E5F93E /* HoneyScript-SemiBold.ttf in Resources */,
-				DED85BA715B0765400001A66 /* Welcome.xib in Resources */,
+				DED85BA715B0765400001A66 /* Welcome-iPad.xib in Resources */,
 				DED85BA915B0784A00001A66 /* chalkbg.jpg in Resources */,
 				DED85BAD15B0947400001A66 /* SketchRockwell-Bold.ttf in Resources */,
 				DED85BCA15B0C08E00001A66 /* CameraRollChalk.png in Resources */,
@@ -918,6 +927,9 @@
 				DE9EDF9615B1127300E7E558 /* iPadChalk.png in Resources */,
 				DE9EDF9915B1E9CA00E7E558 /* backChalk.png in Resources */,
 				DE9EDF9A15B1E9CA00E7E558 /* nextChalk.png in Resources */,
+				DE9EDF9D15B2258600E7E558 /* doneChalk.png in Resources */,
+				DE9EDF9F15B229D200E7E558 /* Welcome.xib in Resources */,
+				DE9EDFA115B22F3900E7E558 /* iPhoneChalk.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -43,7 +43,7 @@
 #ifdef TESTING
     helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [helpButton setImage:[UIImage imageNamed:@"Bug"] forState:UIControlStateNormal];
-    [helpButton addTarget:self action:@selector(feedbackPrompt:) forControlEvents:UIControlEventTouchUpInside];
+    [helpButton addTarget:self action:@selector(startWalkthrough:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:helpButton];
 #endif
     
@@ -54,24 +54,18 @@
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"App launched" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:@"autolock"], @"autolock", [[NSUserDefaults standardUserDefaults] stringForKey:@"hideprotected"], @"hideprotected", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"], @"unlockcode", [[NSUserDefaults standardUserDefaults] stringForKey:@"repeat"], @"repeat", nil]];
 }
 
-- (void) feedbackPrompt:(UIButton*)sender {
-    NSLog(@"getting feedback");
-#ifndef DEVELOPMENT
-    [TestFlight openFeedbackView];    
-#endif
-#ifdef DEVELOPMENT
-    WelcomeViewController *welcomeController = [[WelcomeViewController alloc] init];
+- (void) startWalkthrough:(UIButton*)sender {
+    WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithNibName:@"Welcome-iPad"];
     [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                    
-        [welcomeController setModalPresentationStyle:UIModalPresentationFormSheet];
-        [welcomeController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-        [welcomeController setModalInPopover:YES];
-    }
+       
+     UIBarButtonItem *done = [[UIBarButtonItem alloc] 
+     initWithTitle:@"Done" 
+     style:UIBarButtonItemStyleBordered 
+     target:welcomeController action:@selector(dismissSelf:)];
+     [done setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
+     [welcomeController.navigationController.navigationItem setRightBarButtonItem:done];    
     
     [self presentModalViewController:welcomeController animated:YES];    
-
-#endif
 }
 
 - (void) displaySettings:(UIButton*)sender {

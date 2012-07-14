@@ -13,6 +13,7 @@
 #import "GridViewCell.h"
 #import "CollectionBrowser.h"
 #import "PlaybackViewController.h"
+#import "WelcomeViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
@@ -403,12 +404,24 @@
 }
 
 - (void)pushSettings:(id)sender {
-    NSLog(@"pushed!");
+/*    
     IASKAppSettingsViewController *appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
     appSettingsViewController.delegate = self;
     appSettingsViewController.showDoneButton = NO;
     
     [nc pushViewController:appSettingsViewController animated:YES];
+*/
+    WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithNibName:@"Welcome"];
+    [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                    
+        [welcomeController setModalPresentationStyle:UIModalPresentationFormSheet];
+        [welcomeController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [welcomeController setModalInPopover:YES];
+    }
+    
+    [nc presentModalViewController:welcomeController animated:YES];    
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

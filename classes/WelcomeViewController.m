@@ -8,6 +8,7 @@
 
 #import "WelcomeViewController.h"
 #import "AppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface WelcomeViewController ()
 
@@ -25,7 +26,7 @@
     return self;
 }
 
-- (id)init {
+- (id)initWithNibName:(NSString *)nibNameOrNil {
     self = [super init];
     
     welcomeVC = [[UIViewController alloc] init];
@@ -42,14 +43,8 @@
     [label setShadowOffset:CGSizeMake(0, -0.5)];
     welcomeVC.navigationItem.titleView = label;    
     
-    UIBarButtonItem *done = [[UIBarButtonItem alloc] 
-                             initWithTitle:@"Done" 
-                             style:UIBarButtonItemStyleBordered 
-                             target:self action:@selector(dismissSelf:)];
-    [done setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
-    [welcomeVC.navigationItem setRightBarButtonItem:done];
-    
-    NSArray *bundle = [[NSBundle mainBundle] loadNibNamed:@"Welcome" owner:self options:nil];
+  
+    NSArray *bundle = [[NSBundle mainBundle] loadNibNamed:nibNameOrNil owner:self options:nil];
     pages = [[NSMutableArray alloc] init];
     UIFont *labelFont = [UIFont fontWithName:@"SketchRockwell" size:20.0f];    
     UIView *page;
@@ -60,7 +55,6 @@
                 if ([object isKindOfClass:[UILabel class]]) {
                     UILabel *label = object;
                     [label setFont:[UIFont fontWithName:labelFont.fontName size:label.font.pointSize]];
-//                    [label setFrame:CGRectMake(label.frame.origin.x, label.frame.origin.y, label.frame.size.width, [label.text sizeWithFont:[UIFont fontWithName:labelFont.fontName size:label.font.pointSize] constrainedToSize:CGSizeMake(label.frame.size.width, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+label.frame.origin.y)];
                 }
             }
             [page setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"chalkbg.jpg"]]];
@@ -103,7 +97,7 @@
     // Release any retained subviews of the main view.
 }
 
-- (void) dismissSelf:(id)sender {
+- (IBAction) dismissSelf:(id)sender {
     [self dismissModalViewControllerAnimated:YES];
 }
 
