@@ -14,7 +14,8 @@
     int currentPage;
 }
 
-- (IBAction)advancePage:(id)sender;
+- (IBAction)navigateNext:(id)sender;
+- (IBAction)navigateBack:(id)sender;
 
 @property (nonatomic) NSMutableArray *pages;
 @property (nonatomic) int currentPage;

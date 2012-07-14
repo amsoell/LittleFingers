@@ -60,7 +60,7 @@
                 if ([object isKindOfClass:[UILabel class]]) {
                     UILabel *label = object;
                     [label setFont:[UIFont fontWithName:labelFont.fontName size:label.font.pointSize]];
-                    [label setFrame:CGRectMake(label.frame.origin.x, label.frame.origin.y, label.frame.size.width, [label.text sizeWithFont:[UIFont fontWithName:labelFont.fontName size:label.font.pointSize] constrainedToSize:CGSizeMake(label.frame.size.width, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+label.frame.origin.y)];
+//                    [label setFrame:CGRectMake(label.frame.origin.x, label.frame.origin.y, label.frame.size.width, [label.text sizeWithFont:[UIFont fontWithName:labelFont.fontName size:label.font.pointSize] constrainedToSize:CGSizeMake(label.frame.size.width, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap].height+label.frame.origin.y)];
                 }
             }
             [page setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"chalkbg.jpg"]]];
@@ -76,12 +76,20 @@
     return self;
 }
 
-- (IBAction)advancePage:(id)sender {
+- (IBAction)navigateNext:(id)sender {
     if ([pages objectAtIndex:(currentPage + 1)]!=nil) {
         [welcomeVC setView:[pages objectAtIndex:(++currentPage)]];
     }
     NSLog(@"advance");
 }
+
+- (IBAction)navigateBack:(id)sender {
+    if ([pages objectAtIndex:(currentPage - 1)]!=nil) {
+        [welcomeVC setView:[pages objectAtIndex:(--currentPage)]];
+    }
+    NSLog(@"advance");
+}
+
 
 - (void)viewDidLoad
 {
