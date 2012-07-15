@@ -229,6 +229,7 @@
         }];  
     } else {
         // User has not been asked for location access yet
+
         CollectionBrowser *vc = [[CollectionBrowser alloc] init];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
         vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
@@ -249,10 +250,13 @@
         frame.origin.y = 30;
         [logo setFrame:frame];
         [logo sizeToFit];
-        
-        UILabel *copy = [[UILabel alloc] init];
+                
         NSString *copyText = [NSString stringWithFormat:@"Because the videos you have taken may contain information about where they were recorded, we are required to ask your permission before we can use them in %@. Rest assured that %@ does not collect any information about your location at any time. If you are ok with us having access to the videos that you have taken, press the button below to confirm this.", [sharedAppDelegate shortAppName], [sharedAppDelegate shortAppName]];
         UIFont *copyFont = [UIFont fontWithName:@"HoeflerText-Regular" size:20.0f];
+        CGSize maximumLabelSize = CGSizeMake(vc.view.bounds.size.width - 100,9999);
+        CGSize expectedLabelSize = [copyText sizeWithFont:copyFont constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];   
+        
+        UILabel *copy = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, expectedLabelSize.width, expectedLabelSize.height)];        
         [copy setContentMode:UIViewContentModeScaleAspectFit];
         [copy setText:copyText];
         [copy setFont:copyFont];
@@ -262,29 +266,28 @@
         [copy setBackgroundColor:[UIColor clearColor]];
         [copy setShadowColor:[UIColor whiteColor]];
         [copy setShadowOffset:CGSizeMake(0, -0.5)];
-        [copy setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];// | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+        [copy setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];      
         
-        frame = copy.frame;
-        frame.origin.x = 50;
-        frame.origin.y = 100;
-        frame.size.width = tbc.view.frame.size.width;
-        frame.size.height = tbc.view.frame.size.height - 100;
-        [copy setFrame:frame];
-        [copy sizeToFit];
+        //adjust the label the the new height.
+        CGRect newFrame = copy.frame;
+        newFrame.origin.x = 50;
+        newFrame.origin.y = 100;
+        newFrame.size.height = 70;
+        newFrame.size.width = vc.view.bounds.size.width - 100;
+        copy.frame = newFrame;        
         
         
-        UIView *content = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tbc.view.frame.size.width, tbc.view.frame.size.height)];
+        UIView *content = [[UIView alloc] initWithFrame:CGRectMake(0, 0, vc.view.bounds.size.width, vc.view.bounds.size.height)];
         [content setAutoresizesSubviews:YES];
+        [content setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];
         [content addSubview:logo];
         [content addSubview:copy];
         [content sizeToFit];
-//        [content setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        
         [vc.view setAutoresizesSubviews:YES];
+        [vc.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];
         [vc.view setContentMode:UIViewContentModeScaleAspectFit];
         [vc.view addSubview:content];
-        
-//        [vc setIntro:content];
-
         
         [viewControllers addObject:vc];      
         
