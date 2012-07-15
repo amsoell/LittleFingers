@@ -114,6 +114,7 @@
 						<string key="NSFrame">{{367, 558}, {153, 42}}</string>
 						<reference key="NSSuperview" ref="8374257"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -284,6 +285,7 @@
 						<string key="NSFrame">{{367, 558}, {153, 42}}</string>
 						<reference key="NSSuperview" ref="1063168105"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -419,6 +421,7 @@
 						<string key="NSFrame">{{367, 558}, {153, 42}}</string>
 						<reference key="NSSuperview" ref="572815103"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -551,6 +554,7 @@
 						<string key="NSFrame">{{367, 558}, {153, 42}}</string>
 						<reference key="NSSuperview" ref="538067092"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -683,6 +687,7 @@
 						<string key="NSFrame">{{367, 558}, {153, 42}}</string>
 						<reference key="NSSuperview" ref="163583807"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -836,6 +841,7 @@ IHRpbWUsIGFuZCB0aGFuayB5b3UgZm9yIHVzaW5nIExpdHRsZUZpbmdlcnMhA</string>
 						<string key="NSFrame">{{396, 558}, {124, 42}}</string>
 						<reference key="NSSuperview" ref="1039139033"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>

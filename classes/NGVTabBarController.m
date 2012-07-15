@@ -42,7 +42,7 @@
     
 #ifdef TESTING
     helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [helpButton setImage:[UIImage imageNamed:@"Bug"] forState:UIControlStateNormal];
+    [helpButton setImage:[UIImage imageNamed:@"LifePreserver"] forState:UIControlStateNormal];
     [helpButton addTarget:self action:@selector(startWalkthrough:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:helpButton];
 #endif
@@ -57,14 +57,9 @@
 - (void) startWalkthrough:(UIButton*)sender {
     WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithNibName:@"Welcome-iPad"];
     [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
-       
-     UIBarButtonItem *done = [[UIBarButtonItem alloc] 
-     initWithTitle:@"Done" 
-     style:UIBarButtonItemStyleBordered 
-     target:welcomeController action:@selector(dismissSelf:)];
-     [done setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
-     [welcomeController.navigationController.navigationItem setRightBarButtonItem:done];    
-    
+    [welcomeController setModalPresentationStyle:UIModalPresentationFormSheet];
+    [welcomeController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    [welcomeController setModalInPopover:YES];    
     [self presentModalViewController:welcomeController animated:YES];    
 }
 
