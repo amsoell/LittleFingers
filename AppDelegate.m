@@ -155,41 +155,65 @@
 }
 
 - (void)indexCameraRoll {
-    NSLog(@"checking camera roll");
-    ALAssetsLibrary *assetLibrary = assetsLibrary;
-    NSMutableArray* cameraCollection = [[NSMutableArray alloc] init];        
-    NSLog(@"%@", assetLibrary);
-    [assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group) {
-            [group setAssetsFilter:[ALAssetsFilter allVideos]];
-            [group enumerateAssetsUsingBlock:
-             ^(ALAsset *asset, NSUInteger index, BOOL *stop)
-             {
-                 if (asset) {
-                     ALAssetRepresentation *defaultRepresentation = [asset defaultRepresentation];
-                     NSString *uti = [defaultRepresentation UTI];
-                     NSURL *URL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
-                     NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
-                     
-                     NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
-                     NSLog(@"Found camera item %@ at %@", title, URL);                     
-                     [cameraCollection addObject:details];
-                 }
-             }];
-        }
-        // group == nil signals we are done iterating.
-        else {
-            if (cameraCollection.count > 0) {    
-                NSLog(@"adding camera collection");
-                CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil]];
-                vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
-                vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
-                vc.title = @"Camera Roll";
-                [viewControllers addObject:vc];        
-            } else {
-                NSLog(@"skipping camera collection");
+    [[NSUserDefaults standardUserDefaults] synchronize];            
+    BOOL askedForLocation = [[NSUserDefaults standardUserDefaults] boolForKey:@"askedForLocation"];    
+    NSLog(@"camera access: %d", askedForLocation);
+
+    
+    if (askedForLocation) {
+        ALAssetsLibrary *assetLibrary = assetsLibrary;
+        NSMutableArray* cameraCollection = [[NSMutableArray alloc] init];        
+
+        [assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            if (group) {
+                [group setAssetsFilter:[ALAssetsFilter allVideos]];
+                [group enumerateAssetsUsingBlock:
+                 ^(ALAsset *asset, NSUInteger index, BOOL *stop)
+                 {
+                     if (asset) {
+                         ALAssetRepresentation *defaultRepresentation = [asset defaultRepresentation];
+                         NSString *uti = [defaultRepresentation UTI];
+                         NSURL *URL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
+                         NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
+                         
+                         NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
+                         NSLog(@"Found camera item %@ at %@", title, URL);                     
+                         [cameraCollection addObject:details];
+                     }
+                 }];
             }
-            
+            // group == nil signals we are done iterating.
+            else {
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"askedForLocation"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                if (cameraCollection.count > 0) {    
+                    NSLog(@"adding camera collection");
+                    CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil]];
+                    vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
+                    vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
+                    vc.title = @"Camera Roll";
+                    [viewControllers addObject:vc];        
+                } else {
+                    NSLog(@"skipping camera collection");
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"view controllers: %@", viewControllers);
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
+                        // Assign iPad tabs
+                        [self updateTabBarController:tbc];
+                    } else {
+                        // Assign iPhone / iPod Touch buttons
+                        [gvc.gridView reloadData];
+                        NSLog(@"assign iphone / ipod buttons");
+                    }
+                });            
+            }
+        } failureBlock:^(NSError *error) {
+           [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"askedForLocation"];
+           [[NSUserDefaults standardUserDefaults] synchronize];        
+            NSLog(@"error enumerating AssetLibrary groups %@\n", error);
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"view controllers: %@", viewControllers);
                 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
@@ -201,10 +225,83 @@
                     NSLog(@"assign iphone / ipod buttons");
                 }
             });            
-        }
-    } failureBlock:^(NSError *error) {
-        NSLog(@"error enumerating AssetLibrary groups %@\n", error);
-    }];    
+            
+        }];  
+    } else {
+        // User has not been asked for location access yet
+        CollectionBrowser *vc = [[CollectionBrowser alloc] init];
+        vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
+        vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
+        vc.title = @"Camera Roll";
+        
+        UILabel *logo = [[UILabel alloc] init];
+        NSString *logoText = @"Why we ask for your location";
+        UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:45.0f];
+        [logo setText:logoText];
+        [logo setFont:logoFont];
+        [logo setTextColor:[UIColor darkGrayColor]];
+        [logo setBackgroundColor:[UIColor clearColor]];
+        [logo setShadowColor:[UIColor whiteColor]];
+        [logo setShadowOffset:CGSizeMake(0, -0.5)];
+        
+        CGRect frame = logo.frame;
+        frame.origin.x = 50;
+        frame.origin.y = 30;
+        [logo setFrame:frame];
+        [logo sizeToFit];
+        
+        UILabel *copy = [[UILabel alloc] init];
+        NSString *copyText = [NSString stringWithFormat:@"Because the videos you have taken may contain information about where they were recorded, we are required to ask your permission before we can use them in %@. Rest assured that %@ does not collect any information about your location at any time. If you are ok with us having access to the videos that you have taken, press the button below to confirm this.", [sharedAppDelegate shortAppName], [sharedAppDelegate shortAppName]];
+        UIFont *copyFont = [UIFont fontWithName:@"HoeflerText-Regular" size:20.0f];
+        [copy setContentMode:UIViewContentModeScaleAspectFit];
+        [copy setText:copyText];
+        [copy setFont:copyFont];
+        [copy setNumberOfLines:0];
+        [copy setLineBreakMode:UILineBreakModeWordWrap];
+        [copy setTextColor:[UIColor darkGrayColor]];
+        [copy setBackgroundColor:[UIColor clearColor]];
+        [copy setShadowColor:[UIColor whiteColor]];
+        [copy setShadowOffset:CGSizeMake(0, -0.5)];
+        [copy setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];// | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+        
+        frame = copy.frame;
+        frame.origin.x = 50;
+        frame.origin.y = 100;
+        frame.size.width = tbc.view.frame.size.width;
+        frame.size.height = tbc.view.frame.size.height - 100;
+        [copy setFrame:frame];
+        [copy sizeToFit];
+        
+        
+        UIView *content = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tbc.view.frame.size.width, tbc.view.frame.size.height)];
+        [content setAutoresizesSubviews:YES];
+        [content addSubview:logo];
+        [content addSubview:copy];
+        [content sizeToFit];
+//        [content setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        [vc.view setAutoresizesSubviews:YES];
+        [vc.view setContentMode:UIViewContentModeScaleAspectFit];
+        [vc.view addSubview:content];
+        
+//        [vc setIntro:content];
+
+        
+        [viewControllers addObject:vc];      
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"view controllers: %@", viewControllers);
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
+                // Assign iPad tabs
+                [self updateTabBarController:tbc];
+            } else {
+                // Assign iPhone / iPod Touch buttons
+                [gvc.gridView reloadData];
+                NSLog(@"assign iphone / ipod buttons");
+            }
+        });            
+        
+        
+    }
 }
 
 - (void)createTabBarControllerViews {
