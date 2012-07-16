@@ -139,6 +139,9 @@
 		DED85BCC15B0C17900001A66 /* TVShowChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DED85BCB15B0C17900001A66 /* TVShowChalk.png */; };
 		DED85BCE15B0C24500001A66 /* MovieChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DED85BCD15B0C24500001A66 /* MovieChalk.png */; };
 		DED85BD115B0C6E900001A66 /* TableViewChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DED85BD015B0C6E900001A66 /* TableViewChalk.png */; };
+		DEE640C115B49C2E000CAD2D /* gridviewBg.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640C015B49C2D000CAD2D /* gridviewBg.png */; };
+		DEE640C415B4AF12000CAD2D /* LifePreserverLittle.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640C215B4AF12000CAD2D /* LifePreserverLittle.png */; };
+		DEE640C515B4AF12000CAD2D /* GearLittle.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640C315B4AF12000CAD2D /* GearLittle.png */; };
 		DEEB8AB515AC98F800FCD350 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA115AC98F800FCD350 /* AQGridView.m */; };
 		DEEB8AB615AC98F800FCD350 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA315AC98F800FCD350 /* AQGridViewAnimatorItem.m */; };
 		DEEB8AB715AC98F800FCD350 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA615AC98F800FCD350 /* AQGridViewCell.m */; };
@@ -334,6 +337,9 @@
 		DED85BCB15B0C17900001A66 /* TVShowChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TVShowChalk.png; sourceTree = "<group>"; };
 		DED85BCD15B0C24500001A66 /* MovieChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MovieChalk.png; sourceTree = "<group>"; };
 		DED85BD015B0C6E900001A66 /* TableViewChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableViewChalk.png; sourceTree = "<group>"; };
+		DEE640C015B49C2D000CAD2D /* gridviewBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gridviewBg.png; sourceTree = "<group>"; };
+		DEE640C215B4AF12000CAD2D /* LifePreserverLittle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LifePreserverLittle.png; sourceTree = "<group>"; };
+		DEE640C315B4AF12000CAD2D /* GearLittle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GearLittle.png; sourceTree = "<group>"; };
 		DEEB8A9E15AC98F800FCD350 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLayout.h"; sourceTree = "<group>"; };
 		DEEB8A9F15AC98F800FCD350 /* AQGridView+CellLocationDelegation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLocationDelegation.h"; sourceTree = "<group>"; };
 		DEEB8AA015AC98F800FCD350 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridView.h; sourceTree = "<group>"; };
@@ -650,6 +656,9 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DEE640C215B4AF12000CAD2D /* LifePreserverLittle.png */,
+				DEE640C315B4AF12000CAD2D /* GearLittle.png */,
+				DEE640C015B49C2D000CAD2D /* gridviewBg.png */,
 				DE9EDF9B15B1E9CE00E7E558 /* tab icons */,
 				DED85BCF15B0C6B600001A66 /* chalk */,
 				DED85BA815B0784A00001A66 /* chalkbg.jpg */,
@@ -930,6 +939,9 @@
 				DE47B47A15B23EF00023B179 /* LifePreserver@2x.png in Resources */,
 				DE47B47B15B23EF00023B179 /* LifePreserverLarge.png in Resources */,
 				DE47B47C15B23EF00023B179 /* LifePreserverLarge@2x.png in Resources */,
+				DEE640C115B49C2E000CAD2D /* gridviewBg.png in Resources */,
+				DEE640C415B4AF12000CAD2D /* LifePreserverLittle.png in Resources */,
+				DEE640C515B4AF12000CAD2D /* GearLittle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

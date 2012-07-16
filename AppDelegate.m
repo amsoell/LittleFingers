@@ -564,7 +564,7 @@
         gvc.gridView.autoresizesSubviews = YES;
         gvc.gridView.delegate = self;
         gvc.gridView.dataSource = self;
-        gvc.gridView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UIPinStripe"]];
+        gvc.gridView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gridviewBg"]]; // [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0];// colorWithPatternImage:[UIImage imageNamed:@"UIPinStripe"]];
         
         NSString *appName = [sharedAppDelegate shortAppName];
         UIFont *displayFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:30.f];
@@ -579,12 +579,19 @@
         [label setShadowColor:[UIColor darkGrayColor]];
         [label setShadowOffset:CGSizeMake(0, -0.5)];
         gvc.navigationItem.titleView = label;    
-
-        UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleBordered target:self action:@selector(pushSettings:)];
-        [gvc.navigationItem setRightBarButtonItem:settingsButton];        
         
+        UIImage *gearImage = [UIImage imageNamed:@"GearLittle"];
+        UIImage *helpImage = [UIImage imageNamed:@"LifePreserver"];
+        
+        UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:gearImage style:UIBarButtonItemStylePlain target:self action:@selector(pushSettings:)];
+        UIBarButtonItem *flexspace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]; 
+        UIBarButtonItem *helpButton = [[UIBarButtonItem alloc] initWithImage:helpImage style:UIBarButtonItemStylePlain target:self action:@selector(pushWalkthrough:)];
+
         // ...and put it in a NavigationController
         nc = [[UINavigationController alloc] initWithRootViewController:gvc];
+        [nc setDelegate:self];
+        [nc.toolbar setBarStyle:UIBarStyleBlackTranslucent];
+        [gvc setToolbarItems:[NSArray arrayWithObjects:settingsButton,  flexspace, helpButton, nil]];
         
         self.window.rootViewController = nc;
         
@@ -600,13 +607,19 @@
     return YES;
 }
 
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [navigationController setToolbarHidden:(viewController!=gvc) animated:YES];        
+}
+
 - (void)pushSettings:(id)sender {
     IASKAppSettingsViewController *appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
     appSettingsViewController.delegate = self;
     appSettingsViewController.showDoneButton = NO;
     
     [nc pushViewController:appSettingsViewController animated:YES];
-/*
+}
+
+- (void)pushWalkthrough:(id)sender {
     WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithNibName:@"Welcome"];
     [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
     
@@ -617,7 +630,6 @@
     }
     
     [nc presentModalViewController:welcomeController animated:YES];    
-*/
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -674,44 +686,34 @@
     GridViewCell * cell = (GridViewCell *)[gvc.gridView dequeueReusableCellWithIdentifier:@"gvcell"];
     if ( cell == nil ) {
         CGRect cellSize;
-        if (viewControllers.count <= 4) {
-            cellSize = CGRectMake(0.0, 0.0, 160.0, 100.0);            
+        if (viewControllers.count <= 8) {
+            cellSize = CGRectMake(0.0, 0.0, 160.0, 93.0);            
         } else {
             cellSize = CGRectMake(0.0, 0.0, 106.0, 70.0);
         }
 
         cell = [[GridViewCell alloc] initWithFrame:cellSize reuseIdentifier:@"gvcell"];
+        [cell addBorders];        
     }
     
     UIImage *img = [[[viewControllers objectAtIndex:index] ng_tabBarItem] image];
     NSString *caption = [[[viewControllers objectAtIndex:index] ng_tabBarItem] title];
     [cell setImage:img];
     [cell setTitle:caption];
-/*
-    [cell.layer setShadowColor:[UIColor lightGrayColor].CGColor];
-    [cell.layer setShadowRadius:5.0];
-    [cell.layer setShadowOpacity:1.0];
-    [cell.layer setShadowOffset:CGSizeMake(0.0, 0.0)];
-*/    
-/*    
-    [cell.layer setCornerRadius:10];
-    [cell.layer setMasksToBounds:NO];
-    [cell setClipsToBounds:NO];
-*/ 
-    [cell addBorders];
         
     return cell;
 }
 
 - (void) gridView: (AQGridView *) gridView didSelectItemAtIndex: (NSUInteger) index {
-    [nc pushViewController:[viewControllers objectAtIndex:index] animated:YES];
+    UIViewController *vc = [viewControllers objectAtIndex:index];
+    [nc pushViewController:vc animated:YES];
     [gridView deselectItemAtIndex:index animated:YES];
 }
 
 - (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
 {
-    if (viewControllers.count <= 4 ) {
-        return CGSizeMake(160.0, 100.0);        
+    if (viewControllers.count <= 8 ) {
+        return CGSizeMake(160.0, 93.0);        
     } else {        
         return CGSizeMake(106.0, 70.0);
     }

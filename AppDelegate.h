@@ -17,7 +17,7 @@
 
 @class MediaLibrary, ALAssetsLibrary, PlaybackViewController, CollectionBrowser;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate, AQGridViewDelegate, AQGridViewDataSource> {
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate, AQGridViewDelegate, AQGridViewDataSource, UINavigationControllerDelegate> {
     int currentIndex;
     MediaLibrary* mediaIndex;
     NGTabBarController *tbc;
