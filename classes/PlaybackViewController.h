@@ -27,6 +27,7 @@
     
 	ATMHud *hud;   
     NSString* videotitle;
+    UILabel *reminder;
 }
 
 @property (nonatomic, copy) NSURL* URL;

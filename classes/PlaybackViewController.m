@@ -633,9 +633,46 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
             [hud setImage:hudimage];        
             [hud show];
             [hud hideAfter:hudduration];
+        } else {
+            [self reminderFadeIn:unlockCode];
         }
 
     }
+}
+
+-(void)reminderFadeIn:(NSString*)unlockCode {
+    if (reminder.alpha == 0) {
+        reminder = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-20, self.view.bounds.size.width, 20)];
+        [reminder setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9f]];
+        [reminder setText:[NSString stringWithFormat:@"Reminder: Your unlock code is %@", unlockCode]];
+        [reminder setTextColor:[UIColor darkGrayColor]];
+        [reminder setFont:[UIFont fontWithName:@"Courier-Bold" size:14.0f]];
+        [reminder setTextAlignment:UITextAlignmentCenter];
+        [reminder setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth];
+        [reminder setAlpha:0.0];
+        
+        [self.view addSubview:reminder];
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        [UIView setAnimationDuration:1.0f];
+        [reminder setAlpha:0.9f];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(reminderPause:finished:context:)];
+        [UIView commitAnimations];    
+    }
+}
+
+-(void)reminderPause:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    [self performSelector:@selector(reminderFadeOut) withObject:self afterDelay:2.0f];
+}
+
+-(void)reminderFadeOut {
+    NSLog(@"done fading in");
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:1.0];
+    [reminder setAlpha:0];
+    [UIView commitAnimations];    
 }
 
 #pragma mark ATMHud Delegate methods
