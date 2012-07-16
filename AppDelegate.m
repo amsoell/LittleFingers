@@ -601,13 +601,12 @@
 }
 
 - (void)pushSettings:(id)sender {
-/*    
     IASKAppSettingsViewController *appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
     appSettingsViewController.delegate = self;
     appSettingsViewController.showDoneButton = NO;
     
     [nc pushViewController:appSettingsViewController animated:YES];
-*/
+/*
     WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithNibName:@"Welcome"];
     [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
     
@@ -618,7 +617,7 @@
     }
     
     [nc presentModalViewController:welcomeController animated:YES];    
-
+*/
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -676,9 +675,9 @@
     if ( cell == nil ) {
         CGRect cellSize;
         if (viewControllers.count <= 4) {
-            cellSize = CGRectMake(0.0, 0.0, 140.0, 100.0);            
+            cellSize = CGRectMake(0.0, 0.0, 160.0, 100.0);            
         } else {
-            cellSize = CGRectMake(0.0, 0.0, 100.0, 70.0);
+            cellSize = CGRectMake(0.0, 0.0, 106.0, 70.0);
         }
 
         cell = [[GridViewCell alloc] initWithFrame:cellSize reuseIdentifier:@"gvcell"];
@@ -688,21 +687,19 @@
     NSString *caption = [[[viewControllers objectAtIndex:index] ng_tabBarItem] title];
     [cell setImage:img];
     [cell setTitle:caption];
-
+/*
     [cell.layer setShadowColor:[UIColor lightGrayColor].CGColor];
     [cell.layer setShadowRadius:5.0];
     [cell.layer setShadowOpacity:1.0];
     [cell.layer setShadowOffset:CGSizeMake(0.0, 0.0)];
-    
+*/    
 /*    
     [cell.layer setCornerRadius:10];
     [cell.layer setMasksToBounds:NO];
     [cell setClipsToBounds:NO];
 */ 
-    
-    cell.layer.borderWidth = 1.0f;
-    cell.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    
+    [cell addBorders];
+        
     return cell;
 }
 
@@ -714,9 +711,9 @@
 - (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
 {
     if (viewControllers.count <= 4 ) {
-        return CGSizeMake(160.0, 120.0);        
+        return CGSizeMake(160.0, 100.0);        
     } else {        
-        return CGSizeMake(100.0, 80.0);
+        return CGSizeMake(106.0, 70.0);
     }
 }
 

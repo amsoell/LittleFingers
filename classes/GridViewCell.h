@@ -45,6 +45,8 @@
     UILabel * _title;
 }
 
+-(void)addBorders;
+
 @property (nonatomic, retain) UIImage * image;
 @property (nonatomic, copy) NSString * title;
 

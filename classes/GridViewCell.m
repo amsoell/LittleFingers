@@ -73,8 +73,60 @@
 
 - (void) setImage: (UIImage *) anImage
 {
+/*    
+    UIGraphicsBeginImageContext(anImage.size);
+    
+    // get a reference to that context we created
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    // set the fill color
+    UIColor *color = [UIColor blueColor];
+    [color setFill];
+    
+    // translate/flip the graphics context (for transforming from CG* coords to UI* coords
+    CGContextTranslateCTM(context, 0, anImage.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    // set the blend mode to color burn, and the original image
+    CGContextSetBlendMode(context, kCGBlendModeOverlay);// kCGBlendModeMultiply);// kCGBlendModeColorBurn);
+    CGRect rect = CGRectMake(0, 0, anImage.size.width, anImage.size.height);
+    CGContextDrawImage(context, rect, anImage.CGImage);
+    
+    // set a mask that matches the shape of the image, then draw (color burn) a colored rectangle
+    CGContextClipToMask(context, rect, anImage.CGImage);
+    CGContextAddRect(context, rect);
+    CGContextDrawPath(context,kCGPathFill);
+    
+    // generate a new UIImage from the graphics context we drew onto
+    UIImage *coloredImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();    
+    
+    anImage = coloredImg;
+*/    
     _imageView.image = anImage;
     [self setNeedsLayout];
+}
+
+- (void) addBorders {
+    UIColor *darkColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
+    UIColor *lightColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
+    
+    UIView *rightBorder = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width-1, 0, 1.0f, self.bounds.size.height)];
+    [rightBorder setBackgroundColor:lightColor];
+    
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-1, self.bounds.size.width, 1.0f)];
+    [bottomBorder setBackgroundColor:lightColor];
+    
+    UIView *leftBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1.0f, self.bounds.size.height)];
+    [leftBorder setBackgroundColor:darkColor];
+    
+    UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 1.0f)];
+    [topBorder setBackgroundColor:darkColor];    
+    
+    [self addSubview:rightBorder];
+    [self addSubview:bottomBorder];
+    [self addSubview:leftBorder];
+    [self addSubview:topBorder];    
 }
 
 - (NSString *) title
@@ -97,7 +149,7 @@
     
     [_title sizeToFit];
     [_title setFont:[UIFont fontWithName:@"GillSans-Light" size:14.0f]];
-    [_title setTextColor:[UIColor darkGrayColor]];
+    [_title setTextColor:[UIColor blackColor]];
     
     [_title setShadowColor:[UIColor darkGrayColor]];
     [_title setShadowOffset:CGSizeMake(0, -0.5)];
