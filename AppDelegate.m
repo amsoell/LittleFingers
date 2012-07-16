@@ -155,48 +155,68 @@
 }
 
 - (void)indexCameraRoll {
-    [[NSUserDefaults standardUserDefaults] synchronize];            
-    BOOL askedForLocation = [[NSUserDefaults standardUserDefaults] boolForKey:@"askedForLocation"];    
-    NSLog(@"camera access: %d", askedForLocation);
-
     
-    if (askedForLocation) {
-        ALAssetsLibrary *assetLibrary = assetsLibrary;
-        NSMutableArray* cameraCollection = [[NSMutableArray alloc] init];        
+    ALAssetsLibrary *assetLibrary = assetsLibrary;
+    NSMutableArray* cameraCollection = [[NSMutableArray alloc] init];        
+    
+    [assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if (group) {
+            [group setAssetsFilter:[ALAssetsFilter allVideos]];
+            [group enumerateAssetsUsingBlock:
+             ^(ALAsset *asset, NSUInteger index, BOOL *stop)
+             {
+                 if (asset) {
+                     ALAssetRepresentation *defaultRepresentation = [asset defaultRepresentation];
+                     NSString *uti = [defaultRepresentation UTI];
+                     NSURL *URL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
+                     NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
+                     
+                     NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
+                     NSLog(@"Found camera item %@ at %@", title, URL);                     
+                     [cameraCollection addObject:details];
+                 }
+             }];
+        }
+        // group == nil signals we are done iterating.
+        else {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"askedForLocation"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            if (cameraCollection.count > 0) {    
+                if (cameraCollectionBrowser.isViewLoaded) {
+                    // tabbar controller already exists.
+                    // remove the explanation uilabels
+                    for (UIView* view in cameraCollectionBrowser.view.subviews) {
+                        NSLog(@"view: %@", view);
+                        if (view.tag == 1) {
+                            [view removeFromSuperview];
+                        }
+                    }
 
-        [assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            if (group) {
-                [group setAssetsFilter:[ALAssetsFilter allVideos]];
-                [group enumerateAssetsUsingBlock:
-                 ^(ALAsset *asset, NSUInteger index, BOOL *stop)
-                 {
-                     if (asset) {
-                         ALAssetRepresentation *defaultRepresentation = [asset defaultRepresentation];
-                         NSString *uti = [defaultRepresentation UTI];
-                         NSURL *URL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
-                         NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
-                         
-                         NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
-                         NSLog(@"Found camera item %@ at %@", title, URL);                     
-                         [cameraCollection addObject:details];
-                     }
-                 }];
-            }
-            // group == nil signals we are done iterating.
-            else {
-                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"askedForLocation"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                if (cameraCollection.count > 0) {    
+                    // now set up the datasource
+                    [cameraCollectionBrowser setDataSource:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil]];
+                    [cameraCollectionBrowser setEmptyText:nil];
+                    [cameraCollectionBrowser.tv reloadData];
+                } else {   
+                    NSLog(@"i don't think this should ever get reached");
+                    // We're being called from launch
                     NSLog(@"adding camera collection");
-                    CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil]];
-                    vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
-                    vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
-                    vc.title = @"Camera Roll";
-                    [viewControllers addObject:vc];        
-                } else {
-                    NSLog(@"skipping camera collection");
+                    
+                    cameraCollectionBrowser = [[CollectionBrowser alloc] init];                    
+                    cameraCollectionBrowser.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
+                    cameraCollectionBrowser.ng_tabBarItem.mediaIndex = @"CameraRoll";
+                    cameraCollectionBrowser.title = @"Camera Roll";
+                    
+                    [cameraCollectionBrowser setDataSource:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil]];
+                    [cameraCollectionBrowser.tv reloadData];
+                    
+                    [viewControllers addObject:cameraCollectionBrowser];  
                 }
-                
+            } else {
+                NSLog(@"skipping camera collection");
+            }
+            
+            if (!cameraCollectionBrowser.isViewLoaded) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSLog(@"view controllers: %@", viewControllers);
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
@@ -209,11 +229,13 @@
                     }
                 });            
             }
-        } failureBlock:^(NSError *error) {
-           [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"askedForLocation"];
-           [[NSUserDefaults standardUserDefaults] synchronize];        
-            NSLog(@"error enumerating AssetLibrary groups %@\n", error);
-
+        }
+    } failureBlock:^(NSError *error) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"askedForLocation"];
+        [[NSUserDefaults standardUserDefaults] synchronize];        
+        NSLog(@"error enumerating AssetLibrary groups %@\n", error);
+        
+        if (!cameraCollectionBrowser.isViewLoaded) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"view controllers: %@", viewControllers);
                 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
@@ -225,38 +247,82 @@
                     NSLog(@"assign iphone / ipod buttons");
                 }
             });            
-            
-        }];  
+        } else {
+            for (UIView* view in cameraCollectionBrowser.view.subviews) {
+                NSLog(@"view: %@", view);
+                if (view.tag == 1) {
+                    [view removeFromSuperview];
+                }
+            }
+            [tbc setSelectedIndex:0];
+     
+             UILabel *logo = [[UILabel alloc] init];
+             NSString *logoText = @"Camera Roll Access Unavailable";
+             UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:45.0f];
+             [logo setTag:1]; // mark for removal
+             [logo setText:logoText];
+             [logo setFont:logoFont];
+             [logo setMinimumFontSize:32.0f];
+             [logo setAdjustsFontSizeToFitWidth:YES];
+             [logo setTextColor:[UIColor darkGrayColor]];
+             [logo setBackgroundColor:[UIColor clearColor]];
+             [logo setShadowColor:[UIColor whiteColor]];
+             [logo setShadowOffset:CGSizeMake(0, -0.5)];
+             [logo setAdjustsFontSizeToFitWidth:YES];
+             
+             CGRect frame = logo.frame;
+             frame.origin.x = 30;
+             frame.origin.y = 20;
+             [logo setFrame:frame];
+             [logo sizeToFit];
+     
+            [cameraCollectionBrowser.view addSubview:logo];
+     
+        }
+        
+    }];      
+}
+
+- (void)checkLocationPermissions {
+    [[NSUserDefaults standardUserDefaults] synchronize];            
+    BOOL askedForLocation = [[NSUserDefaults standardUserDefaults] boolForKey:@"askedForLocation"];    
+    NSLog(@"camera access: %d", askedForLocation);
+
+    
+    if (askedForLocation) {
+        [self indexCameraRoll];
     } else {
         // User has not been asked for location access yet
 
-        CollectionBrowser *vc = [[CollectionBrowser alloc] init];
-        vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
-        vc.ng_tabBarItem.mediaIndex = @"CameraRoll";
-        vc.title = @"Camera Roll";
+        cameraCollectionBrowser = [[CollectionBrowser alloc] init];
+        cameraCollectionBrowser.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
+        cameraCollectionBrowser.ng_tabBarItem.mediaIndex = @"CameraRoll";
+        cameraCollectionBrowser.title = @"Camera Roll";
         
         UILabel *logo = [[UILabel alloc] init];
         NSString *logoText = @"Why we ask for your location";
         UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:45.0f];
+        [logo setTag:1]; // mark for removal
         [logo setText:logoText];
         [logo setFont:logoFont];
+        [logo setMinimumFontSize:32.0f];
+        [logo setAdjustsFontSizeToFitWidth:YES];
         [logo setTextColor:[UIColor darkGrayColor]];
         [logo setBackgroundColor:[UIColor clearColor]];
         [logo setShadowColor:[UIColor whiteColor]];
         [logo setShadowOffset:CGSizeMake(0, -0.5)];
+        [logo setAdjustsFontSizeToFitWidth:YES];
         
         CGRect frame = logo.frame;
-        frame.origin.x = 50;
-        frame.origin.y = 30;
+        frame.origin.x = 30;
+        frame.origin.y = 20;
         [logo setFrame:frame];
         [logo sizeToFit];
                 
         NSString *copyText = [NSString stringWithFormat:@"Because the videos you have taken may contain information about where they were recorded, we are required to ask your permission before we can use them in %@. Rest assured that %@ does not collect any information about your location at any time. If you are ok with us having access to the videos that you have taken, press the button below to confirm this.", [sharedAppDelegate shortAppName], [sharedAppDelegate shortAppName]];
-        UIFont *copyFont = [UIFont fontWithName:@"HoeflerText-Regular" size:20.0f];
-        CGSize maximumLabelSize = CGSizeMake(vc.view.bounds.size.width - 100,9999);
-        CGSize expectedLabelSize = [copyText sizeWithFont:copyFont constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];   
-        
-        UILabel *copy = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, expectedLabelSize.width, expectedLabelSize.height)];        
+        UIFont *copyFont = [UIFont fontWithName:@"Baskerville" size:(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?20.0f:16.0f)];        
+        UILabel *copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 80, cameraCollectionBrowser.view.bounds.size.width-60, (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?80:220))];     
+        [copy setTag:1]; // mark for removal
         [copy setContentMode:UIViewContentModeScaleAspectFit];
         [copy setText:copyText];
         [copy setFont:copyFont];
@@ -266,30 +332,61 @@
         [copy setBackgroundColor:[UIColor clearColor]];
         [copy setShadowColor:[UIColor whiteColor]];
         [copy setShadowOffset:CGSizeMake(0, -0.5)];
-        [copy setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];      
+        [copy setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];  
+        [copy setMinimumFontSize:16.0f];
+        [copy setAdjustsFontSizeToFitWidth:YES];
         
-        //adjust the label the the new height.
-        CGRect newFrame = copy.frame;
-        newFrame.origin.x = 50;
-        newFrame.origin.y = 100;
-        newFrame.size.height = 70;
-        newFrame.size.width = vc.view.bounds.size.width - 100;
-        copy.frame = newFrame;        
+        UIButton *locationPrompt = [UIButton buttonWithType:UIButtonTypeCustom];
+        [locationPrompt setTag:1]; // mark for removal
+        [locationPrompt setFrame:CGRectMake(60, (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?280:320), 200, 50)];
+        [locationPrompt setTitle:@"Include Camera Roll" forState:UIControlStateNormal];
+        [locationPrompt setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin]; 
+        [locationPrompt.layer setCornerRadius:5.0f];
+        [locationPrompt setBackgroundColor:[UIColor blackColor]];
+
+        // Add Border
+        CALayer *layer = locationPrompt.layer;
+        layer.cornerRadius = 8.0f;
+        layer.masksToBounds = YES;
+        layer.borderWidth = 1.0f;
+        layer.borderColor = [UIColor colorWithWhite:0.5f alpha:0.2f].CGColor;
         
+        // Add Shine
+        CAGradientLayer *shineLayer = [CAGradientLayer layer];
+        shineLayer.frame = layer.bounds;
+        shineLayer.colors = [NSArray arrayWithObjects:
+                             (id)[UIColor colorWithWhite:1.0f alpha:0.4f].CGColor,
+                             (id)[UIColor colorWithWhite:1.0f alpha:0.2f].CGColor,
+                             (id)[UIColor colorWithWhite:0.75f alpha:0.2f].CGColor,
+                             (id)[UIColor colorWithWhite:0.4f alpha:0.2f].CGColor,
+                             (id)[UIColor colorWithWhite:1.0f alpha:0.4f].CGColor,
+                             nil];
+        shineLayer.locations = [NSArray arrayWithObjects:
+                                [NSNumber numberWithFloat:0.0f],
+                                [NSNumber numberWithFloat:0.5f],
+                                [NSNumber numberWithFloat:0.5f],
+                                [NSNumber numberWithFloat:0.8f],
+                                [NSNumber numberWithFloat:1.0f],
+                                nil];
+        [layer addSublayer:shineLayer];
+
+        [locationPrompt.titleLabel setFont:[UIFont fontWithName:copyFont.fontName size:18.0f]];
+        [locationPrompt addTarget:self action:@selector(indexCameraRoll) forControlEvents:UIControlEventTouchUpInside];
         
-        UIView *content = [[UIView alloc] initWithFrame:CGRectMake(0, 0, vc.view.bounds.size.width, vc.view.bounds.size.height)];
+        UIView *content = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cameraCollectionBrowser.view.bounds.size.width, cameraCollectionBrowser.view.bounds.size.height)];
+        [content setTag:1]; // mark for removal
         [content setAutoresizesSubviews:YES];
         [content setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];
         [content addSubview:logo];
         [content addSubview:copy];
-        [content sizeToFit];
+        [content addSubview:locationPrompt];
         
-        [vc.view setAutoresizesSubviews:YES];
-        [vc.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];
-        [vc.view setContentMode:UIViewContentModeScaleAspectFit];
-        [vc.view addSubview:content];
+        [cameraCollectionBrowser.view setAutoresizesSubviews:YES];
+        [cameraCollectionBrowser.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];
+        [cameraCollectionBrowser.view setContentMode:UIViewContentModeScaleAspectFit];
+        [cameraCollectionBrowser.view addSubview:content];
         
-        [viewControllers addObject:vc];      
+        [viewControllers addObject:cameraCollectionBrowser];      
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"view controllers: %@", viewControllers);
@@ -330,7 +427,7 @@
     
     CGRect frame = logo.frame;
     frame.origin.x = 50;
-    frame.origin.y = 30;
+    frame.origin.y = 80;
     [logo setFrame:frame];
     [logo sizeToFit];
     
@@ -378,7 +475,7 @@
     }
     
     // Check the camera roll
-    [self indexCameraRoll];
+    [self checkLocationPermissions];
 }
 
 - (void)updateTabBarController:(NGTabBarController*)controller {	

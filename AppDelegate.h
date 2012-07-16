@@ -15,12 +15,13 @@
 
 #define sharedAppDelegate (AppDelegate *) [[UIApplication sharedApplication] delegate]
 
-@class MediaLibrary, ALAssetsLibrary, PlaybackViewController;
+@class MediaLibrary, ALAssetsLibrary, PlaybackViewController, CollectionBrowser;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NGTabBarControllerDelegate, UITextViewDelegate, AQGridViewDelegate, AQGridViewDataSource> {
     int currentIndex;
     MediaLibrary* mediaIndex;
     NGTabBarController *tbc;
+    CollectionBrowser *cameraCollectionBrowser;
     GridViewController *gvc;
 	ALAssetsLibrary *assetsLibrary;    
     NSMutableArray *viewControllers;
