@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate> {
-    NSDictionary *dataSource;   
+    NSDictionary *dataSource;   // Dictionary (category), whose members are arrays (collection) of dictionaries (media item)
     IBOutlet UITableView *tv;
     UIView *intro;
     NSString* emptyText;
 }
 
 - (id)initWithCollection:(NSDictionary *)collection;
+- (BOOL)hasUnprotectedContent;
+
 @property (nonatomic, strong) IBOutlet UITableView *tv;
 @property (nonatomic, strong) UIView *intro;
 @property (nonatomic, strong) NSDictionary *dataSource;

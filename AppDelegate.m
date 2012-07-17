@@ -14,6 +14,7 @@
 #import "CollectionBrowser.h"
 #import "PlaybackViewController.h"
 #import "WelcomeViewController.h"
+#import "IASKAppSettingsViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
@@ -131,8 +132,6 @@
 
 - (void)indexIPodLibrary {
     [[NSUserDefaults standardUserDefaults] synchronize];            
-    BOOL hideProtected = [[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"];    
-    
     // Take a look at the movies library and determine media types
     MPMediaPropertyPredicate *predicate = [MPMediaPropertyPredicate predicateWithValue:[NSNumber numberWithInteger:MPMediaTypeAnyVideo] forProperty:MPMediaItemPropertyMediaType];    
     MPMediaQuery *videoQuery = [[MPMediaQuery alloc] initWithFilterPredicates:[NSSet setWithObject:predicate]];    
@@ -141,16 +140,14 @@
     // Iterate through videos to build index
     NSInteger mediaType;
 	for (MPMediaItem *video in videos) {  
-        if (!(hideProtected && (([video valueForProperty:MPMediaItemPropertyAssetURL]==nil) || [[AVAsset assetWithURL:[video valueForProperty:MPMediaItemPropertyAssetURL]] hasProtectedContent]))) {
-            [mediaIndex addItem:video];        
-            
-            mediaType = [[video valueForProperty:MPMediaItemPropertyMediaType] integerValue];
-            if (mediaType & MPMediaTypeVideoITunesU) [mediaIndex addItem:video toCollection:@"ITunesU" withCollectionTitle:@"iTunes U"];
-            if (mediaType & MPMediaTypeMusicVideo) [mediaIndex addItem:video toCollection:@"MusicVideo" withCollectionTitle:@"Music Videos"];
-            if (mediaType & MPMediaTypeVideoPodcast) [mediaIndex addItem:video toCollection:@"VideoPodcast" withCollectionTitle:@"Podcasts"];
-            if (mediaType & MPMediaTypeTVShow) [mediaIndex addItem:video toCollection:@"TVShow" withCollectionTitle:@"TV Shows"];
-            if (mediaType & MPMediaTypeMovie) [mediaIndex addItem:video toCollection:@"Movie" withCollectionTitle:@"Movies"];
-        }
+        [mediaIndex addItem:video];        
+        
+        mediaType = [[video valueForProperty:MPMediaItemPropertyMediaType] integerValue];
+        if (mediaType & MPMediaTypeVideoITunesU) [mediaIndex addItem:video toCollection:@"ITunesU" withCollectionTitle:@"iTunes U"];
+        if (mediaType & MPMediaTypeMusicVideo) [mediaIndex addItem:video toCollection:@"MusicVideo" withCollectionTitle:@"Music Videos"];
+        if (mediaType & MPMediaTypeVideoPodcast) [mediaIndex addItem:video toCollection:@"VideoPodcast" withCollectionTitle:@"Podcasts"];
+        if (mediaType & MPMediaTypeTVShow) [mediaIndex addItem:video toCollection:@"TVShow" withCollectionTitle:@"TV Shows"];
+        if (mediaType & MPMediaTypeMovie) [mediaIndex addItem:video toCollection:@"Movie" withCollectionTitle:@"Movies"];
     }    
 }
 
@@ -498,9 +495,8 @@
 }
 
 - (void) settingsChanged {
-    NSLog(@"settings changed!");
     [[NSUserDefaults standardUserDefaults] synchronize];     
-    //todo: reload tabs and content if "hide protected" has changed
+    [tbc.view setNeedsLayout];
 }
 
 - (void)playVideoWithURL:(AVURLAsset *)url andTitle:(NSString*)title {
@@ -615,6 +611,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged) name:@"kAppSettingChanged" object:nil];
 	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:NULL];    
     
     return YES;
@@ -674,10 +671,15 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (CGSize)tabBarController:(NGTabBarController *)tabBarController sizeOfItemForViewController:(UIViewController *)viewController atIndex:(NSUInteger)index                  position:(NGTabBarPosition)position {
-    if (NGTabBarIsVertical(position)) {
-        return CGSizeMake(100.f, 60.f);
+    BOOL hideProtected = [[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"];    
+    
+    if (index>0 && 
+        ![[[viewControllers objectAtIndex:index] title] isEqualToString:@"Camera Roll"] && 
+        hideProtected && 
+        ![[viewControllers objectAtIndex:index] hasUnprotectedContent]) {
+        return CGSizeMake(0.0f, 0.0f);
     } else {
-        return CGSizeMake(60.f, 49.f);
+        return CGSizeMake(100.f, 60.f);
     }
 }
 

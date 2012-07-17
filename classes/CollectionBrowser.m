@@ -140,6 +140,18 @@
     return isFavorited;
 }
 
+- (BOOL)hasUnprotectedContent {
+    for (NSString *dsKey in dataSource.allKeys) {
+        for (int i=0; i<[[dataSource objectForKey:dsKey] count]; i++) {
+            if ([[[[dataSource objectForKey:dsKey] objectAtIndex:i] objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:NO]]==NSOrderedSame) {
+                return YES;                
+            }
+        }
+    }
+    
+    return NO;
+}
+
 #pragma mark -
 #pragma mark TableView Delegate
 
