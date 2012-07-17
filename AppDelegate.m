@@ -411,6 +411,7 @@
     CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, @"Recent", favorites, @"Favorites", nil]];
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"Home"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
+#ifndef BLANKSLATE        
     vcHome.title = @"Home";
     [vcHome setEmptyText:@"Thank you for agreeing to help test my little app. Before we get started, a little instruction.\n\nOn the left you will see a series of buttons -- one for each type of video your device has. If you don't see any buttons directly below the Home button, you don't have any videos. To play a video, just pick a tab and then tap a video. Once the video starts, you can lock the screen by tapping the lock icon in the lower right corner of the screen.\n\nTo unlock the screen, you will need to enter the unlock code by using one, two, or three fingers to swipe from top to bottom. So, if the code is \"321\" -- which it is by default -- you will swipe from top to bottom with three fingers, followed by two fingers, and then one. At that point, the video controls will reappear.\n\nAs you continue to use this app, this initial welcome message will be replaced with shortcuts to recently viewed videos and videos you have marked as favorites. To mark a video as a favorite, just tap the small grey dot to the right of the video.\n\nThanks again, and please be sure to send me feedback by tapping the little bug icon in the lower left!"];
     
@@ -432,11 +433,12 @@
     [logo sizeToFit];
     
     [vcHome setIntro:logo];
+#endif        
 
     [viewControllers addObject:vcHome];
 
 
-    
+#ifndef BLANKSLATE        
     // Add buttons for each media collection
     NSLog(@"starting loop");
     for (NSString* key in mediaIndex.collections) {
@@ -476,6 +478,17 @@
     
     // Check the camera roll
     [self checkLocationPermissions];
+#else
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                       
+        // Assign iPad tabs
+        [self updateTabBarController:tbc];
+    } else {
+        // Assign iPhone / iPod Touch buttons
+        [gvc.gridView reloadData];
+        NSLog(@"assign iphone / ipod buttons");
+    }
+    
+#endif    
 }
 
 - (void)updateTabBarController:(NGTabBarController*)controller {	
@@ -581,7 +594,7 @@
         gvc.navigationItem.titleView = label;    
         
         UIImage *gearImage = [UIImage imageNamed:@"GearLittle"];
-        UIImage *helpImage = [UIImage imageNamed:@"LifePreserver"];
+        UIImage *helpImage = [UIImage imageNamed:@"LifePreserverLittle"];
         
         UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:gearImage style:UIBarButtonItemStylePlain target:self action:@selector(pushSettings:)];
         UIBarButtonItem *flexspace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]; 
@@ -678,7 +691,11 @@
 
 - (NSUInteger) numberOfItemsInGridView: (AQGridView *) aGridView
 {
+#ifdef BLANKSLATE
+    return 0;
+#else
     return viewControllers.count;
+#endif
 }
 
 - (AQGridViewCell *) gridView: (AQGridView *) aGridView cellForItemAtIndex: (NSUInteger) index

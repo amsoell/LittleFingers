@@ -13,10 +13,6 @@
 		DE47B47B15B23EF00023B179 /* LifePreserverLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = DE47B47715B23EF00023B179 /* LifePreserverLarge.png */; };
 		DE47B47C15B23EF00023B179 /* LifePreserverLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE47B47815B23EF00023B179 /* LifePreserverLarge@2x.png */; };
 		DE81847C15A8BAC7005C9F9F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81847A15A8BAC7005C9F9F /* libTestFlight.a */; };
-		DE81848115A8BB6B005C9F9F /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81847D15A8BB6B005C9F9F /* Icon-iPad.png */; };
-		DE81848215A8BB6B005C9F9F /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81847E15A8BB6B005C9F9F /* Icon-iPad@2x.png */; };
-		DE81848315A8BB6B005C9F9F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81847F15A8BB6B005C9F9F /* Icon.png */; };
-		DE81848415A8BB6B005C9F9F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE81848015A8BB6B005C9F9F /* Icon@2x.png */; };
 		DE81848615A8BBF2005C9F9F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81848515A8BBF2005C9F9F /* libz.dylib */; };
 		DE81849715A8C5D9005C9F9F /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DE81849115A8C5D9005C9F9F /* LocalyticsDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DE81849815A8C5D9005C9F9F /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DE81849315A8C5D9005C9F9F /* LocalyticsSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -142,6 +138,12 @@
 		DEE640C115B49C2E000CAD2D /* gridviewBg.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640C015B49C2D000CAD2D /* gridviewBg.png */; };
 		DEE640C415B4AF12000CAD2D /* LifePreserverLittle.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640C215B4AF12000CAD2D /* LifePreserverLittle.png */; };
 		DEE640C515B4AF12000CAD2D /* GearLittle.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640C315B4AF12000CAD2D /* GearLittle.png */; };
+		DEE640C815B5D38A000CAD2D /* LifePreserverLittle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640C615B5D38A000CAD2D /* LifePreserverLittle@2x.png */; };
+		DEE640C915B5D38A000CAD2D /* GearLittle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640C715B5D38A000CAD2D /* GearLittle@2x.png */; };
+		DEE640D015B5D66C000CAD2D /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640CC15B5D66C000CAD2D /* Icon-iPad.png */; };
+		DEE640D115B5D66C000CAD2D /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640CD15B5D66C000CAD2D /* Icon-iPad@2x.png */; };
+		DEE640D215B5D66C000CAD2D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640CE15B5D66C000CAD2D /* Icon.png */; };
+		DEE640D315B5D66C000CAD2D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640CF15B5D66C000CAD2D /* Icon@2x.png */; };
 		DEEB8AB515AC98F800FCD350 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA115AC98F800FCD350 /* AQGridView.m */; };
 		DEEB8AB615AC98F800FCD350 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA315AC98F800FCD350 /* AQGridViewAnimatorItem.m */; };
 		DEEB8AB715AC98F800FCD350 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA615AC98F800FCD350 /* AQGridViewCell.m */; };
@@ -166,10 +168,6 @@
 		DE47B47815B23EF00023B179 /* LifePreserverLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LifePreserverLarge@2x.png"; sourceTree = "<group>"; };
 		DE81847A15A8BAC7005C9F9F /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		DE81847B15A8BAC7005C9F9F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		DE81847D15A8BB6B005C9F9F /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
-		DE81847E15A8BB6B005C9F9F /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
-		DE81847F15A8BB6B005C9F9F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		DE81848015A8BB6B005C9F9F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		DE81848515A8BBF2005C9F9F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		DE81849015A8C5D9005C9F9F /* LocalyticsDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsDatabase.h; sourceTree = "<group>"; };
 		DE81849115A8C5D9005C9F9F /* LocalyticsDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalyticsDatabase.m; sourceTree = "<group>"; };
@@ -340,6 +338,12 @@
 		DEE640C015B49C2D000CAD2D /* gridviewBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gridviewBg.png; sourceTree = "<group>"; };
 		DEE640C215B4AF12000CAD2D /* LifePreserverLittle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LifePreserverLittle.png; sourceTree = "<group>"; };
 		DEE640C315B4AF12000CAD2D /* GearLittle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GearLittle.png; sourceTree = "<group>"; };
+		DEE640C615B5D38A000CAD2D /* LifePreserverLittle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LifePreserverLittle@2x.png"; sourceTree = "<group>"; };
+		DEE640C715B5D38A000CAD2D /* GearLittle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GearLittle@2x.png"; sourceTree = "<group>"; };
+		DEE640CC15B5D66C000CAD2D /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-iPad.png"; path = "AppIcons/Icon-iPad.png"; sourceTree = "<group>"; };
+		DEE640CD15B5D66C000CAD2D /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-iPad@2x.png"; path = "AppIcons/Icon-iPad@2x.png"; sourceTree = "<group>"; };
+		DEE640CE15B5D66C000CAD2D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = AppIcons/Icon.png; sourceTree = "<group>"; };
+		DEE640CF15B5D66C000CAD2D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "AppIcons/Icon@2x.png"; sourceTree = "<group>"; };
 		DEEB8A9E15AC98F800FCD350 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLayout.h"; sourceTree = "<group>"; };
 		DEEB8A9F15AC98F800FCD350 /* AQGridView+CellLocationDelegation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLocationDelegation.h"; sourceTree = "<group>"; };
 		DEEB8AA015AC98F800FCD350 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridView.h; sourceTree = "<group>"; };
@@ -656,6 +660,10 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DEE640CA15B5D5FB000CAD2D /* AppIcons */,
+				DEE640CB15B5D613000CAD2D /* LaunchImages */,
+				DEE640C615B5D38A000CAD2D /* LifePreserverLittle@2x.png */,
+				DEE640C715B5D38A000CAD2D /* GearLittle@2x.png */,
 				DEE640C215B4AF12000CAD2D /* LifePreserverLittle.png */,
 				DEE640C315B4AF12000CAD2D /* GearLittle.png */,
 				DEE640C015B49C2D000CAD2D /* gridviewBg.png */,
@@ -663,10 +671,6 @@
 				DED85BCF15B0C6B600001A66 /* chalk */,
 				DED85BA815B0784A00001A66 /* chalkbg.jpg */,
 				DED2A6C915A53BFA0085C5BC /* check.png */,
-				DE81847D15A8BB6B005C9F9F /* Icon-iPad.png */,
-				DE81847E15A8BB6B005C9F9F /* Icon-iPad@2x.png */,
-				DE81847F15A8BB6B005C9F9F /* Icon.png */,
-				DE81848015A8BB6B005C9F9F /* Icon@2x.png */,
 				DED2A6D015A53BFA0085C5BC /* Lock.png */,
 				DECAEFD815ADC50900E5F93E /* Lock@2x.png */,
 				DE95257F15A780070038677C /* Star.png */,
@@ -753,6 +757,24 @@
 				DED85BC915B0C08E00001A66 /* CameraRollChalk.png */,
 			);
 			name = chalk;
+			sourceTree = "<group>";
+		};
+		DEE640CA15B5D5FB000CAD2D /* AppIcons */ = {
+			isa = PBXGroup;
+			children = (
+				DEE640CC15B5D66C000CAD2D /* Icon-iPad.png */,
+				DEE640CD15B5D66C000CAD2D /* Icon-iPad@2x.png */,
+				DEE640CE15B5D66C000CAD2D /* Icon.png */,
+				DEE640CF15B5D66C000CAD2D /* Icon@2x.png */,
+			);
+			name = AppIcons;
+			sourceTree = "<group>";
+		};
+		DEE640CB15B5D613000CAD2D /* LaunchImages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = LaunchImages;
 			sourceTree = "<group>";
 		};
 		DEEB8A9D15AC98F800FCD350 /* AQGridView */ = {
@@ -887,10 +909,6 @@
 				DE32D9CF15A73B24003277C3 /* marks.plist in Resources */,
 				DE95258115A780070038677C /* Star.png in Resources */,
 				DE95258215A780070038677C /* Star@2x.png in Resources */,
-				DE81848115A8BB6B005C9F9F /* Icon-iPad.png in Resources */,
-				DE81848215A8BB6B005C9F9F /* Icon-iPad@2x.png in Resources */,
-				DE81848315A8BB6B005C9F9F /* Icon.png in Resources */,
-				DE81848415A8BB6B005C9F9F /* Icon@2x.png in Resources */,
 				DEEB8ADA15ACD38300FCD350 /* VideoPodcast.png in Resources */,
 				DEEB8ADB15ACD38300FCD350 /* VideoPodcast@2x.png in Resources */,
 				DECAEFAB15ADBCF200E5F93E /* Home.png in Resources */,
@@ -942,6 +960,12 @@
 				DEE640C115B49C2E000CAD2D /* gridviewBg.png in Resources */,
 				DEE640C415B4AF12000CAD2D /* LifePreserverLittle.png in Resources */,
 				DEE640C515B4AF12000CAD2D /* GearLittle.png in Resources */,
+				DEE640C815B5D38A000CAD2D /* LifePreserverLittle@2x.png in Resources */,
+				DEE640C915B5D38A000CAD2D /* GearLittle@2x.png in Resources */,
+				DEE640D015B5D66C000CAD2D /* Icon-iPad.png in Resources */,
+				DEE640D115B5D66C000CAD2D /* Icon-iPad@2x.png in Resources */,
+				DEE640D215B5D66C000CAD2D /* Icon.png in Resources */,
+				DEE640D315B5D66C000CAD2D /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
