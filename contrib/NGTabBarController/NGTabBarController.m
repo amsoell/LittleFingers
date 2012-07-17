@@ -4,7 +4,7 @@
 
 
 // the default width of the tabBar
-#define kNGTabBarControllerDefaultWidth     150.0f
+#define kNGTabBarControllerDefaultWidth     100.0f
 #define kNGTabBarCellDefaultHeight          120.0f
 #define kNGDefaultAnimationDuration           0.3f
 #define kNGScaleFactor                        0.98f
