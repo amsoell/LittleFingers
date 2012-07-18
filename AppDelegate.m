@@ -635,8 +635,16 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged) name:@"kAppSettingChanged" object:nil];
 	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:NULL];    
-    
+        
     return YES;
+}
+
+- (BOOL)isFirstLaunch {
+    return ([[NSUserDefaults standardUserDefaults] valueForKey:@"lastVersionLaunched"] == nil);
+}
+
+- (BOOL)isFirstLaunchThisVersion {
+    return NO;
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {

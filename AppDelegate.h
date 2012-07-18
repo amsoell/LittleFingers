@@ -43,6 +43,9 @@
 -(void)playVideoWithURL:(AVURLAsset*)url andTitle:(NSString*)title;
 -(NSArray*)viewControllersWithoutProtectedContent;
 - (void) settingsChanged;
+- (BOOL) isFirstLaunch;
+- (BOOL) isFirstLaunchThisVersion;
+- (void)pushWalkthrough:(id)sender;
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int currentIndex;

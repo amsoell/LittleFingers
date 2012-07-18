@@ -7,6 +7,8 @@
 //
 
 #import "GridViewController.h"
+#import "AppDelegate.h"
+#import "WelcomeViewController.h"
 
 @interface GridViewController ()
 
@@ -33,6 +35,28 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([sharedAppDelegate isFirstLaunch]) {
+        NSLog(@"first launch");
+        WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithNibName:@"Welcome"];
+        [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                    
+            [welcomeController setModalPresentationStyle:UIModalPresentationFormSheet];
+            [welcomeController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            [welcomeController setModalInPopover:YES];
+        }
+        
+        [self presentModalViewController:welcomeController animated:YES];    
+        
+    } else if ([sharedAppDelegate isFirstLaunchThisVersion]) {
+        
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"lastVersionLaunched"];
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

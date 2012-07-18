@@ -52,6 +52,25 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"App launched" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:@"autolock"], @"autolock", [[NSUserDefaults standardUserDefaults] stringForKey:@"hideprotected"], @"hideprotected", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"], @"unlockcode", [[NSUserDefaults standardUserDefaults] stringForKey:@"repeat"], @"repeat", nil]];
+    
+    if ([sharedAppDelegate isFirstLaunch]) {
+        NSLog(@"first launch");
+        WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithNibName:@"Welcome-iPad"];
+        [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {                    
+            [welcomeController setModalPresentationStyle:UIModalPresentationFormSheet];
+            [welcomeController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            [welcomeController setModalInPopover:YES];
+        }
+        
+        [self.selectedViewController presentModalViewController:welcomeController animated:YES];    
+
+    } else if ([sharedAppDelegate isFirstLaunchThisVersion]) {
+        
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"lastVersionLaunched"];
+
 }
 
 - (void) startWalkthrough:(UIButton*)sender {
