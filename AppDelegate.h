@@ -41,6 +41,7 @@
 -(BOOL)logHistory:(NSDictionary*)item;
 -(BOOL)toggleFavorite:(NSDictionary*)item;
 -(void)playVideoWithURL:(AVURLAsset*)url andTitle:(NSString*)title;
+-(NSArray*)viewControllersWithoutProtectedContent;
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int currentIndex;

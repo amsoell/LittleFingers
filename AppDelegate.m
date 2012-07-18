@@ -498,6 +498,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];     
     [tbc.view setNeedsLayout];
     [[(CollectionBrowser*)tbc.selectedViewController tv] reloadData];
+    [gvc.gridView reloadData];
 }
 
 - (void)playVideoWithURL:(AVURLAsset *)url andTitle:(NSString*)title {
@@ -643,6 +644,42 @@
     [nc presentModalViewController:welcomeController animated:YES];    
 }
 
+- (NSArray*)viewControllersWithoutProtectedContent {
+    NSMutableArray *vcs = [[NSMutableArray alloc] initWithArray:viewControllers];
+    CollectionBrowser *vc;
+    bool dobreak = false;
+    for (int j=0; j<vcs.count;) {
+         vc = [vcs objectAtIndex:j];
+        if ([vc.title isEqualToString:@"Home"] ||
+            [vc.title isEqualToString:@"Camera Roll"]) {
+            j++;
+            continue;
+        }
+
+        for (NSString *dsKey in vc.dataSource.allKeys) {
+            for (int i=0; i<[[vc.dataSource objectForKey:dsKey] count];) {
+                NSLog(@"%d, %d", j, i);
+                if ([[[[vc.dataSource objectForKey:dsKey] objectAtIndex:i] objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:NO]]==NSOrderedSame) {
+                    dobreak = true;
+                    break;            
+                }
+                i++;
+            }
+            if (dobreak) {
+                dobreak = false;
+                j++;
+                break;
+            }
+            
+            NSLog(@"removing: %@", vc.title);
+            [vcs removeObjectAtIndex:j];            
+        }
+    }
+
+
+    return [NSArray arrayWithArray:vcs];
+}
+
 - (void)applicationWillTerminate:(UIApplication *)application {
     [self saveMarks];
 #ifndef DEVELOPMENT
@@ -697,7 +734,19 @@
 #ifdef BLANKSLATE
     return 0;
 #else
-    return viewControllers.count;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"]) {
+        int items = [self viewControllersWithoutProtectedContent].count;
+        for (CollectionBrowser *vc in [self viewControllersWithoutProtectedContent]) {
+                if (![vc.title isEqualToString:@"Home"] &&
+                    ![vc.title isEqualToString:@"Camera Roll"] &&
+                    (vc.dataSourceWithoutProtectedContent.count <= 0)) {
+                    items--;
+                }
+        }
+        return items;
+    } else {
+        return viewControllers.count;
+    }
 #endif
 }
 
@@ -716,8 +765,15 @@
         [cell addBorders];        
     }
     
-    UIImage *img = [[[viewControllers objectAtIndex:index] ng_tabBarItem] image];
-    NSString *caption = [[[viewControllers objectAtIndex:index] ng_tabBarItem] title];
+    CollectionBrowser *vc;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"]) {
+        vc = [[self viewControllersWithoutProtectedContent] objectAtIndex:index];
+    } else {
+        vc = [viewControllers objectAtIndex:index];
+    }
+    
+    UIImage *img = [[vc ng_tabBarItem] image];
+    NSString *caption = [[vc ng_tabBarItem] title];
     [cell setImage:img];
     [cell setTitle:caption];
         
@@ -725,14 +781,21 @@
 }
 
 - (void) gridView: (AQGridView *) gridView didSelectItemAtIndex: (NSUInteger) index {
-    UIViewController *vc = [viewControllers objectAtIndex:index];
+    UIViewController *vc;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"]) {
+        vc = [[self viewControllersWithoutProtectedContent] objectAtIndex:index];
+    } else {
+        vc = [viewControllers objectAtIndex:index];
+    }
+    
     [nc pushViewController:vc animated:YES];
     [gridView deselectItemAtIndex:index animated:YES];
 }
 
 - (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
 {
-    if (viewControllers.count <= 8 ) {
+    if (([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"] && [[self viewControllersWithoutProtectedContent] count]) || 
+        viewControllers.count <= 8 ) {
         return CGSizeMake(160.0, 93.0);        
     } else {        
         return CGSizeMake(106.0, 70.0);
