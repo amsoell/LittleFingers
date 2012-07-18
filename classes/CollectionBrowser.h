@@ -10,6 +10,7 @@
 
 @interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate> {
     NSDictionary *dataSource;   // Dictionary (category), whose members are arrays (collection) of dictionaries (media item)
+    NSMutableDictionary *dataSourceWithoutProtectedContent;
     IBOutlet UITableView *tv;
     UIView *intro;
     NSString* emptyText;
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) IBOutlet UITableView *tv;
 @property (nonatomic, strong) UIView *intro;
 @property (nonatomic, strong) NSDictionary *dataSource;
+@property (nonatomic, strong) NSDictionary *dataSourceWithoutProtectedContent;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;
 @property (nonatomic, strong) NSString* emptyText;
 

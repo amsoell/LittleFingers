@@ -150,6 +150,7 @@
 		DEE640E915B5D8E2000CAD2D /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640E715B5D8E2000CAD2D /* Default-Landscape~ipad.png */; };
 		DEE640EC15B5D8ED000CAD2D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640EA15B5D8ED000CAD2D /* Default.png */; };
 		DEE640ED15B5D8ED000CAD2D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE640EB15B5D8ED000CAD2D /* Default@2x.png */; };
+		DEE640F015B667D5000CAD2D /* SPDeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE640EF15B667D4000CAD2D /* SPDeepCopy.m */; };
 		DEEB8AB515AC98F800FCD350 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA115AC98F800FCD350 /* AQGridView.m */; };
 		DEEB8AB615AC98F800FCD350 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA315AC98F800FCD350 /* AQGridViewAnimatorItem.m */; };
 		DEEB8AB715AC98F800FCD350 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEB8AA615AC98F800FCD350 /* AQGridViewCell.m */; };
@@ -356,6 +357,8 @@
 		DEE640E715B5D8E2000CAD2D /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "LaunchImages/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		DEE640EA15B5D8ED000CAD2D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = LaunchImages/Default.png; sourceTree = "<group>"; };
 		DEE640EB15B5D8ED000CAD2D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "LaunchImages/Default@2x.png"; sourceTree = "<group>"; };
+		DEE640EE15B66780000CAD2D /* SPDeepCopy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDeepCopy.h; sourceTree = "<group>"; };
+		DEE640EF15B667D4000CAD2D /* SPDeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDeepCopy.m; sourceTree = "<group>"; };
 		DEEB8A9E15AC98F800FCD350 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLayout.h"; sourceTree = "<group>"; };
 		DEEB8A9F15AC98F800FCD350 /* AQGridView+CellLocationDelegation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AQGridView+CellLocationDelegation.h"; sourceTree = "<group>"; };
 		DEEB8AA015AC98F800FCD350 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQGridView.h; sourceTree = "<group>"; };
@@ -536,6 +539,8 @@
 				DED2A74315A540590085C5BC /* Collections */,
 				DED2A74415A540670085C5BC /* Playback */,
 				DED85BA115B06C1500001A66 /* Welcome */,
+				DEE640EE15B66780000CAD2D /* SPDeepCopy.h */,
+				DEE640EF15B667D4000CAD2D /* SPDeepCopy.m */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -1066,6 +1071,7 @@
 				DEEB8AC215AC9A4F00FCD350 /* GridViewController.m in Sources */,
 				DEEB8AC915ACA1D500FCD350 /* GridViewCell.m in Sources */,
 				DED85BC215B0A98200001A66 /* WelcomeViewController.m in Sources */,
+				DEE640F015B667D5000CAD2D /* SPDeepCopy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

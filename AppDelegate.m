@@ -497,6 +497,7 @@
 - (void) settingsChanged {
     [[NSUserDefaults standardUserDefaults] synchronize];     
     [tbc.view setNeedsLayout];
+    [[(CollectionBrowser*)tbc.selectedViewController tv] reloadData];
 }
 
 - (void)playVideoWithURL:(AVURLAsset *)url andTitle:(NSString*)title {

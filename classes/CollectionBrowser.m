@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CollectionBrowser.h"
 #import "PlaybackViewController.h"
+#import "SPDeepCopy.h"
 #import <CoreMedia/CoreMedia.h>
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
@@ -18,7 +19,7 @@
 @end
 
 @implementation CollectionBrowser
-@synthesize dataSource;
+@synthesize dataSource, dataSourceWithoutProtectedContent;
 @synthesize tv, intro, videoPlaybackController, emptyText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,6 +33,20 @@
 
 - (id)initWithCollection:(NSDictionary *)collection {
     dataSource = collection;
+    dataSourceWithoutProtectedContent =  [collection mutableDeepCopy];
+
+    for (NSString *dsKey in dataSourceWithoutProtectedContent.allKeys) {
+        for (int i=0; i<[[dataSourceWithoutProtectedContent objectForKey:dsKey] count];) {
+            if ([[[[dataSourceWithoutProtectedContent objectForKey:dsKey] objectAtIndex:i] objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]]==NSOrderedSame) {
+                [[dataSourceWithoutProtectedContent objectForKey:dsKey] removeObjectAtIndex:i];               
+            } else {
+                i++;
+            }
+        }
+    }
+
+    NSLog(@"datasource: %@, datasourcewitout: %@", dataSource, dataSourceWithoutProtectedContent);
+    
     return [super init];
 }
 
@@ -130,8 +145,8 @@
 - (BOOL) toggleFavorite:(id)sender forEvent:(UIEvent*)event {
     NSIndexPath *indexPath = [tv indexPathForRowAtPoint:[[[event touchesForView:sender] anyObject] locationInView:tv]];    
     NSLog(@"toggle favorite! %@", indexPath);
-    NSArray* itemKeys = [dataSource allKeys];    
-    BOOL isFavorited = [sharedAppDelegate toggleFavorite:[[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]];
+    NSArray* itemKeys = [[self dataSourceRef] allKeys];    
+    BOOL isFavorited = [sharedAppDelegate toggleFavorite:[[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]];
     
     [tv reloadData];
     
@@ -141,9 +156,9 @@
 }
 
 - (BOOL)hasUnprotectedContent {
-    for (NSString *dsKey in dataSource.allKeys) {
-        for (int i=0; i<[[dataSource objectForKey:dsKey] count]; i++) {
-            if ([[[[dataSource objectForKey:dsKey] objectAtIndex:i] objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:NO]]==NSOrderedSame) {
+    for (NSString *dsKey in [self dataSourceRef].allKeys) {
+        for (int i=0; i<[[[self dataSourceRef] objectForKey:dsKey] count]; i++) {
+            if ([[[[[self dataSourceRef] objectForKey:dsKey] objectAtIndex:i] objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:NO]]==NSOrderedSame) {
                 return YES;                
             }
         }
@@ -184,8 +199,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:@"cell"];      
     
-    NSArray* itemKeys = [dataSource allKeys];
-    NSDictionary *item = [[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];    
+    NSArray* itemKeys = [[self dataSourceRef] allKeys];
+    NSDictionary *item = [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];    
     [cell.textLabel setText:[item objectForKey:@"title"]];
     
     UIButton *accessory = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -195,28 +210,40 @@
     accessory.frame = CGRectMake(0, 0, 30, 30);
     accessory.userInteractionEnabled = YES;
     [accessory addTarget:self action:@selector(toggleFavorite:forEvent:) forControlEvents:UIControlEventTouchUpInside];
-    cell.accessoryView = accessory;    
+    cell.accessoryView = accessory;  
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"] &&
+        ([item objectForKey:@"hasProtectedContent"] && ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]] == NSOrderedSame))) 
+        [cell.textLabel setText:@"**redacted**"];
     
     return cell;
 }
 
+- (NSDictionary*)dataSourceRef {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"]) {
+        return dataSourceWithoutProtectedContent;
+    } else {     
+        return dataSource;
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return dataSource.count;
+    return [self dataSourceRef].count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray* itemKeys = [dataSource allKeys];
+    NSArray* itemKeys = [[self dataSourceRef] allKeys];
     
-    return [[dataSource objectForKey:[itemKeys objectAtIndex:section]] count];
+    return [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:section]] count];
 }
 
 
  //todo: implement section headers
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSArray* itemKeys = [dataSource allKeys];
+    NSArray* itemKeys = [[self dataSourceRef] allKeys];
     
-    if ([[dataSource objectForKey:[itemKeys objectAtIndex:section]] count]>0) {
-        return [[dataSource allKeys] objectAtIndex:section];
+    if ([[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:section]] count]>0) {
+        return [[[self dataSourceRef] allKeys] objectAtIndex:section];
     } else {
         return @"";
     }
@@ -226,8 +253,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];    
     
-    NSArray* itemKeys = [dataSource allKeys];            
-    NSDictionary *item = [[dataSource objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+    NSArray* itemKeys = [[self dataSourceRef] allKeys];            
+    NSDictionary *item = [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     NSLog(@"item: %@", item);
     
     // Make sure it's playable
