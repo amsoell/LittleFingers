@@ -46,6 +46,10 @@
     shortAppName = @"LittleFingers";
     longAppName = [NSString stringWithFormat:@"%@ Video Player", shortAppName];
     
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@ (%@)", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]] forKey:@"version"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return [super init];
 }
 
