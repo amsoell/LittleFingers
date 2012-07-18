@@ -64,7 +64,7 @@
 			<key>Key</key>
 			<string>rotationlock</string>
 			<key>Title</key>
-			<string>Lock video to portrait</string>
+			<string>Lock video to landscape</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>        

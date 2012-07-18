@@ -14,6 +14,7 @@
     IBOutlet UITableView *tv;
     UIView *intro;
     NSString* emptyText;
+    BOOL disableSecondaryDataSource;
 }
 
 - (id)initWithCollection:(NSDictionary *)collection;
@@ -25,5 +26,6 @@
 @property (nonatomic, strong) NSDictionary *dataSourceWithoutProtectedContent;
 @property (nonatomic, strong) UINavigationController* videoPlaybackController;
 @property (nonatomic, strong) NSString* emptyText;
+@property (nonatomic) BOOL disableSecondaryDataSource;
 
 @end

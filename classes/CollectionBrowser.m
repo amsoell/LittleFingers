@@ -20,13 +20,14 @@
 
 @implementation CollectionBrowser
 @synthesize dataSource, dataSourceWithoutProtectedContent;
-@synthesize tv, intro, videoPlaybackController, emptyText;
+@synthesize tv, intro, videoPlaybackController, emptyText, disableSecondaryDataSource;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        disableSecondaryDataSource = NO;
     }
     return self;
 }
@@ -44,8 +45,7 @@
             }
         }
     }
-
-    NSLog(@"datasource: %@, datasourcewitout: %@", dataSource, dataSourceWithoutProtectedContent);
+    disableSecondaryDataSource = NO;
     
     return [super init];
 }
@@ -231,7 +231,7 @@
 }
 
 - (NSDictionary*)dataSourceRef {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"] && !disableSecondaryDataSource) {
         return dataSourceWithoutProtectedContent;
     } else {     
         return dataSource;

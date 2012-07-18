@@ -210,7 +210,8 @@
                     // We're being called from launch
                     NSLog(@"adding camera collection");
                     
-                    cameraCollectionBrowser = [[CollectionBrowser alloc] init];                    
+                    cameraCollectionBrowser = [[CollectionBrowser alloc] init];  
+                    cameraCollectionBrowser.disableSecondaryDataSource = YES;
                     cameraCollectionBrowser.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
                     cameraCollectionBrowser.ng_tabBarItem.mediaIndex = @"CameraRoll";
                     cameraCollectionBrowser.title = @"Camera Roll";
@@ -303,6 +304,7 @@
         // User has not been asked for location access yet
 
         cameraCollectionBrowser = [[CollectionBrowser alloc] init];
+        cameraCollectionBrowser.disableSecondaryDataSource = YES;        
         cameraCollectionBrowser.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
         cameraCollectionBrowser.ng_tabBarItem.mediaIndex = @"CameraRoll";
         cameraCollectionBrowser.title = @"Camera Roll";
@@ -417,6 +419,7 @@
 
     // Add Home / Recent / Favorites button    
     CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, @"Recent", favorites, @"Favorites", nil]];
+    vcHome.disableSecondaryDataSource = YES;
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"Home"]];    
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
 #ifndef BLANKSLATE        
