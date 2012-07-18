@@ -64,12 +64,11 @@
             [welcomeController setModalInPopover:YES];
         }
         
-        [self.selectedViewController presentModalViewController:welcomeController animated:YES];    
+        [[self.viewControllers objectAtIndex:0] presentModalViewController:welcomeController animated:YES];    
 
     } else if ([sharedAppDelegate isFirstLaunchThisVersion]) {
         
     }
-    [[NSUserDefaults standardUserDefaults] setObject:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"lastVersionLaunched"];
 
 }
 

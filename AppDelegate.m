@@ -193,6 +193,7 @@
         else {
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"askedForLocation"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            [TestFlight passCheckpoint:@"Location Approved"];
             
             if (cameraCollection.count > 0) {    
                 if (cameraCollectionBrowser.isViewLoaded) {
@@ -244,10 +245,11 @@
             }
         }
     } failureBlock:^(NSError *error) {
+        NSLog(@"error enumerating AssetLibrary groups %@\n", error);
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"askedForLocation"]) [TestFlight passCheckpoint:@"Location Denied"];        
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"askedForLocation"];
         [[NSUserDefaults standardUserDefaults] synchronize];        
-        NSLog(@"error enumerating AssetLibrary groups %@\n", error);
-        
+
         if (!cameraCollectionBrowser.isViewLoaded) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"view controllers: %@", viewControllers);
@@ -640,7 +642,15 @@
 }
 
 - (BOOL)isFirstLaunch {
-    return ([[NSUserDefaults standardUserDefaults] valueForKey:@"lastVersionLaunched"] == nil);
+    BOOL fl;
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"lastVersionLaunched"] == nil) {
+        fl = YES;
+    } else {
+        fl = NO;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"lastVersionLaunched"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    return fl;
 }
 
 - (BOOL)isFirstLaunchThisVersion {

@@ -55,7 +55,6 @@
     } else if ([sharedAppDelegate isFirstLaunchThisVersion]) {
         
     }
-    [[NSUserDefaults standardUserDefaults] setObject:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"lastVersionLaunched"];
     
 }
 
