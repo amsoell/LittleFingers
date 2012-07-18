@@ -194,6 +194,14 @@
     return false;
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == 1) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"hideprotected"];
+        [sharedAppDelegate settingsChanged];
+	}
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -261,7 +269,8 @@
     if ([item objectForKey:@"hasProtectedContent"] && ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]] == NSOrderedSame)) {
         // DRM. Let user know they can hide these.
         //todo: let user hide them
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:[NSString stringWithFormat:@"Some videos purchased via iTunes cannot be played with %@. This is one of those videos.", [sharedAppDelegate shortAppName]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:[NSString stringWithFormat:@"This video contains content protection that doesn't allow us to play it. Would you like to hide similar unplayable videos?", [sharedAppDelegate shortAppName]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil];
+        [alert addButtonWithTitle:@"Yes"];
 		[alert show];        
     } else if ([item objectForKey:@"url"] == nil) {
         // No URL. Probably in the cloud

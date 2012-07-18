@@ -542,7 +542,7 @@
     // Set up application defaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
 	NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:
-								 [NSNumber numberWithBool:YES], @"hideprotected",
+								 [NSNumber numberWithBool:NO], @"hideprotected",
                                  @"321", @"unlockcode",
                                  [NSNumber numberWithBool:NO], @"autolock",
                                  [NSNumber numberWithInt:NO], @"rotationlock",
@@ -802,22 +802,6 @@
         return CGSizeMake(106.0, 70.0);
     }
 }
-
-
-#pragma mark -
-- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key {
-    
-	if ([key isEqualToString:@"ButtonDemoAction1"]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-	} else {
-		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
-		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:key];
-	}
-}
-
-
-
 
 
 @end

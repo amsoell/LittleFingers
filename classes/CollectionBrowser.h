@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate> {
+@interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate> {
     NSDictionary *dataSource;   // Dictionary (category), whose members are arrays (collection) of dictionaries (media item)
     NSMutableDictionary *dataSourceWithoutProtectedContent;
     IBOutlet UITableView *tv;
