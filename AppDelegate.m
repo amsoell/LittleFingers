@@ -421,11 +421,11 @@
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
 #ifndef BLANKSLATE        
     vcHome.title = @"Home";
-    [vcHome setEmptyText:@"Thank you for agreeing to help test my little app. Before we get started, a little instruction.\n\nOn the left you will see a series of buttons -- one for each type of video your device has. If you don't see any buttons directly below the Home button, you don't have any videos. To play a video, just pick a tab and then tap a video. Once the video starts, you can lock the screen by tapping the lock icon in the lower right corner of the screen.\n\nTo unlock the screen, you will need to enter the unlock code by using one, two, or three fingers to swipe from top to bottom. So, if the code is \"321\" -- which it is by default -- you will swipe from top to bottom with three fingers, followed by two fingers, and then one. At that point, the video controls will reappear.\n\nAs you continue to use this app, this initial welcome message will be replaced with shortcuts to recently viewed videos and videos you have marked as favorites. To mark a video as a favorite, just tap the small grey dot to the right of the video.\n\nThanks again, and please be sure to send me feedback by tapping the little bug icon in the lower left!"];
+    [vcHome setEmptyText:@"Thanks again for your help testing this app out! I'm hopeful that this version is pretty close to final, so now is the time I really, really need your help. Take a look at it and please give me any feedback you have, especially negative feedback, as soon as you can. You should have seen the walkthrough instructions already, but if you need to see them again just tap on the life preserver icon in the lower left.\n\nThanks again!\nandy"];
     
     UILabel *logo = [[UILabel alloc] init];
     NSString *logoText = [sharedAppDelegate longAppName];
-    UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:45.0f];
+    UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?45.0f:36.0f)];
     [logo setText:logoText];
     [logo setFont:logoFont];
     [logo setTextColor:[UIColor darkGrayColor]];

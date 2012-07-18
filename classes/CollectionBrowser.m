@@ -67,7 +67,7 @@
         
         // Add logo
         CGRect newFrame = intro.frame;
-        newFrame.origin.x = 50;
+        newFrame.origin.x = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?50:20);
         newFrame.origin.y = 10;
         [intro setFrame:newFrame];
 
@@ -75,7 +75,7 @@
         [headerView addSubview:intro];
         
         
-        if (emptyText != nil) {
+        if ((emptyText != nil)) {
             NSInteger sections = tv.numberOfSections;
             NSInteger cellCount = 0;
             for (NSInteger i = 0; i < sections; i++) {
@@ -89,17 +89,20 @@
                 [introText setText:emptyText];
                 [introText setTextColor:[UIColor darkGrayColor]];
                 [introText setBackgroundColor:[UIColor clearColor]];
-                [introText setFont:[UIFont fontWithName:@"TrebuchetMS" size:16.0f]];
+                [introText setFont:[UIFont fontWithName:@"TrebuchetMS" size:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?16.0f:12.0)]];
                 NSLog(@"the width it: %f", self.view.frame.size.width);
+                
                 CGRect newFrame = introText.frame;
-                newFrame.origin.x = 50;
+                newFrame.origin.x = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?50:20);
                 newFrame.origin.y = headerView.frame.size.height+10;
-                newFrame.size = [emptyText sizeWithFont:introText.font constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT)];
+                newFrame.size.width = 200;//self.view.bounds.size.width-100;// = [emptyText sizeWithFont:introText.font constrainedToSize:CGSizeMake(self.view.frame.size.width-100, MAXFLOAT)];
+                newFrame.size.height = 300;
                 [introText setFrame:newFrame];
                 [introText setNumberOfLines:0];
-                [introText sizeToFit];
+                [introText setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];
                 
                 [headerView addSubview:introText];
+//                [headerView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin];
             }
         }
         
