@@ -29,6 +29,8 @@
 		DE9EDF9D15B2258600E7E558 /* doneChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9C15B2258600E7E558 /* doneChalk.png */; };
 		DE9EDF9F15B229D200E7E558 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9E15B229D200E7E558 /* Welcome.xib */; };
 		DE9EDFA115B22F3900E7E558 /* iPhoneChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */; };
+		DEBB671615B704290019A830 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DEBB671315B704290019A830 /* iRate.bundle */; };
+		DEBB671715B704290019A830 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEBB671515B704290019A830 /* iRate.m */; };
 		DECAEFAB15ADBCF200E5F93E /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFA715ADBCF200E5F93E /* Home.png */; };
 		DECAEFAC15ADBCF200E5F93E /* Home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFA815ADBCF200E5F93E /* Home@2x.png */; };
 		DECAEFAD15ADBCF200E5F93E /* HomeLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFA915ADBCF200E5F93E /* HomeLarge.png */; };
@@ -195,6 +197,9 @@
 		DE9EDF9C15B2258600E7E558 /* doneChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doneChalk.png; sourceTree = "<group>"; };
 		DE9EDF9E15B229D200E7E558 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
 		DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneChalk.png; sourceTree = "<group>"; };
+		DEBB671315B704290019A830 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
+		DEBB671415B704290019A830 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		DEBB671515B704290019A830 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		DECAEFA715ADBCF200E5F93E /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		DECAEFA815ADBCF200E5F93E /* Home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home@2x.png"; sourceTree = "<group>"; };
 		DECAEFA915ADBCF200E5F93E /* HomeLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeLarge.png; sourceTree = "<group>"; };
@@ -488,6 +493,16 @@
 			name = "tab icons";
 			sourceTree = "<group>";
 		};
+		DEBB671215B704290019A830 /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				DEBB671315B704290019A830 /* iRate.bundle */,
+				DEBB671415B704290019A830 /* iRate.h */,
+				DEBB671515B704290019A830 /* iRate.m */,
+			);
+			path = iRate;
+			sourceTree = "<group>";
+		};
 		DED2A64915A53BAC0085C5BC = {
 			isa = PBXGroup;
 			children = (
@@ -549,11 +564,12 @@
 			isa = PBXGroup;
 			children = (
 				DEEB8A9D15AC98F800FCD350 /* AQGridView */,
-				DE81848F15A8C5D9005C9F9F /* LocalyticsSDK */,
-				DE81847915A8BAC7005C9F9F /* TestFlightSDK */,
 				DED2A68215A53BFA0085C5BC /* ATMHud */,
 				DED2A69015A53BFA0085C5BC /* InAppSettingsKit */,
+				DEBB671215B704290019A830 /* iRate */,
+				DE81848F15A8C5D9005C9F9F /* LocalyticsSDK */,
 				DED2A6BA15A53BFA0085C5BC /* NGTabBarController */,
+				DE81847915A8BAC7005C9F9F /* TestFlightSDK */,
 			);
 			path = contrib;
 			sourceTree = "<group>";
@@ -995,6 +1011,7 @@
 				DEE640E915B5D8E2000CAD2D /* Default-Landscape~ipad.png in Resources */,
 				DEE640EC15B5D8ED000CAD2D /* Default.png in Resources */,
 				DEE640ED15B5D8ED000CAD2D /* Default@2x.png in Resources */,
+				DEBB671615B704290019A830 /* iRate.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1072,6 +1089,7 @@
 				DEEB8AC915ACA1D500FCD350 /* GridViewCell.m in Sources */,
 				DED85BC215B0A98200001A66 /* WelcomeViewController.m in Sources */,
 				DEE640F015B667D5000CAD2D /* SPDeepCopy.m in Sources */,
+				DEBB671715B704290019A830 /* iRate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

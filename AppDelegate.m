@@ -15,6 +15,7 @@
 #import "PlaybackViewController.h"
 #import "WelcomeViewController.h"
 #import "IASKAppSettingsViewController.h"
+#import "iRate.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
@@ -26,6 +27,16 @@
 
 @synthesize window = _window;
 @synthesize currentIndex, mediaIndex, favorites, history, videoPlaybackController, nc, shortAppName, longAppName;
+
+
++(void) initialize {
+    [iRate sharedInstance].debug = NO;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
+        [iRate sharedInstance].appStoreID = 544428007;
+        [iRate sharedInstance].usesUntilPrompt = 5;
+        [iRate sharedInstance].ratingsURL = [NSURL URLWithString:@"http://itunes.apple.com/us/app/littlefingers-video-player/id544428007?mt=8"];
+    }    
+}
 
 - (AppDelegate*) init {
     if (!assetsLibrary) assetsLibrary = [[ALAssetsLibrary alloc] init];
@@ -538,6 +549,7 @@
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif    
 #endif
+    
     
     // Set up application defaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
