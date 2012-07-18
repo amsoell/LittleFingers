@@ -522,7 +522,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation) || ![[NSUserDefaults standardUserDefaults] boolForKey:@"rotationlock"];
 }
 
 -(void)setViewDisplayName

@@ -62,6 +62,16 @@
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
+			<string>rotationlock</string>
+			<key>Title</key>
+			<string>Lock video to portrait</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>        
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
 			<string>repeat</string>
 			<key>Title</key>
 			<string>Repeat video</string>

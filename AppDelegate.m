@@ -545,6 +545,7 @@
 								 [NSNumber numberWithBool:YES], @"hideprotected",
                                  @"321", @"unlockcode",
                                  [NSNumber numberWithBool:NO], @"autolock",
+                                 [NSNumber numberWithInt:NO], @"rotationlock",
                                  [NSNumber numberWithBool:NO], @"repeat", nil];
                                  
     [defaults registerDefaults:appDefaults];     
