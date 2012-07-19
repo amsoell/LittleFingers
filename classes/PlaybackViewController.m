@@ -140,6 +140,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 {
     [TestFlight passCheckpoint:@"Screen locked"];
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Screen locked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:videotitle, @"Title", nil]];
+    [self reminderFadeOut];
     [UIView animateWithDuration:0.2f animations:
      ^{
          [[self navigationController] setNavigationBarHidden:YES animated:YES];
@@ -174,7 +175,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 {
     [TestFlight passCheckpoint:@"Screen unlocked"];
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Screen unlocked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:videotitle, @"Title", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"], @"Unlock code", nil]];
-    
+    [self reminderFadeOut];    
     [UIView animateWithDuration:0.2f animations:
      ^{
          [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
@@ -505,7 +506,12 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	hud = [[ATMHud alloc] initWithDelegate:self];
     [self.view addSubview:hud.view];
     
-    
+    // If first time watching a video, point out the lock if they haven't locked within 5 seconds
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayedAVideo"]) {
+        [self performSelector:@selector(lockbuttonReminderFadeIn) withObject:self afterDelay:5.0f];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"hasPlayedAVideo"];        
+        [[NSUserDefaults standardUserDefaults] synchronize];        
+    }
 
     [super viewDidLoad];
 }
@@ -544,11 +550,9 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 - (void)handleSwipe:(UISwipeGestureRecognizer *)gestureRecognizer
 {
-    NSLog(@"Swipe!");
     [[NSUserDefaults standardUserDefaults] synchronize];            
     NSString* unlockCode = [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"];
     if (unlockCode.length < 3) unlockCode = @"321";
-    NSLog(@"unlock code is: %@", unlockCode);
     
     if ([[[self navigationController] navigationBar] isHidden]) {
         // No need to pay attention unless display is locked
@@ -560,8 +564,6 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
         if ([swipeHistory isEqualToString:unlockCode]) {
             [self unlockScreen];
-        } else {
-            NSLog(@"Swipe history: %@", swipeHistory);        
         }
         
         // How complete is the code?
@@ -569,8 +571,8 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
         
         NSString* code1text = [[NSString alloc] init];
         NSString* code2text = [[NSString alloc] init];
-        UIFont* font1 = [UIFont fontWithName:@"TrebuchetMS-Bold" size:24.0f];
-        UIFont* font2 = [UIFont fontWithName:@"TrebuchetMS" size:24.0f];
+        UIFont* font1 = [UIFont fontWithName:@"Helvetica-Bold" size:24.0f];
+        UIFont* font2 = [UIFont fontWithName:@"Helvetica" size:24.0f];
 
         if ((swipeHistory.length>=1) && [[swipeHistory substringFromIndex:[swipeHistory length] - 1] isEqualToString:[unlockCode substringToIndex:1]]) {
             code1text = [unlockCode substringToIndex:1];
@@ -592,7 +594,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
         
         NSLog(@"part 2 is at %f", [code1text sizeWithFont:font1].width);
         UILabel *code2 = [[UILabel alloc] initWithFrame:CGRectMake([code1text sizeWithFont:font1].width, 0, [code2text sizeWithFont:font2].width+[code1text sizeWithFont:font1].width, 30)];
-        [code2 setFont:[UIFont fontWithName:@"TrebuchetMS" size:24.0f]];
+        [code2 setFont:font2];
         [code2 setTextColor:[UIColor lightGrayColor]];
         [code2 setBackgroundColor:[UIColor clearColor]];
         [code2 setTextAlignment:UITextAlignmentRight];   
@@ -634,13 +636,13 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
             [hud show];
             [hud hideAfter:hudduration];
         } else {
-            [self reminderFadeIn:unlockCode];
+            [self codeReminderFadeIn:unlockCode];
         }
 
     }
 }
 
--(void)reminderFadeIn:(NSString*)unlockCode {
+-(void)codeReminderFadeIn:(NSString*)unlockCode {
     if (reminder.alpha == 0) {
         reminder = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-20, self.view.bounds.size.width, 20)];
         [reminder setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9f]];
@@ -663,12 +665,45 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     }
 }
 
+-(void)lockbuttonReminderFadeIn {
+    NSLog(@"lockbuttonReminderFadeIn");
+    if (![[[self navigationController] navigationBar] isHidden] &&
+        (reminder.alpha == 0)) {
+        reminder = [[UILabel alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-310, self.view.bounds.size.height-mToolbar.bounds.size.height-70, 300, 60)];
+        [reminder setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9f]];
+        [reminder setNumberOfLines:2];
+        [reminder setText:[NSString stringWithFormat:@"Tip: To lock the screen,  \ntap the padlock button below  "]];
+        [reminder setTextColor:[UIColor darkGrayColor]];
+        [reminder setFont:[UIFont fontWithName:@"Courier-Bold" size:14.0f]];
+        [reminder setTextAlignment:UITextAlignmentCenter];
+        [reminder setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth];
+        [reminder.layer setCornerRadius:10.0f];
+        [reminder setAlpha:0.0];
+        
+        [self.view addSubview:reminder];
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        [UIView setAnimationDuration:1.0f];
+        [reminder setAlpha:0.9f];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(lockbuttonReminderPause:finished:context:)];
+        [UIView commitAnimations];    
+    }
+}
+
+-(void)lockbuttonReminderPause:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    NSLog(@"reminderPause");
+    [self performSelector:@selector(reminderFadeOut) withObject:self afterDelay:5.0f];
+}
+
 -(void)reminderPause:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    NSLog(@"reminderPause");
     [self performSelector:@selector(reminderFadeOut) withObject:self afterDelay:2.0f];
 }
 
 -(void)reminderFadeOut {
-    NSLog(@"done fading in");
+    NSLog(@"reminderFadeOut");
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:1.0];
     [reminder setAlpha:0];
