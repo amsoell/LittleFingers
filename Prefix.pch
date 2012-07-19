@@ -15,6 +15,10 @@
     #import "LocalyticsSession.h"
 #endif
 
+#ifdef __APPLE__
+    #include "TargetConditionals.h"
+#endif
+
 // Comment out the next line when sending to the App Store
 #define TESTING 1
 // Comment out the next line when sending out for beta testing
