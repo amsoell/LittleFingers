@@ -89,7 +89,7 @@
                 [introText setText:emptyText];
                 [introText setTextColor:[UIColor darkGrayColor]];
                 [introText setBackgroundColor:[UIColor clearColor]];
-                [introText setFont:[UIFont fontWithName:@"TrebuchetMS" size:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?16.0f:12.0)]];
+                [introText setFont:[UIFont fontWithName:@"Baskerville" size:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?24.0f:18.0)]];
                 NSLog(@"the width it: %f", self.view.frame.size.width);
                 
                 CGRect newFrame = introText.frame;

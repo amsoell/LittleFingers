@@ -430,7 +430,7 @@
     vcHome.ng_tabBarItem.mediaIndex = @"Home";
 #ifndef BLANKSLATE        
     vcHome.title = @"Home";
-    [vcHome setEmptyText:@"Thanks again for your help testing this app out! I'm hopeful that this version is pretty close to final, so now is the time I really, really need your help. Take a look at it and please give me any feedback you have, especially negative feedback, as soon as you can. You should have seen the walkthrough instructions already, but if you need to see them again just tap on the life preserver icon in the lower left.\n\nThanks again!\nandy"];
+    [vcHome setEmptyText:[NSString stringWithFormat:@"LittleFingers is a kid friendly video player that makes it easier for your little ones to enjoy their favorite videos. Select a category from the %@ to browse your videos. When you find one to watch, just tap it to start playing. Once it is playing, tap the lock icon to secure the screen and prevent unintentional taps from stopping the show.\n\nThanks for using LittleFingers, we hope you enjoy it!", (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)?@"tabs on the left":@"main screen"]];
     
     UILabel *logo = [[UILabel alloc] init];
     NSString *logoText = [sharedAppDelegate longAppName];
