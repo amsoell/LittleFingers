@@ -426,8 +426,12 @@
     // Add Home / Recent / Favorites button    
     CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, @"Recent", favorites, @"Favorites", nil]];
     vcHome.disableSecondaryDataSource = YES;
-    vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Home" image:[UIImage imageNamed:@"Home"]];    
-    vcHome.ng_tabBarItem.mediaIndex = @"Home";
+    NSString *title;
+#ifndef BLANKSLATE
+    title = @"Home";
+#endif
+    vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:title image:[UIImage imageNamed:@"Home"]];    
+    vcHome.ng_tabBarItem.mediaIndex =title;
 #ifndef BLANKSLATE        
     vcHome.title = @"Home";
     [vcHome setEmptyText:[NSString stringWithFormat:@"LittleFingers is a kid friendly video player that makes it easier for your little ones to enjoy their favorite videos. Select a category from the %@ to browse your videos. When you find one to watch, just tap it to start playing. Once it is playing, tap the lock icon to secure the screen and prevent unintentional taps from stopping the show.\n\nThanks for using LittleFingers, we hope you enjoy it!", (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)?@"tabs on the left":@"main screen"]];
@@ -612,7 +616,8 @@
         [label setShadowColor:[UIColor darkGrayColor]];
         [label setShadowOffset:CGSizeMake(0, -0.5)];
         gvc.navigationItem.titleView = label;    
-        
+                
+#ifndef BLANKSLATE        
         UIImage *gearImage = [UIImage imageNamed:@"GearLittle"];
         UIImage *helpImage = [UIImage imageNamed:@"LifePreserverLittle"];
         
@@ -620,11 +625,13 @@
         UIBarButtonItem *flexspace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]; 
         UIBarButtonItem *helpButton = [[UIBarButtonItem alloc] initWithImage:helpImage style:UIBarButtonItemStylePlain target:self action:@selector(pushWalkthrough:)];
 
+        
         // ...and put it in a NavigationController
         nc = [[UINavigationController alloc] initWithRootViewController:gvc];
         [nc setDelegate:self];
         [nc.toolbar setBarStyle:UIBarStyleBlackTranslucent];
         [gvc setToolbarItems:[NSArray arrayWithObjects:settingsButton,  flexspace, helpButton, nil]];
+#endif
         
         self.window.rootViewController = nc;
         
@@ -749,6 +756,9 @@
 - (CGSize)tabBarController:(NGTabBarController *)tabBarController sizeOfItemForViewController:(UIViewController *)viewController atIndex:(NSUInteger)index                  position:(NGTabBarPosition)position {
     BOOL hideProtected = [[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"];    
     
+#ifdef BLANKSLATE
+    return CGSizeMake(100.f, 0.0f);
+#endif
     if (index>0 && 
         ![[[viewControllers objectAtIndex:index] title] isEqualToString:@"Camera Roll"] && 
         hideProtected && 

@@ -35,12 +35,12 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+#ifndef BLANKSLATE
     settingsGear = [UIButton buttonWithType:UIButtonTypeCustom];
     [settingsGear setImage:[UIImage imageNamed:@"Gear.png"] forState:UIControlStateNormal];
     [settingsGear addTarget:self action:@selector(displaySettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingsGear];
-    
-#ifdef TESTING
+
     helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [helpButton setImage:[UIImage imageNamed:@"LifePreserver"] forState:UIControlStateNormal];
     [helpButton addTarget:self action:@selector(startWalkthrough:) forControlEvents:UIControlEventTouchUpInside];
