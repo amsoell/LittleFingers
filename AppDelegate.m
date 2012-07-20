@@ -155,27 +155,27 @@
         details = [NSArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Polymorphism", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url", 
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Jump Start Java", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Jump Start C#", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Jump Start Objective C", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Introduction to C Style Syntax", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    
@@ -190,17 +190,17 @@
         details = [NSArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Thriller", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Fell in Love with a Girl", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Clint Eastwood", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    nil];
@@ -214,22 +214,22 @@
         details = [NSArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Gov't to makeup artists: Put down the blush, or we'll shut you down", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Is your state pulling a medical CON job?", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Caveman Blogger Fights for Free Speech and Internet Freedom", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Should You Need the Government's Permission to Work?", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    nil];
@@ -243,58 +243,58 @@
         details = [NSArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Turtle Tracks", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@"file://localhost/Users/asoell/Library/Application%20Support/iPhone%20Simulator/5.1/Applications/4342A7E9-87BA-488E-816B-DBC1A02EDA69/Documents/sample.mov"], @"url", 
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Enter the Shredder", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"A Thing About Rats", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Hot-Rodding Teenagers from Dimension X", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Shredder & Splintered", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"The Fabulous Belding Boys", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],   
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Breaking Up is Hard to Undo", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],      
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"The Glee Club", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],      
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"The Last Dance", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Zack's Birthday Party", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],               
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"The Aftermath", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],                    nil];
     }
@@ -307,53 +307,53 @@
         details = [NSArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Beauty and the Beast", @"title", 
-                    @"", @"url", 
+                   [NSURL URLWithString:@"file://localhost/Users/asoell/Library/Application%20Support/iPhone%20Simulator/5.1/Applications/4342A7E9-87BA-488E-816B-DBC1A02EDA69/Documents/BeautyAndTheBeast.mp4"], @"url", 
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Cinderella", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Ice Age", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Madagascar", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                    @"Cinderella", @"title", 
-                    @"", @"url", 
+                    @"Madagascar 2", @"title", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Sleeping Beauty", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],   
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Tangled", @"title", 
-                    @"", @"url", 
+                   [NSURL URLWithString:@"file://localhost/Users/asoell/Library/Application%20Support/iPhone%20Simulator/5.1/Applications/4342A7E9-87BA-488E-816B-DBC1A02EDA69/Documents/Tangled.mp4"], @"url", 
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],      
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Toy Story", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],      
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Toy Story 2", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Toy Story 3", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],               
                    nil];
@@ -367,24 +367,24 @@
         details = [NSArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Lucy's first steps", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"Halloween 2011", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     @"2010 Year in Review", @"title", 
-                    @"", @"url", 
+                    [NSURL URLWithString:@""], @"url",  
                     [NSNumber numberWithBool:NO], @"hasProtectedContent",
                     nil],        
                    nil];
     }
     v = [NSMutableArray arrayWithArray:details];
     c = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"iTunes", @"title", v, @"media", nil];    
-    [mediaIndex.collections setObject:c forKey:@"iTunesShared"];    
+//    [mediaIndex.collections setObject:c forKey:@"iTunesShared"];    
 
 }
 
@@ -821,7 +821,7 @@
     mediaIndex = [[MediaLibrary alloc] init];
     currentIndex = 0;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-#ifdef TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR
     [self loadTestData];
 #else
     [self indexIPodLibrary];

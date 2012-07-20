@@ -553,6 +553,9 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     [[NSUserDefaults standardUserDefaults] synchronize];            
     NSString* unlockCode = [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"];
     if (unlockCode.length < 3) unlockCode = @"321";
+#if TARGET_IPHONE_SIMULATOR
+    unlockCode = @"212";
+#endif
     
     if ([[[self navigationController] navigationBar] isHidden]) {
         // No need to pay attention unless display is locked
@@ -820,7 +823,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[error localizedDescription]
 														message:[error localizedFailureReason]
 													   delegate:nil
-											  cancelButtonTitle:@"OK"
+											  cancelButtonTitle:@"yok"
 											  otherButtonTitles:nil];
 	[alertView show];
 }
@@ -850,9 +853,11 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	}
     
     /* Use the AVAsset playable property to detect whether the asset can be played. */
+#if TARGET_IPHONE_SIMULATOR
+#else
     if (!asset.playable) 
     {
-        /* Generate an error describing the failure. */
+        // Generate an error describing the failure.
 		NSString *localizedDescription = NSLocalizedString(@"Item cannot be played", @"Item cannot be played description");
 		NSString *localizedFailureReason = NSLocalizedString(@"The assets tracks were loaded, but could not be made playable.", @"Item cannot be played failure reason");
 		NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -861,12 +866,13 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 								   nil];
 		NSError *assetCannotBePlayedError = [NSError errorWithDomain:@"StitchedStreamPlayer" code:0 userInfo:errorDict];
         
-        /* Display the error to the user. */
+        // Display the error to the user.
         [self assetFailedToPrepareForPlayback:assetCannotBePlayedError];
         
         return;
     }
-	
+#endif
+
 	/* At this point we're ready to set up for playback of the asset. */
     	
     /* Stop observing our prior AVPlayerItem, if we have one. */
