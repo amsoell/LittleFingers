@@ -855,6 +855,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     /* Use the AVAsset playable property to detect whether the asset can be played. */
 #if TARGET_IPHONE_SIMULATOR
 #else
+/*    
     if (!asset.playable) 
     {
         // Generate an error describing the failure.
@@ -871,6 +872,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
         
         return;
     }
+*/ 
 #endif
 
 	/* At this point we're ready to set up for playback of the asset. */
