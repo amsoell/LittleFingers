@@ -52,6 +52,26 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
+			<string>AVLayerVideoGravityResizeAspect</string>
+			<key>Key</key>
+			<string>zoom</string>
+			<key>Title</key>
+			<string>Video display</string>
+			<key>Titles</key>
+			<array>
+				<string>Wide screen</string>
+				<string>Full screen</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+                <string>AVLayerVideoGravityResizeAspect</string>
+				<string>AVLayerVideoGravityResizeAspectFill</string>
+			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
 			<string>autolock</string>

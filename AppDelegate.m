@@ -812,6 +812,7 @@
 	NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:
 								 [NSNumber numberWithBool:NO], @"hideprotected",
                                  @"321", @"unlockcode",
+                                 @"AVLayerVideoGravityResizeAspect", @"zoom",
                                  [NSNumber numberWithBool:NO], @"autolock",
                                  [NSNumber numberWithInt:NO], @"rotationlock",
                                  [NSNumber numberWithBool:NO], @"repeat", nil];

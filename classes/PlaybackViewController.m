@@ -136,6 +136,19 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     [self showPlayButton];
 }
 
+- (void)zoomVideo:(id)sender {
+	AVPlayerLayer *playerLayer = (AVPlayerLayer*)[mPlaybackView layer];
+    
+    if ([playerLayer.videoGravity isEqualToString:@"AVLayerVideoGravityResizeAspect"])  {
+        [mPlaybackView setVideoFillMode:@"AVLayerVideoGravityResizeAspectFill"];
+        [self.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"ZoomOut"]];
+    } else {
+        [mPlaybackView setVideoFillMode:@"AVLayerVideoGravityResizeAspect"];            
+        [self.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"ZoomIn"]];        
+    }
+
+}
+
 - (IBAction)lockScreen:(id)sender
 {
     [TestFlight passCheckpoint:@"Screen locked"];
@@ -484,19 +497,14 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	[swipeDownRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];    
     [swipeDownRecognizer setNumberOfTouchesRequired:3];
 	[view addGestureRecognizer:swipeDownRecognizer];    
-
-    UIBarButtonItem *scrubberItem = [[UIBarButtonItem alloc] initWithCustomView:mScrubber];
-    UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIImage *lockImg = [UIImage imageNamed:@"Unlock"]; 
-    UIButton *lockButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    lockButton.userInteractionEnabled = YES;
-    [lockButton setFrame:CGRectMake(0.0,0.0, 30, 36)];
-    [lockButton setImage:lockImg forState:UIControlStateNormal];
-    [lockButton addTarget:self action:@selector(lockScreen:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *lockItem = [[UIBarButtonItem alloc] initWithCustomView:lockButton];
+    UIBarButtonItem *scrubberItem = [[UIBarButtonItem alloc] initWithCustomView:mScrubber];
+    UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];    
+    UIBarButtonItem *zoomItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[[[NSUserDefaults standardUserDefaults] stringForKey:@"zoom"] isEqualToString:@"AVLayerVideoGravityResizeAspect"]?@"ZoomIn":@"ZoomOut"] style:UIBarButtonItemStyleBordered target:self action:@selector(zoomVideo:)];    
+    UIBarButtonItem *lockItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Unlock"] style:UIBarButtonItemStylePlain target:self action:@selector(lockScreen:)];
     
     mToolbar.items = [NSArray arrayWithObjects:mPlayButton, flexItem, scrubberItem, flexItem, lockItem, nil];
+    [self.navigationItem setRightBarButtonItem:zoomItem];
 
 	[self initScrubberTimer];
 	
@@ -1036,7 +1044,16 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
             
             /* Specifies that the player should preserve the video’s aspect ratio and 
              fit the video within the layer’s bounds. */
-            [mPlaybackView setVideoFillMode:AVLayerVideoGravityResizeAspect];
+            [[NSUserDefaults standardUserDefaults] synchronize];            
+            NSString* zoom = [[NSUserDefaults standardUserDefaults] stringForKey:@"zoom"];
+            if (zoom.length < 3) zoom = @"AVLayerVideoGravityResizeAspect";
+            
+            if ([zoom isEqualToString:@"AVLayerVideoGravityResizeAspect"]) {
+                [self.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"ZoomIn"]];                
+            } else {
+                [self.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"ZoomOut"]];                
+            }
+            [mPlaybackView setVideoFillMode:zoom];
             
             [self syncPlayPauseButtons];
         }

@@ -46,6 +46,7 @@
 - (void)playMedia;
 - (IBAction)pause:(id)sender;
 - (IBAction)lockScreen:(id)sender;
+- (void)zoomVideo:(id)sender;
 - (void)unlockScreen;
 
 @end
