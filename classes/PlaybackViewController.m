@@ -140,9 +140,11 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	AVPlayerLayer *playerLayer = (AVPlayerLayer*)[mPlaybackView layer];
     
     if ([playerLayer.videoGravity isEqualToString:@"AVLayerVideoGravityResizeAspect"])  {
+        NSLog(@"switching to aspect fill");
         [mPlaybackView setVideoFillMode:@"AVLayerVideoGravityResizeAspectFill"];
         [self.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"ZoomOut"]];
     } else {
+        NSLog(@"switching to aspect");
         [mPlaybackView setVideoFillMode:@"AVLayerVideoGravityResizeAspect"];            
         [self.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"ZoomIn"]];        
     }
@@ -558,9 +560,11 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 - (void)handleSwipe:(UISwipeGestureRecognizer *)gestureRecognizer
 {
+    NSString* unlockCode = @"321";
+    
     [[NSUserDefaults standardUserDefaults] synchronize];            
-    NSString* unlockCode = [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"];
-    if (unlockCode.length < 3) unlockCode = @"321";
+    unlockCode = [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"];
+
 #if TARGET_IPHONE_SIMULATOR
     unlockCode = @"212";
 #endif

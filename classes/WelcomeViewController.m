@@ -1,11 +1,3 @@
-//
-//  WelcomeViewController.m
-//  LittleFingers
-//
-//  Created by Andy Soell on 7/13/12.
-//  Copyright (c) 2012 The Institute for Justice. All rights reserved.
-//
-
 #import "WelcomeViewController.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>

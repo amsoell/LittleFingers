@@ -34,7 +34,6 @@
     NSString *longAppName;
 }
 
--(void)indexIPodLibrary;
 -(NSString*)getMarksPath;
 -(NSMutableDictionary*)loadMarks;
 -(void)saveMarks;

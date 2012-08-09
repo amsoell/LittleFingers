@@ -1,11 +1,3 @@
-//
-//  CollectionBrowser.m
-//  NGVerticalTabBarControllerDemo
-//
-//  Created by Andy Soell on 7/3/12.
-//  Copyright (c) 2012 NOUS Wissensmanagement GmbH. All rights reserved.
-//
-
 #import "AppDelegate.h"
 #import "CollectionBrowser.h"
 #import "PlaybackViewController.h"
@@ -277,7 +269,7 @@
 		[alert show];        
     } else if ([item objectForKey:@"url"] == nil) {
         // No URL. Probably in the cloud
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:[NSString stringWithFormat:@"This video must be downloaded from iCloud before it can be played in %@", [sharedAppDelegate shortAppName]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:@"This video does not have an associated address. Please either download it from iCloud, or contact support@littlefingersapp.com for assistance" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];        
     } else {
         
@@ -287,7 +279,7 @@
         [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Played video" attributes:[NSDictionary dictionaryWithObject:[[NSDictionary dictionaryWithDictionary:item] objectForKey:@"title"] forKey:@"Title"]];
         [TestFlight passCheckpoint:@"Selected video"];
         
-        AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[item objectForKey:@"url"] options:nil];
+        AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[item objectForKey:@"url"]] options:nil];
 
         if (urlAsset) {
             NSLog(@"Playing from asset URL");

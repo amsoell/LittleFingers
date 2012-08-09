@@ -1,11 +1,3 @@
-//
-//  CollectionBrowser.h
-//  NGVerticalTabBarControllerDemo
-//
-//  Created by Andy Soell on 7/3/12.
-//  Copyright (c) 2012 NOUS Wissensmanagement GmbH. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 @interface CollectionBrowser : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate> {

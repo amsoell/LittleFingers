@@ -1,11 +1,3 @@
-//
-//  NGVTabBarController.m
-//  NGVerticalTabBarControllerDemo
-//
-//  Created by Tretter Matthias on 24.04.12.
-//  Copyright (c) 2012 NOUS Wissensmanagement GmbH. All rights reserved.
-//
-
 #import "NGVTabBarController.h"
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"

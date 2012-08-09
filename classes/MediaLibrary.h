@@ -1,24 +1,18 @@
-//
-//  MediaLibrary.h
-//  NGVerticalTabBarControllerDemo
-//
-//  Created by Andy Soell on 6/27/12.
-//  Copyright (c) 2012 NOUS Wissensmanagement GmbH. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
 @class MPMediaItem;
 @interface MediaLibrary : NSObject {
-    @public NSMutableArray* items;
     @public NSMutableDictionary* collections;
+    @public NSMutableDictionary* index;
 }
 
-@property (nonatomic) NSMutableArray* items;
 @property (nonatomic) NSMutableDictionary* collections;
+@property (nonatomic) NSMutableDictionary* index;
 
 - (void)addItem:(MPMediaItem*)item toCollection:(NSString*)collection withCollectionTitle:(NSString*)title;
-- (void)addItem:(MPMediaItem*)item;
 - (NSArray*)getMediaInCollection:(NSString*)collection;
+- (void)save;
+- (void)load;
+- (void)removeById:(NSNumber*)id;
 
 @end
