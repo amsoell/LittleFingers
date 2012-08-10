@@ -30,7 +30,92 @@
     [c setObject:v forKey:@"media"];
     [collections setObject:c forKey:collection];
     
-    [index setObject:v forKey:[details objectForKey:@"id"]];
+    [index setObject:details forKey:[details objectForKey:@"id"]];
+    
+    // generate thumbnail
+    [self generateThumbnailForAsset:details];
+}
+
+- (void) generateThumbnailForAsset:(NSDictionary*)asset {
+    
+    AVAsset *a = [AVAsset assetWithURL:[NSURL URLWithString:[asset objectForKey:@"url"]]];
+	generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:a];	
+	generator.appliesPreferredTrackTransform = YES;
+	
+//	if ( mode == AssetBrowserItemFillModeAspectFit )
+//		imageGenerator.maximumSize = size;
+//	if ( mode == AssetBrowserItemFillModeCrop )
+    generator.maximumSize = CGSizeMake(96.0, 64.0);
+	
+	NSValue *imageTimeValue = [NSValue valueWithCMTime:CMTimeMake(2, 1)];
+	
+    NSLog(@"heading in... %@", a);
+	[generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:imageTimeValue] completionHandler:
+	 ^(CMTime requestedTime, CGImageRef image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error) 
+	 {	
+         NSLog(@"what is going on?");
+		 if (result == AVAssetImageGeneratorFailed) {
+//			 dispatch_sync(assetQueue, ^(void) {
+//				 canGenerateThumbnails = NO;
+//				 [self generateNonVideoThumbnailWithSize:size fillMode:mode completionHandler:handler];
+//			 });
+             NSLog(@"...failed!");
+		 }
+		 else {
+             NSLog(@"...still going...");
+			 UIImage *thumbUIImage = nil;
+			 if (image) {
+//				 if (mode == AssetBrowserItemFillModeCrop) {
+                 thumbUIImage = [self copyImageFromCGImage:image croppedToSize:CGSizeMake(96.0, 64.0)];
+                 NSLog(@"generated... now to save");
+                 NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/thumbnails"];
+                 if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
+                     [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
+                 }
+                 NSString *assetName = [path stringByAppendingPathComponent:[[asset objectForKey:@"id"] stringValue]];
+                 NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(thumbUIImage)];
+                 if ([imageData writeToFile:[assetName stringByAppendingString:@".png"] atomically:YES]) {
+                     NSLog(@"thumbnail generated for: %@", [asset objectForKey:@"title"]);
+                 } else {
+                     NSLog(@"thumbnail *NOT* generated for: %@", [asset objectForKey:@"title"]);
+                 }
+                 
+//				 }
+//				 else {
+//					 thumbUIImage = [[UIImage alloc] initWithCGImage:image];
+//				 }
+			 } else {
+                 NSLog(@"not image :(");
+             }
+/*             
+			 dispatch_async(dispatch_get_main_queue(), ^{
+				 self.thumbnailImage = thumbUIImage;
+				 [thumbUIImage release];
+				 
+				 if (handler) {
+					 handler(self.thumbnailImage);
+				 }
+			 });
+*/
+		 }
+		 
+	 }];
+
+}
+
+- (UIImage*)copyImageFromCGImage:(CGImageRef)image croppedToSize:(CGSize)size {
+	UIImage *thumbUIImage = nil;
+	
+	CGRect thumbRect = CGRectMake(0.0, 0.0, CGImageGetWidth(image), CGImageGetHeight(image));
+	CGRect cropRect = AVMakeRectWithAspectRatioInsideRect(size, thumbRect);
+	cropRect.origin.x = round(cropRect.origin.x);
+	cropRect.origin.y = round(cropRect.origin.y);
+	cropRect = CGRectIntegral(cropRect);
+	CGImageRef croppedThumbImage = CGImageCreateWithImageInRect(image, cropRect);
+	thumbUIImage = [[UIImage alloc] initWithCGImage:croppedThumbImage];
+	CGImageRelease(croppedThumbImage);
+	
+	return thumbUIImage;
 }
 
 - (NSArray*)getMediaInCollection:(NSString*)collection {
@@ -344,6 +429,7 @@
 
     [self purgeRemoved];
     [self addNew];
+    [self regenerateThumbnails];
     [self save];
 }
 
@@ -410,6 +496,14 @@
             if (mediaType & MPMediaTypeTVShow) [self addItem:video toCollection:@"TVShow" withCollectionTitle:@"TV Shows"];
             if (mediaType & MPMediaTypeMovie) [self addItem:video toCollection:@"Movie" withCollectionTitle:@"Movies"];
         }
+    }
+}
+
+- (void)regenerateThumbnails {
+    NSArray *keys = index.allKeys;
+    for (NSNumber* key in keys) {
+        NSLog(@"generating for %@", [[index objectForKey:key] objectForKey:@"title"]);        
+        [self generateThumbnailForAsset:[index objectForKey:key]];
     }
 }
 

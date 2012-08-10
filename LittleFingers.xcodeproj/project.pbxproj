@@ -30,6 +30,10 @@
 		DE9EDF9F15B229D200E7E558 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9E15B229D200E7E558 /* Welcome.xib */; };
 		DE9EDFA115B22F3900E7E558 /* iPhoneChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */; };
 		DEA3BFE815B74DD400B6DAAC /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = DEA3BFE715B74DD400B6DAAC /* iTunesArtwork */; };
+		DEAC8E9715D4888300A5B2A1 /* CollectionBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAC8E9615D4888300A5B2A1 /* CollectionBrowserCell.m */; };
+		DEAC8E9915D488AA00A5B2A1 /* CollectionBrowserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEAC8E9815D488AA00A5B2A1 /* CollectionBrowserCell.xib */; };
+		DEAC8E9C15D4949B00A5B2A1 /* thumbnailbg.png in Resources */ = {isa = PBXBuildFile; fileRef = DEAC8E9A15D4949B00A5B2A1 /* thumbnailbg.png */; };
+		DEAC8E9D15D4949B00A5B2A1 /* thumbnailbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEAC8E9B15D4949B00A5B2A1 /* thumbnailbg@2x.png */; };
 		DEB4A78415D15B2700630544 /* ZoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = DEB4A78015D15B2700630544 /* ZoomIn.png */; };
 		DEB4A78515D15B2700630544 /* ZoomIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEB4A78115D15B2700630544 /* ZoomIn@2x.png */; };
 		DEB4A78615D15B2700630544 /* ZoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = DEB4A78215D15B2700630544 /* ZoomOut.png */; };
@@ -203,6 +207,11 @@
 		DE9EDF9E15B229D200E7E558 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
 		DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneChalk.png; sourceTree = "<group>"; };
 		DEA3BFE715B74DD400B6DAAC /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = AppIcons/iTunesArtwork; sourceTree = "<group>"; };
+		DEAC8E9515D4888300A5B2A1 /* CollectionBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionBrowserCell.h; path = classes/CollectionBrowserCell.h; sourceTree = SOURCE_ROOT; };
+		DEAC8E9615D4888300A5B2A1 /* CollectionBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionBrowserCell.m; path = classes/CollectionBrowserCell.m; sourceTree = SOURCE_ROOT; };
+		DEAC8E9815D488AA00A5B2A1 /* CollectionBrowserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionBrowserCell.xib; sourceTree = "<group>"; };
+		DEAC8E9A15D4949B00A5B2A1 /* thumbnailbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnailbg.png; sourceTree = "<group>"; };
+		DEAC8E9B15D4949B00A5B2A1 /* thumbnailbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnailbg@2x.png"; sourceTree = "<group>"; };
 		DEB4A78015D15B2700630544 /* ZoomIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZoomIn.png; sourceTree = "<group>"; };
 		DEB4A78115D15B2700630544 /* ZoomIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZoomIn@2x.png"; sourceTree = "<group>"; };
 		DEB4A78215D15B2700630544 /* ZoomOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZoomOut.png; sourceTree = "<group>"; };
@@ -703,6 +712,8 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DEAC8E9A15D4949B00A5B2A1 /* thumbnailbg.png */,
+				DEAC8E9B15D4949B00A5B2A1 /* thumbnailbg@2x.png */,
 				DEB4A78015D15B2700630544 /* ZoomIn.png */,
 				DEB4A78115D15B2700630544 /* ZoomIn@2x.png */,
 				DEB4A78215D15B2700630544 /* ZoomOut.png */,
@@ -734,6 +745,7 @@
 			isa = PBXGroup;
 			children = (
 				DED2A6E315A53BFA0085C5BC /* CollectionBrowser.xib */,
+				DEAC8E9815D488AA00A5B2A1 /* CollectionBrowserCell.xib */,
 				DED2A6E415A53BFA0085C5BC /* PlaybackView-iPad.xib */,
 				DED2A6E515A53BFA0085C5BC /* PlaybackView.xib */,
 				DED85BA615B0765400001A66 /* Welcome-iPad.xib */,
@@ -762,6 +774,8 @@
 				DEEB8ACA15ACADC200FCD350 /* GridView */,
 				DED2A67715A53BFA0085C5BC /* CollectionBrowser.h */,
 				DED2A67815A53BFA0085C5BC /* CollectionBrowser.m */,
+				DEAC8E9515D4888300A5B2A1 /* CollectionBrowserCell.h */,
+				DEAC8E9615D4888300A5B2A1 /* CollectionBrowserCell.m */,
 				DED2A67915A53BFA0085C5BC /* MediaLibrary.h */,
 				DED2A67A15A53BFA0085C5BC /* MediaLibrary.m */,
 			);
@@ -1032,6 +1046,9 @@
 				DEB4A78515D15B2700630544 /* ZoomIn@2x.png in Resources */,
 				DEB4A78615D15B2700630544 /* ZoomOut.png in Resources */,
 				DEB4A78715D15B2700630544 /* ZoomOut@2x.png in Resources */,
+				DEAC8E9915D488AA00A5B2A1 /* CollectionBrowserCell.xib in Resources */,
+				DEAC8E9C15D4949B00A5B2A1 /* thumbnailbg.png in Resources */,
+				DEAC8E9D15D4949B00A5B2A1 /* thumbnailbg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1127,7 @@
 				DED85BC215B0A98200001A66 /* WelcomeViewController.m in Sources */,
 				DEE640F015B667D5000CAD2D /* SPDeepCopy.m in Sources */,
 				DEBB671715B704290019A830 /* iRate.m in Sources */,
+				DEAC8E9715D4888300A5B2A1 /* CollectionBrowserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

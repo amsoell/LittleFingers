@@ -1,5 +1,6 @@
 #import "AppDelegate.h"
 #import "CollectionBrowser.h"
+#import "CollectionBrowserCell.h"
 #import "PlaybackViewController.h"
 #import "SPDeepCopy.h"
 #import <CoreMedia/CoreMedia.h>
@@ -199,12 +200,16 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:@"cell"];      
+    CollectionBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (cell == nil) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"CollectionBrowserCell" owner:self options:nil];
+        cell = [topLevelObjects objectAtIndex:0];        
+    }
     
     NSArray* itemKeys = [[self dataSourceRef] allKeys];
     NSDictionary *item = [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];    
-    [cell.textLabel setText:[item objectForKey:@"title"]];
+    [cell.title setText:[item objectForKey:@"title"]];
+    [cell.thumbnail setImage:[UIImage imageNamed:@"thumbnailbg"]];
     
     UIButton *accessory = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -252,6 +257,9 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 64.0f;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];    

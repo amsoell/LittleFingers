@@ -68,16 +68,6 @@
     if (![objects objectForKey:@"history"]) [objects setObject:[[NSMutableArray alloc] init] forKey:@"history"];
     if (![objects objectForKey:@"favorites"]) [objects setObject:[[NSMutableArray alloc] init] forKey:@"favorites"];    
     
-    // Convert url properties to NSURLs
-    for (NSMutableDictionary* item in [objects objectForKey:@"history"]) {
-        NSURL* url = [NSURL URLWithString:[item objectForKey:@"url"]];
-        if (url != nil) [item setObject:url forKey:@"url"];
-    }
-    for (NSMutableDictionary* item in [objects objectForKey:@"favorites"]) {
-        NSURL* url = [NSURL URLWithString:[item objectForKey:@"url"]];
-        if (url != nil) [item setObject:url forKey:@"url"];
-    }
-    
     return objects;
 }
 
@@ -89,14 +79,13 @@
     NSMutableArray* h = [[NSMutableArray alloc] init];
     NSMutableArray* f = [[NSMutableArray alloc] init];
 
-    // Convert NSURLs to NSStrings
     for (NSMutableDictionary* item in history) {
-        NSDictionary* r = [NSDictionary dictionaryWithObjectsAndKeys:[[item objectForKey:@"url"] absoluteString], @"url", [item objectForKey:@"title"], @"title", nil];
+        NSDictionary* r = [NSDictionary dictionaryWithObjectsAndKeys:[item objectForKey:@"url"], @"url", [item objectForKey:@"title"], @"title", nil];
         if (r.count>0) [h addObject:r];
     }
 
     for (NSMutableDictionary* item in favorites) {
-        NSDictionary* r = [NSDictionary dictionaryWithObjectsAndKeys:[[item objectForKey:@"url"] absoluteString], @"url", [item objectForKey:@"title"], @"title", nil];
+        NSDictionary* r = [NSDictionary dictionaryWithObjectsAndKeys:[item objectForKey:@"url"], @"url", [item objectForKey:@"title"], @"title", nil];
         if (r.count>0) [f addObject:r];
     }
     
@@ -145,7 +134,7 @@
                  if (asset) {
                      ALAssetRepresentation *defaultRepresentation = [asset defaultRepresentation];
                      NSString *uti = [defaultRepresentation UTI];
-                     NSURL *URL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
+                     NSString *URL = [[[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti] absoluteString];
                      NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
                      
                      NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
@@ -447,7 +436,7 @@
     
     for (NSString* filename in [fileManager contentsOfDirectoryAtPath:[paths objectAtIndex:0] error:NULL]) if ([validExtensions containsObject:[filename pathExtension]]) {
         
-        NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:[[[filename stringByDeletingPathExtension] stringByReplacingOccurrencesOfString:@"_" withString:@" "] capitalizedString], @"title", [NSURL fileURLWithPath:[[paths objectAtIndex:0] stringByAppendingPathComponent:filename]], @"url", nil];
+        NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:[[[filename stringByDeletingPathExtension] stringByReplacingOccurrencesOfString:@"_" withString:@" "] capitalizedString], @"title", [[paths objectAtIndex:0] stringByAppendingPathComponent:filename], @"url", nil];
         [iTunesSharedCollection addObject:details];
     }
     
