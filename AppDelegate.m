@@ -75,22 +75,9 @@
     NSString* path = [self getMarksPath];    
     
     NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-
-    NSMutableArray* h = [[NSMutableArray alloc] init];
-    NSMutableArray* f = [[NSMutableArray alloc] init];
-
-    for (NSMutableDictionary* item in history) {
-        NSDictionary* r = [NSDictionary dictionaryWithObjectsAndKeys:[item objectForKey:@"url"], @"url", [item objectForKey:@"title"], @"title", nil];
-        if (r.count>0) [h addObject:r];
-    }
-
-    for (NSMutableDictionary* item in favorites) {
-        NSDictionary* r = [NSDictionary dictionaryWithObjectsAndKeys:[item objectForKey:@"url"], @"url", [item objectForKey:@"title"], @"title", nil];
-        if (r.count>0) [f addObject:r];
-    }
     
-    [data setObject:h forKey:@"history"];
-    [data setObject:f forKey:@"favorites"];  
+    [data setObject:history forKey:@"history"];
+    [data setObject:favorites forKey:@"favorites"];  
     [data writeToFile:path atomically:YES];
 }
 
@@ -101,6 +88,8 @@
     if (history.count>3) {
         [history removeObjectsInRange:NSMakeRange(3, history.count - 3)];
     }
+    
+    NSLog(@"New history: %@", history);                    
     return YES;
 }
 
@@ -114,6 +103,7 @@
         }
     }
     // add it
+    
     [favorites addObject:item];
     
     NSLog(@"Added. New favorites: %@", favorites);    
@@ -137,7 +127,12 @@
                      NSString *URL = [[[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti] absoluteString];
                      NSString *title = [NSString stringWithFormat:@"%@ %i", NSLocalizedString(@"Video", nil), [cameraCollection count]+1];
                      
-                     NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:title, @"title", URL, @"url", nil];
+                     NSLog(@"video date: %@", [asset valueForProperty:ALAssetPropertyDate]);
+                     NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                     title, @"title", 
+                                                     URL, @"url", 
+                                                     [NSNumber numberWithDouble:[[asset valueForProperty:ALAssetPropertyDate] timeIntervalSince1970]], @"id",
+                                                     nil];
                      NSLog(@"Found camera item %@ at %@", title, URL);                     
                      [cameraCollection addObject:details];
                  }

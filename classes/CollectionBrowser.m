@@ -202,14 +202,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CollectionBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"CollectionBrowserCell" owner:self options:nil];
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?@"CollectionBrowserCell-iPad":@"CollectionBrowserCell") owner:self options:nil];
         cell = [topLevelObjects objectAtIndex:0];        
     }
     
     NSArray* itemKeys = [[self dataSourceRef] allKeys];
     NSDictionary *item = [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];    
-    [cell.title setText:[item objectForKey:@"title"]];
-    [cell.thumbnail setImage:[UIImage imageNamed:@"thumbnailbg"]];
+    [cell setDetails:[NSDictionary dictionaryWithObjectsAndKeys:
+                      [item objectForKey:@"title"], @"title",
+                      [item objectForKey:@"url"], @"url",
+                      [item objectForKey:@"id"], @"id", 
+                      nil]];
     
     UIButton *accessory = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -258,7 +261,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 64.0f;
+    return (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?128.0f:64.0f);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
