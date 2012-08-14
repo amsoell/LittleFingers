@@ -30,6 +30,7 @@
 		DE9EDF9F15B229D200E7E558 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDF9E15B229D200E7E558 /* Welcome.xib */; };
 		DE9EDFA115B22F3900E7E558 /* iPhoneChalk.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */; };
 		DE9FE9F115D9936700308D8B /* CollectionBrowserCell-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE9FE9F015D9936700308D8B /* CollectionBrowserCell-iPad.xib */; };
+		DE9FE9FF15DA9D9600308D8B /* CollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9FE9FE15DA9D9600308D8B /* CollectionHeader.m */; };
 		DEA3BFE815B74DD400B6DAAC /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = DEA3BFE715B74DD400B6DAAC /* iTunesArtwork */; };
 		DEAC8E9715D4888300A5B2A1 /* CollectionBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAC8E9615D4888300A5B2A1 /* CollectionBrowserCell.m */; };
 		DEAC8E9915D488AA00A5B2A1 /* CollectionBrowserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEAC8E9815D488AA00A5B2A1 /* CollectionBrowserCell.xib */; };
@@ -208,6 +209,8 @@
 		DE9EDF9E15B229D200E7E558 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
 		DE9EDFA015B22F3900E7E558 /* iPhoneChalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneChalk.png; sourceTree = "<group>"; };
 		DE9FE9F015D9936700308D8B /* CollectionBrowserCell-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "CollectionBrowserCell-iPad.xib"; sourceTree = "<group>"; };
+		DE9FE9FD15DA9D9600308D8B /* CollectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionHeader.h; sourceTree = "<group>"; };
+		DE9FE9FE15DA9D9600308D8B /* CollectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionHeader.m; sourceTree = "<group>"; };
 		DEA3BFE715B74DD400B6DAAC /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = AppIcons/iTunesArtwork; sourceTree = "<group>"; };
 		DEAC8E9515D4888300A5B2A1 /* CollectionBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionBrowserCell.h; path = classes/CollectionBrowserCell.h; sourceTree = SOURCE_ROOT; };
 		DEAC8E9615D4888300A5B2A1 /* CollectionBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionBrowserCell.m; path = classes/CollectionBrowserCell.m; sourceTree = SOURCE_ROOT; };
@@ -781,6 +784,8 @@
 				DEAC8E9615D4888300A5B2A1 /* CollectionBrowserCell.m */,
 				DED2A67915A53BFA0085C5BC /* MediaLibrary.h */,
 				DED2A67A15A53BFA0085C5BC /* MediaLibrary.m */,
+				DE9FE9FD15DA9D9600308D8B /* CollectionHeader.h */,
+				DE9FE9FE15DA9D9600308D8B /* CollectionHeader.m */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
@@ -1132,6 +1137,7 @@
 				DEE640F015B667D5000CAD2D /* SPDeepCopy.m in Sources */,
 				DEBB671715B704290019A830 /* iRate.m in Sources */,
 				DEAC8E9715D4888300A5B2A1 /* CollectionBrowserCell.m in Sources */,
+				DE9FE9FF15DA9D9600308D8B /* CollectionHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

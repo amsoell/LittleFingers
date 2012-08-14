@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 #import "CollectionBrowser.h"
 #import "CollectionBrowserCell.h"
+#import "CollectionHeader.h"
 #import "PlaybackViewController.h"
 #import "SPDeepCopy.h"
 #import <CoreMedia/CoreMedia.h>
@@ -227,6 +228,15 @@
         ([item objectForKey:@"hasProtectedContent"] && ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]] == NSOrderedSame))) 
         [cell.textLabel setText:@"**redacted**"];
     
+    CGRect b = cell.bounds;
+    b.size.width +=1;
+    b.size.height +=1;
+    
+    UIView* bgCell = [[UITableViewCell alloc] initWithFrame:b];
+    [bgCell setBackgroundColor:[UIColor whiteColor]];
+    [bgCell.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [bgCell.layer setBorderWidth:0.5f];
+    cell.backgroundView = bgCell;
     return cell;
 }
 
@@ -261,7 +271,32 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?128.0f:64.0f);
+    return (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?127.0f:64.0f);
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSArray* itemKeys = [[self dataSourceRef] allKeys];
+    UIView *header;
+    
+    if ([[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:section]] count]>0) {        
+        header = [[CollectionHeader alloc] init];        
+        if ([[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:section]] count]>0) {
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(55.0, 7.0, 300.0, 25.0)];
+            [label setText:[[[self dataSourceRef] allKeys] objectAtIndex:section]];
+            [label setFont:[UIFont fontWithName:@"Optima" size:20.0f]];
+            [label setTextColor:[UIColor whiteColor]];
+            [label setBackgroundColor:[UIColor clearColor]];     
+            [label setShadowColor:[UIColor darkGrayColor]];
+            [label setShadowOffset:CGSizeMake(0, -0.5)];
+            
+            [header addSubview:label];
+            NSLog(@"adding title: %@", [[[self dataSourceRef] allKeys] objectAtIndex:section]);
+        }
+    } else {
+        header = [[UIView alloc] init];
+    }
+    return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
