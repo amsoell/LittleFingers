@@ -118,6 +118,11 @@
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="82374544"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MC45ODU4ODk2Njg0IDAuOTg1ODg5NjY4NCAwLjk4NTg4OTY2ODQAA</bytes>
+				</object>
+				<bool key="IBUIClipsSubviews">YES</bool>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<reference key="IBUIContentView" ref="82374544"/>
 				<string key="IBUIReuseIdentifier">cell</string>

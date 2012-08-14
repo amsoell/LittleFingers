@@ -2,6 +2,7 @@
 #import "CollectionBrowser.h"
 #import "CollectionBrowserCell.h"
 #import "CollectionHeader.h"
+#import "CollectionTable.h"
 #import "PlaybackViewController.h"
 #import "SPDeepCopy.h"
 #import <CoreMedia/CoreMedia.h>
@@ -52,6 +53,10 @@
         [self.tv setBackgroundView:nil];
         [self.tv setBackgroundView:[[UIView alloc] init]];
         [self.tv setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"UIPinStripe"]]];
+    } else {
+        [self.tv setBackgroundView:nil];
+        [self.tv setBackgroundView:[[UIView alloc] init]];
+        [self.tv setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"climpek"]]];        
     }
 }
 
@@ -231,12 +236,24 @@
     CGRect b = cell.bounds;
     b.size.width +=1;
     b.size.height +=1;
+
+    if (indexPath.row == 0) {    
+        UIView* bgCell = [[CollectionBrowserCell alloc] init];
+        [bgCell setBounds:cell.bounds];
+        
+        [bgCell setBackgroundColor:[UIColor whiteColor]];
+        [bgCell.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [bgCell.layer setBorderWidth:0.5f];
+        [bgCell.layer setMasksToBounds:YES];
+
+        cell.backgroundView = bgCell;        
+    } else {
+        [cell.thumbnail setClipsToBounds:YES];
+        [cell.thumbnail.layer setMasksToBounds:YES];
+    }
     
-    UIView* bgCell = [[UITableViewCell alloc] initWithFrame:b];
-    [bgCell setBackgroundColor:[UIColor whiteColor]];
-    [bgCell.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [bgCell.layer setBorderWidth:0.5f];
-    cell.backgroundView = bgCell;
+
+    
     return cell;
 }
 

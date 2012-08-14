@@ -24,8 +24,25 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    rect.size.width -= ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait)?80:88;
-    rect.origin.x += ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait)?40:44;
+    switch (UI_USER_INTERFACE_IDIOM()) {
+        case UIUserInterfaceIdiomPhone:
+            rect.size.width -= 20;
+            rect.origin.x += 10;        
+
+            break;
+        default:
+            switch ([UIApplication sharedApplication].statusBarOrientation) {
+                case UIInterfaceOrientationPortrait:
+                    rect.size.width -= 80;
+                    rect.origin.x += 40;        
+                    break;
+                default:
+                    rect.size.width -= 80;
+                    rect.origin.x += 44;        
+                    break;
+            }
+    }
+
     rect.origin.y += 2;
     
     CGRect b = self.layer.bounds;

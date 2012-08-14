@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE009D0715DAECE1009C4E82 /* CollectionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DE009D0615DAECE1009C4E82 /* CollectionTable.m */; };
+		DE009D1E15DAF886009C4E82 /* climpek.png in Resources */ = {isa = PBXBuildFile; fileRef = DE009D1C15DAF886009C4E82 /* climpek.png */; };
+		DE009D1F15DAF886009C4E82 /* climpek@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = DE009D1D15DAF886009C4E82 /* climpek@2X.png */; };
 		DE32D9CF15A73B24003277C3 /* marks.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE32D9CE15A73B24003277C3 /* marks.plist */; };
 		DE47B47915B23EF00023B179 /* LifePreserver.png in Resources */ = {isa = PBXBuildFile; fileRef = DE47B47515B23EF00023B179 /* LifePreserver.png */; };
 		DE47B47A15B23EF00023B179 /* LifePreserver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE47B47615B23EF00023B179 /* LifePreserver@2x.png */; };
@@ -181,6 +184,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE009D0515DAECE1009C4E82 /* CollectionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionTable.h; sourceTree = "<group>"; };
+		DE009D0615DAECE1009C4E82 /* CollectionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionTable.m; sourceTree = "<group>"; };
+		DE009D1C15DAF886009C4E82 /* climpek.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = climpek.png; sourceTree = "<group>"; };
+		DE009D1D15DAF886009C4E82 /* climpek@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "climpek@2X.png"; sourceTree = "<group>"; };
 		DE32D9CE15A73B24003277C3 /* marks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = marks.plist; sourceTree = "<group>"; };
 		DE47B47515B23EF00023B179 /* LifePreserver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LifePreserver.png; sourceTree = "<group>"; };
 		DE47B47615B23EF00023B179 /* LifePreserver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LifePreserver@2x.png"; sourceTree = "<group>"; };
@@ -717,6 +724,8 @@
 		DED2A6C815A53BFA0085C5BC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DE009D1C15DAF886009C4E82 /* climpek.png */,
+				DE009D1D15DAF886009C4E82 /* climpek@2X.png */,
 				DEAC8E9A15D4949B00A5B2A1 /* thumbnailbg.png */,
 				DEAC8E9B15D4949B00A5B2A1 /* thumbnailbg@2x.png */,
 				DEB4A78015D15B2700630544 /* ZoomIn.png */,
@@ -786,6 +795,8 @@
 				DED2A67A15A53BFA0085C5BC /* MediaLibrary.m */,
 				DE9FE9FD15DA9D9600308D8B /* CollectionHeader.h */,
 				DE9FE9FE15DA9D9600308D8B /* CollectionHeader.m */,
+				DE009D0515DAECE1009C4E82 /* CollectionTable.h */,
+				DE009D0615DAECE1009C4E82 /* CollectionTable.m */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
@@ -1058,6 +1069,8 @@
 				DEAC8E9C15D4949B00A5B2A1 /* thumbnailbg.png in Resources */,
 				DEAC8E9D15D4949B00A5B2A1 /* thumbnailbg@2x.png in Resources */,
 				DE9FE9F115D9936700308D8B /* CollectionBrowserCell-iPad.xib in Resources */,
+				DE009D1E15DAF886009C4E82 /* climpek.png in Resources */,
+				DE009D1F15DAF886009C4E82 /* climpek@2X.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1138,6 +1151,7 @@
 				DEBB671715B704290019A830 /* iRate.m in Sources */,
 				DEAC8E9715D4888300A5B2A1 /* CollectionBrowserCell.m in Sources */,
 				DE9FE9FF15DA9D9600308D8B /* CollectionHeader.m in Sources */,
+				DE009D0715DAECE1009C4E82 /* CollectionTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1213,7 +1227,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1235,7 +1249,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

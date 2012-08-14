@@ -4,6 +4,7 @@
 #import "GridViewController.h"
 #import "GridViewCell.h"
 #import "CollectionBrowser.h"
+#import "CollectionTable.h"
 #import "PlaybackViewController.h"
 #import "WelcomeViewController.h"
 #import "IASKAppSettingsViewController.h"
