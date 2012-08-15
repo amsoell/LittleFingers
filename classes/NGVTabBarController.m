@@ -31,11 +31,13 @@
     settingsGear = [UIButton buttonWithType:UIButtonTypeCustom];
     [settingsGear setImage:[UIImage imageNamed:@"Gear.png"] forState:UIControlStateNormal];
     [settingsGear addTarget:self action:@selector(displaySettings:) forControlEvents:UIControlEventTouchUpInside];
+    [settingsGear.layer setZPosition:101.0];
     [self.view addSubview:settingsGear];
 
     helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [helpButton setImage:[UIImage imageNamed:@"LifePreserver"] forState:UIControlStateNormal];
     [helpButton addTarget:self action:@selector(startWalkthrough:) forControlEvents:UIControlEventTouchUpInside];
+    [helpButton.layer setZPosition:101.0];
     [self.view addSubview:helpButton];
 #endif
     

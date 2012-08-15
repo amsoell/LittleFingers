@@ -539,7 +539,13 @@
         [tbc setAnimation:NGTabBarControllerAnimationNone];
         [tbc setTabBarPosition:NGTabBarPositionLeft];
         [tbc.tabBar setLayoutStrategy:NGTabBarLayoutStrategyStrungTogether];
-        [tbc.tabBar setTintColor:[UIColor blackColor]];    
+        [tbc.tabBar.layer setShadowOffset:CGSizeMake(0, 0)];
+        [tbc.tabBar.layer setShadowRadius:5];
+        [tbc.tabBar.layer setShadowOpacity:0.8];
+        [tbc.tabBar.layer setMasksToBounds:NO];
+        [tbc.tabBar setClipsToBounds:NO];
+        [tbc.tabBar.layer setZPosition:100.0];
+        [tbc.tabBar setTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"TabBarControllerBg"]]];    
         [self createTabBarControllerViews];
         
         self.window.rootViewController = tbc;        
