@@ -17,8 +17,17 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"CollectionBrowserCellBg"]]];
     }
+    return self;
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"CollectionBrowserCellBg"]]];
+    }
+    
     return self;
 }
 
@@ -37,6 +46,7 @@
                                      [details objectForKey:@"url"], @"url",
                                      [details objectForKey:@"id"], @"id",
                                      nil]];
+    [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"CollectionBrowserCellBg"]]];    
 }
 
 - (void) generateThumbnailForAsset:(NSDictionary*)asset {
@@ -126,5 +136,63 @@
 	return thumbUIImage;
 }
 
+void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth, float ovalHeight, BOOL top, BOOL bottom)
+{
+    float fw, fh;
+    if (ovalWidth == 0 || ovalHeight == 0) {
+        CGContextAddRect(context, rect);
+        return;
+    }
+    CGContextSaveGState(context);
+    CGContextTranslateCTM (context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+    CGContextScaleCTM (context, ovalWidth, ovalHeight);
+    fw = CGRectGetWidth (rect) / ovalWidth;
+    fh = CGRectGetHeight (rect) / ovalHeight;
+    CGContextMoveToPoint(context, fw, fh/2);
+    CGContextAddArcToPoint(context, fw, fh, fw/2, fh, 0);
+    
+    NSLog(@"bottom? %d", bottom);
+    
+    if (top) {
+        CGContextAddArcToPoint(context, 0, fh, 0, fh/2, 3);
+    } else {
+        CGContextAddArcToPoint(context, 0, fh, 0, fh/2, 0);
+    }
+    
+    if (bottom) {
+        CGContextAddArcToPoint(context, 0, 0, fw/2, 0, 3);
+    } else {
+        CGContextAddArcToPoint(context, 0, 0, fw/2, 0, 0);
+    }
+    
+    CGContextAddArcToPoint(context, fw, 0, fw, fh/2, 0);
+    CGContextClosePath(context);
+    CGContextRestoreGState(context);
+}
+
+- (UIImage *)roundCornersOfImage:(UIImage *)source roundTop:(BOOL)top roundBottom:(BOOL)bottom {
+    int w = source.size.width;
+    int h = source.size.height;
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, 4 * w, colorSpace, kCGImageAlphaPremultipliedFirst);
+    
+    CGContextBeginPath(context);
+    CGRect rect = CGRectMake(0, 0, w, h);
+    addRoundedRectToPath(context, rect, 4, 4, top, bottom);
+    CGContextClosePath(context);
+    CGContextClip(context);
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, w, h), source.CGImage);
+    
+    CGImageRef imageMasked = CGBitmapContextCreateImage(context);
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+    
+    UIImage *ret = [UIImage imageWithCGImage:imageMasked];
+    CGImageRelease(imageMasked);
+    
+    return ret;    
+}
 
 @end

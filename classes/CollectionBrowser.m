@@ -56,7 +56,7 @@
     } else {
         [self.tv setBackgroundView:nil];
         [self.tv setBackgroundView:[[UIView alloc] init]];
-        [self.tv setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"climpek"]]];        
+        [self.tv setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"furley_bg"]]];        
     }
 }
 
@@ -205,58 +205,6 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CollectionBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?@"CollectionBrowserCell-iPad":@"CollectionBrowserCell") owner:self options:nil];
-        cell = [topLevelObjects objectAtIndex:0];        
-    }
-    
-    NSArray* itemKeys = [[self dataSourceRef] allKeys];
-    NSDictionary *item = [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];    
-    [cell setDetails:[NSDictionary dictionaryWithObjectsAndKeys:
-                      [item objectForKey:@"title"], @"title",
-                      [item objectForKey:@"url"], @"url",
-                      [item objectForKey:@"id"], @"id", 
-                      nil]];
-    
-    UIButton *accessory = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    
-    [accessory setImage:([self isFavorite:item]?[self starImage]:[self dotImage]) forState:UIControlStateNormal];
-    accessory.frame = CGRectMake(0, 0, 30, 30);
-    accessory.userInteractionEnabled = YES;
-    [accessory addTarget:self action:@selector(toggleFavorite:forEvent:) forControlEvents:UIControlEventTouchUpInside];
-    cell.accessoryView = accessory;  
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"] &&
-        ([item objectForKey:@"hasProtectedContent"] && ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]] == NSOrderedSame))) 
-        [cell.textLabel setText:@"**redacted**"];
-    
-    CGRect b = cell.bounds;
-    b.size.width +=1;
-    b.size.height +=1;
-
-    if (indexPath.row == 0) {    
-        UIView* bgCell = [[CollectionBrowserCell alloc] init];
-        [bgCell setBounds:cell.bounds];
-        
-        [bgCell setBackgroundColor:[UIColor whiteColor]];
-        [bgCell.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-        [bgCell.layer setBorderWidth:0.5f];
-        [bgCell.layer setMasksToBounds:YES];
-
-        cell.backgroundView = bgCell;        
-    } else {
-        [cell.thumbnail setClipsToBounds:YES];
-        [cell.thumbnail.layer setMasksToBounds:YES];
-    }
-    
-
-    
-    return cell;
-}
-
 - (NSDictionary*)dataSourceRef {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"] && !disableSecondaryDataSource) {
         return dataSourceWithoutProtectedContent;
@@ -288,8 +236,61 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?127.0f:64.0f);
+    return (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?127.0f:63.0f);
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CollectionBrowserCell *cell;
+    if (indexPath.row != ([tableView numberOfRowsInSection:indexPath.section]-1)) 
+        cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];   
+    
+    if (cell == nil) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?@"CollectionBrowserCell-iPad":@"CollectionBrowserCell") owner:self options:nil];
+        cell = [topLevelObjects objectAtIndex:0];   
+    }
+    
+    NSArray* itemKeys = [[self dataSourceRef] allKeys];
+    NSDictionary *item = [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];    
+    [cell setDetails:[NSDictionary dictionaryWithObjectsAndKeys:
+                      [item objectForKey:@"title"], @"title",
+                      [item objectForKey:@"url"], @"url",
+                      [item objectForKey:@"id"], @"id", 
+                      nil]];
+    
+    UIButton *accessory = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    
+    [accessory setImage:([self isFavorite:item]?[self starImage]:[self dotImage]) forState:UIControlStateNormal];
+    accessory.frame = CGRectMake(0, 0, 30, 30);
+    accessory.userInteractionEnabled = YES;
+    [accessory addTarget:self action:@selector(toggleFavorite:forEvent:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryView = accessory;  
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"] &&
+        ([item objectForKey:@"hasProtectedContent"] && ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]] == NSOrderedSame))) 
+        [cell.textLabel setText:@"**redacted**"];
+    
+    CGRect b = cell.bounds;
+    b.size.width +=1;
+    b.size.height +=1;
+    
+    if (indexPath.row == 0) {    
+        cell.backgroundView = [[UITableViewCell alloc] initWithFrame:cell.bounds];
+        cell.contentView.backgroundColor = [UIColor clearColor];
+        cell.backgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"CollectionBrowserCellBg"]];
+        [cell.backgroundView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [cell.backgroundView.layer setBorderWidth:1.0];
+    } else if (indexPath.row == ([tableView numberOfRowsInSection:indexPath.section]-1)) {
+        cell.thumbnail.image = [cell roundCornersOfImage:cell.thumbnail.image roundTop:NO roundBottom:YES];
+    }
+    
+    
+    
+    return cell;
+}
+
+
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

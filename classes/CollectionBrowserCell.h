@@ -19,6 +19,8 @@
 - (void) generateThumbnailForAsset:(NSDictionary*)asset;
 - (UIImage*)copyImageFromCGImage:(CGImageRef)image croppedToSize:(CGSize)size;
 - (bool)saveThumb:(UIImage*)image withName:(NSString*)name;
+- (UIImage *)roundCornersOfImage:(UIImage *)source roundTop:(BOOL)top roundBottom:(BOOL)bottom;
+void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth, float ovalHeight, BOOL top, BOOL bottom);
 
 
 @property (nonatomic, retain) IBOutlet UILabel *title;

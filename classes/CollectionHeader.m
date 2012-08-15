@@ -26,18 +26,19 @@
 {
     switch (UI_USER_INTERFACE_IDIOM()) {
         case UIUserInterfaceIdiomPhone:
-            rect.size.width -= 20;
-            rect.origin.x += 10;        
+            rect.size.width -= 18;
+            rect.origin.x += 9;        
 
             break;
         default:
             switch ([UIApplication sharedApplication].statusBarOrientation) {
                 case UIInterfaceOrientationPortrait:
+                case UIInterfaceOrientationPortraitUpsideDown:
                     rect.size.width -= 80;
                     rect.origin.x += 40;        
                     break;
                 default:
-                    rect.size.width -= 80;
+                    rect.size.width -= 88;
                     rect.origin.x += 44;        
                     break;
             }
@@ -47,7 +48,7 @@
     
     CGRect b = self.layer.bounds;
     [self.layer setBounds:b];
-    [self setBackgroundColor:[UIColor redColor]];
+    [self setBackgroundColor:[UIColor clearColor]];
     [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self setAutoresizesSubviews:YES];
     
