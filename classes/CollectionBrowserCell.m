@@ -174,12 +174,14 @@ void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth, fl
     int w = source.size.width;
     int h = source.size.height;
     
+    int radius = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?4:10;
+    
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, 4 * w, colorSpace, kCGImageAlphaPremultipliedFirst);
     
     CGContextBeginPath(context);
     CGRect rect = CGRectMake(0, 0, w, h);
-    addRoundedRectToPath(context, rect, 4, 4, top, bottom);
+    addRoundedRectToPath(context, rect, radius, radius, top, bottom);
     CGContextClosePath(context);
     CGContextClip(context);
     
