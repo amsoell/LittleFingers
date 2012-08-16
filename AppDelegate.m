@@ -691,6 +691,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    [playbackViewController.mPlayer pause];
     [self saveMarks];    
 #ifndef DEVELOPMENT
     [[LocalyticsSession sharedLocalyticsSession] close];
@@ -703,6 +704,8 @@
     [[LocalyticsSession sharedLocalyticsSession] resume];
     [[LocalyticsSession sharedLocalyticsSession] upload];    
 #endif
+    //[playbackViewController unlockScreen];
+    [playbackViewController.mPlayer play];
 }
 
 

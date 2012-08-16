@@ -188,27 +188,29 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 - (void)unlockScreen
 {
-    [TestFlight passCheckpoint:@"Screen unlocked"];
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Screen unlocked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:videotitle, @"Title", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"], @"Unlock code", nil]];
-    [self reminderFadeOut];    
-    [UIView animateWithDuration:0.2f animations:
-     ^{
-         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-     } completion:
-     ^(BOOL finished)
-     {
-         [UIView animateWithDuration:0.2f animations:
-          ^{         
-              [[self navigationController] setNavigationBarHidden:NO animated:YES];
-              [mToolbar setFrame:CGRectOffset([mToolbar frame], 0, -mToolbar.frame.size.height)];
-              [mToolbar setAlpha:1.0];             
+    if ([[[self navigationController] navigationBar] isHidden]) {    
+        [TestFlight passCheckpoint:@"Screen unlocked"];
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Screen unlocked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:videotitle, @"Title", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"], @"Unlock code", nil]];
+        [self reminderFadeOut];    
+        [UIView animateWithDuration:0.2f animations:
+         ^{
+             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+         } completion:
+         ^(BOOL finished)
+         {
+             [UIView animateWithDuration:0.2f animations:
+              ^{         
+                  [[self navigationController] setNavigationBarHidden:NO animated:YES];
+                  [mToolbar setFrame:CGRectOffset([mToolbar frame], 0, -mToolbar.frame.size.height)];
+                  [mToolbar setAlpha:1.0];             
 
-          } completion:
-          ^(BOOL finished)
-          {
-// code to move notification center
-          }];
-     }];
+              } completion:
+              ^(BOOL finished)
+              {
+    // code to move notification center
+              }];
+         }];
+    }
 }
 
 #pragma mark -
