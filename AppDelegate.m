@@ -374,7 +374,7 @@
     [viewControllers removeAllObjects];
 
     // Add Home / Recent / Favorites button    
-    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, @"Recent", favorites, @"Favorites", nil]];
+    CollectionBrowser *vcHome = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:history, NSLocalizedString(@"RECENT", nil), favorites, NSLocalizedString(@"FAVORITES", nil), nil]];
     vcHome.disableSecondaryDataSource = YES;
     NSString *title;
 #ifndef BLANKSLATE
@@ -383,9 +383,8 @@
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:title image:[UIImage imageNamed:@"Home"]];    
     vcHome.ng_tabBarItem.mediaIndex =title;
 #ifndef BLANKSLATE        
-    vcHome.title = @"Home";
-    [vcHome setEmptyText:[NSString stringWithFormat:@"LittleFingers is a kid friendly video player that makes it easier for your little ones to enjoy their favorite videos. Select a category from the %@ to browse your videos. When you find one to watch, just tap it to start playing. Once it is playing, tap the lock icon to secure the screen and prevent unintentional taps from stopping the show.\n\nThanks for using LittleFingers, we hope you enjoy it!", (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)?@"tabs on the left":@"main screen"]];
-    
+    vcHome.title = NSLocalizedString(@"TITLE_HOME", nil);
+    [vcHome setEmptyText:NSLocalizedString(@"WELCOME_MESSAGE", nil)];    
     UILabel *logo = [[UILabel alloc] init];
     NSString *logoText = [sharedAppDelegate longAppName];
     UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?45.0f:36.0f)];
@@ -424,7 +423,6 @@
     
     
     // Check the Documents folder for media shared via iTunes sharing
-    NSLog(@"searching Documents");
     NSArray *validExtensions = [NSArray arrayWithObjects:@"mp4", @"mov", @"qt", @"3gp", @"3gpp", nil];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -440,7 +438,7 @@
         CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, @"iTunes", nil]];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"iTunes" image:[UIImage imageNamed:@"iTunesShared"]];    
         vc.ng_tabBarItem.mediaIndex = @"iTunesShared";
-        vc.title = @"iTunes";
+        vc.title = NSLocalizedString(@"TITLE_ITUNES", nil);
         [viewControllers addObject:vc];        
         
         NSLog(@"iTunes shared media: %@", iTunesSharedCollection);
@@ -455,7 +453,6 @@
     } else {
         // Assign iPhone / iPod Touch buttons
         [gvc.gridView reloadData];
-        NSLog(@"assign iphone / ipod buttons");
     }
     
 #endif    
@@ -652,8 +649,8 @@
     bool dobreak = false;
     for (int j=0; j<vcs.count;) {
          vc = [vcs objectAtIndex:j];
-        if ([vc.title isEqualToString:@"Home"] ||
-            [vc.title isEqualToString:@"Camera Roll"]) {
+        if ([vc.title isEqualToString:NSLocalizedString(@"TITLE_HOME", nil)] ||
+            [vc.title isEqualToString:NSLocalizedString(@"TITLE_CAMERAROLL", nil)]) {
             j++;
             continue;
         }
@@ -720,7 +717,7 @@
     return CGSizeMake(100.f, 0.0f);
 #endif
     if (index>0 && 
-        ![[[viewControllers objectAtIndex:index] title] isEqualToString:@"Camera Roll"] && 
+        ![[[viewControllers objectAtIndex:index] title] isEqualToString:NSLocalizedString(@"TITLE_CAMERAROLL", nil)] && 
         hideProtected && 
         ![[viewControllers objectAtIndex:index] hasUnprotectedContent]) {
         return CGSizeMake(0.0f, 0.0f);
@@ -745,8 +742,8 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hideprotected"]) {
         int items = [self viewControllersWithoutProtectedContent].count;
         for (CollectionBrowser *vc in [self viewControllersWithoutProtectedContent]) {
-                if (![vc.title isEqualToString:@"Home"] &&
-                    ![vc.title isEqualToString:@"Camera Roll"] &&
+                if (![vc.title isEqualToString:NSLocalizedString(@"TITLE_HOME", nil)] &&
+                    ![vc.title isEqualToString:NSLocalizedString(@"TITLE_CAMERAROLL", nil)] &&
                     (vc.dataSourceWithoutProtectedContent.count <= 0)) {
                     items--;
                 }

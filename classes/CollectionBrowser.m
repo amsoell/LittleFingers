@@ -89,7 +89,6 @@
                 [introText setTextColor:[UIColor darkGrayColor]];
                 [introText setBackgroundColor:[UIColor clearColor]];
                 [introText setFont:[UIFont fontWithName:@"Baskerville" size:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?24.0f:18.0)]];
-                NSLog(@"the width it: %f", self.view.frame.size.width);
                 
                 CGRect newFrame = introText.frame;
                 newFrame.origin.x = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad?50:20);
@@ -330,12 +329,12 @@
     if ([item objectForKey:@"hasProtectedContent"] && ([[item objectForKey:@"hasProtectedContent"] compare:[NSNumber numberWithBool:YES]] == NSOrderedSame)) {
         // DRM. Let user know they can hide these.
         //todo: let user hide them
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:[NSString stringWithFormat:@"This video contains content protection that doesn't allow us to play it. Would you like to hide similar unplayable videos?", [sharedAppDelegate shortAppName]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil];
-        [alert addButtonWithTitle:@"Yes"];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"CANNOT_PLAY", nil) message:[NSString stringWithFormat:NSLocalizedString(@"CANNOT_PLAY_DRM", nil), [sharedAppDelegate shortAppName]] delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:nil];
+        [alert addButtonWithTitle:NSLocalizedString(@"YES", nil)];
 		[alert show];        
     } else if ([item objectForKey:@"url"] == nil) {
         // No URL. Probably in the cloud
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot play" message:@"This video does not have an associated address. Please either download it from iCloud, or contact support@littlefingersapp.com for assistance" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"CANNOT_PLAY", nil) message:NSLocalizedString(@"CANNOT_PLAY_ICLOUD", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
 		[alert show];        
     } else {
         

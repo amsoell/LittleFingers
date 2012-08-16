@@ -95,7 +95,7 @@
                        nil];
         }
         v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"iTunes U", @"title", v, @"media", nil];    
+        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_ITUNESU", nil), @"title", v, @"media", nil];    
         [collections setObject:c forKey:@"ITunesU"];       
         
         // Music Videos
@@ -122,7 +122,7 @@
                        nil];
         }
         v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Music Videos", @"title", v, @"media", nil];    
+        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_MUSICVIDEO", nil), @"title", v, @"media", nil];    
         [collections setObject:c forKey:@"MusicVideo"];    
         
         // Podcasts
@@ -155,7 +155,7 @@
                        nil];
         }
         v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Podcasts", @"title", v, @"media", nil];    
+        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_PODCASTS", nil), @"title", v, @"media", nil];    
         [collections setObject:c forKey:@"VideoPodcast"];        
         
         // TV
@@ -230,7 +230,7 @@
                         nil],                    nil];
         }
         v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"TV Shows", @"title", v, @"media", nil];    
+        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_TVSHOWS", nil), @"title", v, @"media", nil];    
         [collections setObject:c forKey:@"TVShow"];
         
         // Movies
@@ -300,7 +300,7 @@
                        nil];
         }
         v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Movies", @"title", v, @"media", nil];    
+        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_MOVIES", nil), @"title", v, @"media", nil];    
         [collections setObject:c forKey:@"Movie"];    
         
         // iTunes Sharing
@@ -327,7 +327,7 @@
                        nil];
         }
         v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"iTunes", @"title", v, @"media", nil];    
+        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_ITUNES", nil), @"title", v, @"media", nil];    
         //    [mediaIndex.collections setObject:c forKey:@"iTunesShared"];        
     }
 
@@ -407,11 +407,11 @@
 	for (MPMediaItem *video in videos) {  
         if (![index.allKeys containsObject:[video valueForProperty:MPMediaItemPropertyPersistentID]]) {
             mediaType = [[video valueForProperty:MPMediaItemPropertyMediaType] integerValue];
-            if (mediaType & MPMediaTypeVideoITunesU) [self addItem:video toCollection:@"ITunesU" withCollectionTitle:@"iTunes U"];
-            if (mediaType & MPMediaTypeMusicVideo) [self addItem:video toCollection:@"MusicVideo" withCollectionTitle:@"Music Videos"];
-            if (mediaType & MPMediaTypeVideoPodcast) [self addItem:video toCollection:@"VideoPodcast" withCollectionTitle:@"Podcasts"];
-            if (mediaType & MPMediaTypeTVShow) [self addItem:video toCollection:@"TVShow" withCollectionTitle:@"TV Shows"];
-            if (mediaType & MPMediaTypeMovie) [self addItem:video toCollection:@"Movie" withCollectionTitle:@"Movies"];
+            if (mediaType & MPMediaTypeVideoITunesU) [self addItem:video toCollection:@"ITunesU" withCollectionTitle:NSLocalizedString(@"TITLE_ITUNESU", nil)];
+            if (mediaType & MPMediaTypeMusicVideo) [self addItem:video toCollection:@"MusicVideo" withCollectionTitle:NSLocalizedString(@"TITLE_MUSICVIDEOS", nil)];
+            if (mediaType & MPMediaTypeVideoPodcast) [self addItem:video toCollection:@"VideoPodcast" withCollectionTitle:NSLocalizedString(@"TITLE_PODCASTS", nil)];
+            if (mediaType & MPMediaTypeTVShow) [self addItem:video toCollection:@"TVShow" withCollectionTitle:NSLocalizedString(@"TITLE_TVSHOWS", nil)];
+            if (mediaType & MPMediaTypeMovie) [self addItem:video toCollection:@"Movie" withCollectionTitle:NSLocalizedString(@"TITLE_MOVIES", nil)];
         }
     }
 }

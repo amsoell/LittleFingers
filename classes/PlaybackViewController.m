@@ -172,7 +172,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
           {
               NSLog(@"showing confirmation");
               [[NSUserDefaults standardUserDefaults] synchronize];            
-              NSString* hudcaption = [NSString stringWithFormat:@"Locked! To unlock, swipe your fingers down in the following order: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"]];
+              NSString* hudcaption = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"HUD_LOCKED", nil), [[NSUserDefaults standardUserDefaults] stringForKey:@"unlockcode"]];
 
               // How complete is the code?
               UIImage* hudimage = [UIImage imageNamed:@"Lock"];
@@ -627,19 +627,15 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
         NSString* hudcaption = @"";
         float hudduration = 5.0;
         if ((swipeHistory.length>=3) && [swipeHistory isEqualToString:unlockCode]) {
-            NSLog(@"swipe 3/3");
-            hudcaption = @"Success!";
+            hudcaption = NSLocalizedString(@"HUD_SUCCESS", nil);
             hudduration = 0.5;
-        } else if ((swipeHistory.length>=2) && [[swipeHistory substringFromIndex:[swipeHistory length] - 2] isEqualToString:[unlockCode substringToIndex:2]]) {
-            NSLog(@"swipe 2/3");            
-            hudcaption = @"Unlocking...";            
-        } else if ((swipeHistory.length>=1) && [[swipeHistory substringFromIndex:[swipeHistory length] - 1] isEqualToString:[unlockCode substringToIndex:1]]) {
-            NSLog(@"swipe 1/3");            
-            hudcaption = @"Unlocking...";            
+        } else if ((swipeHistory.length>=2) && [[swipeHistory substringFromIndex:[swipeHistory length] - 2] isEqualToString:[unlockCode substringToIndex:2]]) {           
+            hudcaption = NSLocalizedString(@"HUD_UNLOCKING", nil);
+        } else if ((swipeHistory.length>=1) && [[swipeHistory substringFromIndex:[swipeHistory length] - 1] isEqualToString:[unlockCode substringToIndex:1]]) {        
+            hudcaption = NSLocalizedString(@"HUD_UNLOCKING", nil);
         } else if (((swipeHistory.length>=2) && [[swipeHistory substringWithRange:NSMakeRange([swipeHistory length] - 2, 1)] isEqualToString:[unlockCode substringToIndex:1]]) ||
-                   ((swipeHistory.length>=3) && ([[swipeHistory substringWithRange:NSMakeRange([swipeHistory length] - 3, 2)] isEqualToString:[unlockCode substringToIndex:2]])))  {
-            NSLog(@"locked!");            
-            hudcaption = @"Locked!";            
+                   ((swipeHistory.length>=3) && ([[swipeHistory substringWithRange:NSMakeRange([swipeHistory length] - 3, 2)] isEqualToString:[unlockCode substringToIndex:2]])))  {            
+            hudcaption = NSLocalizedString(@"HUD_UNLOCK_FAIL", nil);
             hudimage = [UIImage imageNamed:@"x"]; 
             hudduration = 0.5;
             
@@ -663,7 +659,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     if (reminder.alpha == 0) {
         reminder = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-20, self.view.bounds.size.width, 20)];
         [reminder setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9f]];
-        [reminder setText:[NSString stringWithFormat:@"Reminder: Your unlock code is %@", unlockCode]];
+        [reminder setText:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"CODE_REMINDER", nil), unlockCode]];
         [reminder setTextColor:[UIColor darkGrayColor]];
         [reminder setFont:[UIFont fontWithName:@"Courier-Bold" size:14.0f]];
         [reminder setTextAlignment:UITextAlignmentCenter];
@@ -689,7 +685,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
         reminder = [[UILabel alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-310, self.view.bounds.size.height-mToolbar.bounds.size.height-70, 300, 60)];
         [reminder setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9f]];
         [reminder setNumberOfLines:2];
-        [reminder setText:[NSString stringWithFormat:@"Tip: To lock the screen,  \ntap the padlock button below  "]];
+        [reminder setText:[NSString stringWithFormat:NSLocalizedString(@"TIP_LOCKBUTTON", nil)]];
         [reminder setTextColor:[UIColor darkGrayColor]];
         [reminder setFont:[UIFont fontWithName:@"Courier-Bold" size:14.0f]];
         [reminder setTextAlignment:UITextAlignmentCenter];
@@ -837,7 +833,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[error localizedDescription]
 														message:[error localizedFailureReason]
 													   delegate:nil
-											  cancelButtonTitle:@"yok"
+											  cancelButtonTitle:NSLocalizedString(@"OK", nil)
 											  otherButtonTitles:nil];
 	[alertView show];
 }
