@@ -256,6 +256,8 @@
                       [item objectForKey:@"title"], @"title",
                       [item objectForKey:@"url"], @"url",
                       [item objectForKey:@"id"], @"id", 
+                      [item objectForKey:@"duration"], @"duration",
+                      [item objectForKey:@"album"], @"album",
                       nil]];
     
     UIButton *accessory = [UIButton buttonWithType:UIButtonTypeCustom];

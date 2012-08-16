@@ -11,7 +11,11 @@
 @class AVAssetImageGenerator;
 @interface CollectionBrowserCell : UITableViewCell {
     IBOutlet UILabel *title;
+    IBOutlet UILabel *album;    
+    IBOutlet UILabel *duration;    
+    IBOutlet UILabel *durationLabel;     
     IBOutlet UIImageView *thumbnail;    
+    IBOutlet UIImageView *favoriteToggle;
     AVAssetImageGenerator *generator;    
 }
 
@@ -24,7 +28,11 @@ void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth, fl
 
 
 @property (nonatomic, retain) IBOutlet UILabel *title;
+@property (nonatomic, retain) IBOutlet UILabel *album;
+@property (nonatomic, retain) IBOutlet UILabel *duration;
+@property (nonatomic, retain) IBOutlet UILabel *durationLabel;
 @property (nonatomic, retain) IBOutlet UIImageView *thumbnail;
+@property (nonatomic, retain) IBOutlet UIImageView *favoriteToggle;
 
 
 @end

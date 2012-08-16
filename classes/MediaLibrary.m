@@ -16,7 +16,9 @@
     NSMutableDictionary* details = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     [item valueForProperty:MPMediaItemPropertyPersistentID], @"id",
                                     [item valueForProperty:MPMediaItemPropertyTitle], @"title", 
+                                    [item valueForProperty:MPMediaItemPropertyAlbumTitle], @"album",
                                     [[item valueForProperty:MPMediaItemPropertyAssetURL] absoluteString], @"url", 
+                                    [NSNumber numberWithInt:[[item valueForProperty:MPMediaItemPropertyPlaybackDuration] intValue]], @"duration",
                                     [NSNumber numberWithBool:[[AVAsset assetWithURL:[item valueForProperty:MPMediaItemPropertyAssetURL]] hasProtectedContent]?YES:NO], @"hasProtectedContent",
                                     nil];
     

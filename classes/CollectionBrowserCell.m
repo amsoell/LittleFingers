@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @implementation CollectionBrowserCell
-@synthesize title, thumbnail;
+@synthesize duration, durationLabel, favoriteToggle, title, album, thumbnail;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -40,7 +40,27 @@
 
 - (void)setDetails:(NSDictionary*)details {
     [title setText:[details objectForKey:@"title"]]; 
-    [thumbnail setImage:[UIImage imageNamed:@"thumbnailbg"]];         
+    [thumbnail setImage:[UIImage imageNamed:@"thumbnailbg"]];    
+    [album setText:[details objectForKey:@"album"]];
+    NSMutableString* dur = [[NSMutableString alloc] init];
+    if ([details objectForKey:@"duration"]!=nil) {
+        NSNumber* hours;
+        NSNumber* minutes;
+        NSNumber* seconds;
+        seconds = [details objectForKey:@"duration"];
+        hours   = [NSNumber numberWithInt:seconds.intValue / 3600];
+        seconds = [NSNumber numberWithInt:seconds.intValue - (hours.intValue*3600)];
+        minutes = [NSNumber numberWithInt:seconds.intValue / 60];
+        seconds = [NSNumber numberWithInt:seconds.intValue - (hours.intValue*3600) - (minutes.intValue*60)];        
+        
+        if (hours.intValue > 0) [dur appendFormat:@"%d hour%@, ", hours.intValue, (hours.intValue==1)?@"":@"s"];
+        if (minutes.intValue > 0) [dur appendFormat:@"%d minute%@, ", minutes.intValue, (minutes.intValue==1)?@"":@"s"];        
+        [dur appendFormat:@"%d second%@", seconds.intValue, (seconds.intValue==1)?@"":@"s"];        
+
+    } else {
+        dur = [NSString stringWithString:@""];
+    }
+    [duration setText:dur];
     
     [self generateThumbnailForAsset:[NSDictionary dictionaryWithObjectsAndKeys:
                                      [details objectForKey:@"url"], @"url",
@@ -151,8 +171,6 @@ void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth, fl
     CGContextMoveToPoint(context, fw, fh/2);
     CGContextAddArcToPoint(context, fw, fh, fw/2, fh, 0);
     
-    NSLog(@"bottom? %d", bottom);
-    
     if (top) {
         CGContextAddArcToPoint(context, 0, fh, 0, fh/2, 3);
     } else {
@@ -195,6 +213,36 @@ void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth, fl
     CGImageRelease(imageMasked);
     
     return ret;    
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CGRect f = self.accessoryView.frame;
+    f.origin.y = 20;
+    [self.accessoryView setFrame:f];
+    
+    int ypos;
+    if (album.text.length <= 0) {
+        ypos = 46;
+    } else {
+        ypos = 68;
+    }
+    
+    if (duration.text.length <= 0) {
+        [duration setAlpha:0.0];
+        [durationLabel setAlpha:0.0];
+    } else {
+        [duration setAlpha:1.0];
+        [durationLabel setAlpha:1.0];
+        
+        f = duration.frame;
+        f.origin.y = ypos;
+        [duration setFrame:f];
+        
+        f = durationLabel.frame;
+        f.origin.y = ypos;
+        [durationLabel setFrame:f];        
+    }
 }
 
 @end
