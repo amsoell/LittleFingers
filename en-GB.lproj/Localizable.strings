@@ -4,9 +4,9 @@
 "OFF" = "Off";
 "ON" = "On";
 "RECENT" = "Recent";
-"FAVORITES" = "Favorites";
+"FAVORITES" = "Favourites";
 "HOME" = "Home";
-"WELCOME_MESSAGE" = "LittleFingers is a kid friendly video player that makes it easier for your little ones to enjoy their favorite videos. Select a category to browse your videos. When you find one to watch, just tap it to start playing. Once it is playing, tap the lock icon to secure the screen and prevent unintentional taps from stopping the show.\n\nThanks for using LittleFingers, we hope you enjoy it!";
+"WELCOME_MESSAGE" = "LittleFingers is a kid friendly video player that makes it easier for your little ones to enjoy their favourite videos. Select a category to browse your videos. When you find one to watch, just tap it to start playing. Once it is playing, tap the lock icon to secure the screen and prevent unintentional taps from stopping the show.\n\nThanks for using LittleFingers, we hope you enjoy it!";
 "TITLE_ITUNES" = "iTunes";
 "TITLE_CAMERAROLL" = "Camera Roll";
 "TITLE_ITUNESU" =  "iTunes U";
@@ -26,7 +26,7 @@
 
 /* Welcome.xib */
 "WELCOME_1_TITLE" = "Welcome to LittleFingers!";
-"WELCOME_1_TEXT" = "LittleFingers is the video player you can lock in order to prevent unintended interaction by your little ones as they watch their favorite movies and shows. Let me take a minute to show you how it works.";
+"WELCOME_1_TEXT" = "LittleFingers is the video player you can lock in order to prevent unintended interaction by your little ones as they watch their favourite movies and shows. Let me take a minute to show you how it works.";
 "WELCOME_2_TITLE" = "1. Browse video categories";
 "WELCOME_2_TEXT" = "Select a video category from the main screen. If you don't see any buttons other than \"Home\" you may not have any videos on your device.";
 "WELCOME_3_TITLE" = "2. Select a video";
@@ -41,7 +41,7 @@
 
 /* Welcome-iPad.xib */
 "WELCOME_1_TITLE_IPAD" = "Welcome to LittleFingers!";
-"WELCOME_1_TEXT_IPAD" = "LittleFingers is the video player you can lock in order to prevent unintended interaction by your little ones as they watch their favorite movies and shows. Let me take a minute to show you how it works.";
+"WELCOME_1_TEXT_IPAD" = "LittleFingers is the video player you can lock in order to prevent unintended interaction by your little ones as they watch their favourite movies and shows. Let me take a minute to show you how it works.";
 "WELCOME_2_TITLE_IPAD" = "1. Browse video categories";
 "WELCOME_2_TEXT_IPAD" = "Select a video category from the left, below the \"Home\" button. If you don't see any buttons below \"Home\" you may not have any videos on your device.";
 "WELCOME_3_TITLE_IPAD" = "2. Select a video";

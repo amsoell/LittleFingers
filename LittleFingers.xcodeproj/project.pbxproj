@@ -76,6 +76,7 @@
 		DECAEFE315ADC55E00E5F93E /* Unlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFDF15ADC55E00E5F93E /* Unlock@2x.png */; };
 		DECAEFE715ADDBA200E5F93E /* UIPinStripe.png in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFE615ADDBA200E5F93E /* UIPinStripe.png */; };
 		DECAEFED15AE0C9F00E5F93E /* HoneyScript-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DECAEFEC15AE0C9F00E5F93E /* HoneyScript-SemiBold.ttf */; };
+		DECED66915DE7BE800DD1AAF /* WelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DECED66815DE7BE800DD1AAF /* WelcomeView.m */; };
 		DED2A65915A53BAC0085C5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65815A53BAC0085C5BC /* UIKit.framework */; };
 		DED2A65B15A53BAC0085C5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65A15A53BAC0085C5BC /* Foundation.framework */; };
 		DED2A65D15A53BAC0085C5BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2A65C15A53BAC0085C5BC /* CoreGraphics.framework */; };
@@ -267,6 +268,9 @@
 		DECAEFDF15ADC55E00E5F93E /* Unlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unlock@2x.png"; sourceTree = "<group>"; };
 		DECAEFE615ADDBA200E5F93E /* UIPinStripe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIPinStripe.png; sourceTree = "<group>"; };
 		DECAEFEC15AE0C9F00E5F93E /* HoneyScript-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "HoneyScript-SemiBold.ttf"; path = "resources/HoneyScript-SemiBold.ttf"; sourceTree = "<group>"; };
+		DECED66715DE7BE800DD1AAF /* WelcomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeView.h; sourceTree = "<group>"; };
+		DECED66815DE7BE800DD1AAF /* WelcomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeView.m; sourceTree = "<group>"; };
+		DECED66B15DE826300DD1AAF /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DED2A65415A53BAC0085C5BC /* LittleFingers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFingers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED2A65815A53BAC0085C5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DED2A65A15A53BAC0085C5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -832,6 +836,8 @@
 			children = (
 				DED85BC015B0A98200001A66 /* WelcomeViewController.h */,
 				DED85BC115B0A98200001A66 /* WelcomeViewController.m */,
+				DECED66715DE7BE800DD1AAF /* WelcomeView.h */,
+				DECED66815DE7BE800DD1AAF /* WelcomeView.m */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
@@ -1173,6 +1179,7 @@
 				DEAC8E9715D4888300A5B2A1 /* CollectionBrowserCell.m in Sources */,
 				DE9FE9FF15DA9D9600308D8B /* CollectionHeader.m in Sources */,
 				DE009D0715DAECE1009C4E82 /* CollectionTable.m in Sources */,
+				DECED66915DE7BE800DD1AAF /* WelcomeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1183,6 +1190,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				DEFEC5D215DD8AC0007AD758 /* en */,
+				DECED66B15DE826300DD1AAF /* en-GB */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
