@@ -157,7 +157,7 @@
                     }
 
                     // now set up the datasource
-                    [cameraCollectionBrowser setDataSource:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil]];
+                    [cameraCollectionBrowser setDataSource:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, NSLocalizedString(@"TITLE_CAMERAROLL", nil), nil]];
                     [cameraCollectionBrowser setEmptyText:nil];
                     [cameraCollectionBrowser.tv reloadData];
                 } else {   
@@ -167,11 +167,11 @@
                     
                     cameraCollectionBrowser = [[CollectionBrowser alloc] init];  
                     cameraCollectionBrowser.disableSecondaryDataSource = YES;
-                    cameraCollectionBrowser.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"Camera Roll" image:[UIImage imageNamed:@"CameraRoll"]];    
+                    cameraCollectionBrowser.ng_tabBarItem = [NGTabBarItem itemWithTitle:NSLocalizedString(@"TITLE_CAMERAROLL", nil) image:[UIImage imageNamed:@"CameraRoll"]];    
                     cameraCollectionBrowser.ng_tabBarItem.mediaIndex = @"CameraRoll";
-                    cameraCollectionBrowser.title = @"Camera Roll";
+                    cameraCollectionBrowser.title = NSLocalizedString(@"TITLE_CAMERAROLL", nil);
                     
-                    [cameraCollectionBrowser setDataSource:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, @"Camera Roll", nil]];
+                    [cameraCollectionBrowser setDataSource:[NSDictionary dictionaryWithObjectsAndKeys:cameraCollection, NSLocalizedString(@"TITLE_CAMERAROLL", nil), nil]];
                     [cameraCollectionBrowser.tv reloadData];
                     
                     [viewControllers addObject:cameraCollectionBrowser];  
@@ -222,7 +222,7 @@
             [tbc setSelectedIndex:0];
      
              UILabel *logo = [[UILabel alloc] init];
-             NSString *logoText = @"Camera Roll Access Unavailable";
+             NSString *logoText = NSLocalizedString(@"CAMERAROLL_ACCESS_DENIED", nil);
              UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:45.0f];
              [logo setTag:1]; // mark for removal
              [logo setText:logoText];
@@ -266,7 +266,7 @@
         cameraCollectionBrowser.title = @"Camera Roll";
         
         UILabel *logo = [[UILabel alloc] init];
-        NSString *logoText = @"Why we ask for your location";
+        NSString *logoText = NSLocalizedString(@"LOCATION_REQUEST_TITLE", nil);
         UIFont *logoFont = [UIFont fontWithName:@"HoneyScript-SemiBold" size:45.0f];
         [logo setTag:1]; // mark for removal
         [logo setText:logoText];
@@ -285,7 +285,7 @@
         [logo setFrame:frame];
         [logo sizeToFit];
                 
-        NSString *copyText = [NSString stringWithFormat:@"Because the videos you have taken may contain information about where they were recorded, we are required to ask your permission before we can use them in %@. Rest assured that %@ does not collect any information about your location at any time. If you are ok with us having access to the videos that you have taken, press the button below to confirm this.", [sharedAppDelegate shortAppName], [sharedAppDelegate shortAppName]];
+        NSString *copyText = NSLocalizedString(@"LOCATION_REQUEST_INTRO", nil);
         UIFont *copyFont = [UIFont fontWithName:@"Baskerville" size:(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?20.0f:16.0f)];        
         UILabel *copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 80, cameraCollectionBrowser.view.bounds.size.width-60, (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?80:220))];     
         [copy setTag:1]; // mark for removal
@@ -378,7 +378,7 @@
     vcHome.disableSecondaryDataSource = YES;
     NSString *title;
 #ifndef BLANKSLATE
-    title = @"Home";
+    title = NSLocalizedString(@"TITLE_HOME", nil);
 #endif
     vcHome.ng_tabBarItem = [NGTabBarItem itemWithTitle:title image:[UIImage imageNamed:@"Home"]];    
     vcHome.ng_tabBarItem.mediaIndex =title;
@@ -435,8 +435,8 @@
     }
     
     if (iTunesSharedCollection.count > 0) {        
-        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, @"iTunes", nil]];
-        vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:@"iTunes" image:[UIImage imageNamed:@"iTunesShared"]];    
+        CollectionBrowser *vc = [[CollectionBrowser alloc] initWithCollection:[NSDictionary dictionaryWithObjectsAndKeys:iTunesSharedCollection, NSLocalizedString(@"TITLE_ITUNES", nil), nil]];
+        vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:NSLocalizedString(@"TITLE_ITUNES", nil) image:[UIImage imageNamed:@"iTunesShared"]];    
         vc.ng_tabBarItem.mediaIndex = @"iTunesShared";
         vc.title = NSLocalizedString(@"TITLE_ITUNES", nil);
         [viewControllers addObject:vc];        
@@ -479,7 +479,7 @@
     
     [playbackViewController setURL:url.URL];
     
-    UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismissVideoPlayer)];
+    UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(dismissVideoPlayer)];
     
     [playbackViewController setVideotitle:title];
     

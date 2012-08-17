@@ -122,7 +122,7 @@
                        nil];
         }
         v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_MUSICVIDEO", nil), @"title", v, @"media", nil];    
+        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_MUSICVIDEOS", nil), @"title", v, @"media", nil];    
         [collections setObject:c forKey:@"MusicVideo"];    
         
         // Podcasts

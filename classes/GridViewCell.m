@@ -33,38 +33,7 @@
     return ( _imageView.image );
 }
 
-- (void) setImage: (UIImage *) anImage
-{
-/*    
-    UIGraphicsBeginImageContext(anImage.size);
-    
-    // get a reference to that context we created
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    // set the fill color
-    UIColor *color = [UIColor blueColor];
-    [color setFill];
-    
-    // translate/flip the graphics context (for transforming from CG* coords to UI* coords
-    CGContextTranslateCTM(context, 0, anImage.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    
-    // set the blend mode to color burn, and the original image
-    CGContextSetBlendMode(context, kCGBlendModeOverlay);// kCGBlendModeMultiply);// kCGBlendModeColorBurn);
-    CGRect rect = CGRectMake(0, 0, anImage.size.width, anImage.size.height);
-    CGContextDrawImage(context, rect, anImage.CGImage);
-    
-    // set a mask that matches the shape of the image, then draw (color burn) a colored rectangle
-    CGContextClipToMask(context, rect, anImage.CGImage);
-    CGContextAddRect(context, rect);
-    CGContextDrawPath(context,kCGPathFill);
-    
-    // generate a new UIImage from the graphics context we drew onto
-    UIImage *coloredImg = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();    
-    
-    anImage = coloredImg;
-*/    
+- (void) setImage: (UIImage *) anImage {
     _imageView.image = anImage;
     [self setNeedsLayout];
 }
@@ -131,7 +100,6 @@
     frame = _imageView.frame;
     frame.size.width = floorf(imageSize.width);
     frame.size.height = floorf(imageSize.height);
-    NSLog(@"%f x %f inside %f x %f", frame.size.width, frame.size.height, bounds.size.width, bounds.size.height);
     frame.origin.x = bounds.size.width/2 - frame.size.width/2 + 10;
     frame.origin.y = bounds.size.height/2 - frame.size.height/2 + 10;
     _imageView.frame = frame;

@@ -32,7 +32,6 @@
     [super viewDidAppear:animated];
     
     if ([sharedAppDelegate isFirstLaunch]) {
-        NSLog(@"first launch");
         WelcomeViewController *welcomeController = [[WelcomeViewController alloc] initWithNibName:@"Welcome"];
         [welcomeController.navigationBar setTintColor:[UIColor colorWithRed:0.0/255.0f green:85.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
         
