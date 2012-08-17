@@ -423,7 +423,7 @@
     
     
     // Check the Documents folder for media shared via iTunes sharing
-    NSArray *validExtensions = [NSArray arrayWithObjects:@"mp4", @"mov", @"qt", @"3gp", @"3gpp", @"avi", nil];
+    NSArray *validExtensions = [NSArray arrayWithObjects:@"mp4", @"mov", @"qt", @"3gp", @"3gpp", @"avi", @"m4v", nil];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSMutableArray* iTunesSharedCollection = [[NSMutableArray alloc] init];    
@@ -701,8 +701,10 @@
     [[LocalyticsSession sharedLocalyticsSession] resume];
     [[LocalyticsSession sharedLocalyticsSession] upload];    
 #endif
-    //[playbackViewController unlockScreen];
-    [playbackViewController.mPlayer play];
+    // If playback screen is locked, start playback
+    if ([playbackViewController.navigationController.navigationBar isHidden]) {
+        [playbackViewController.mPlayer play];        
+    }
 }
 
 
