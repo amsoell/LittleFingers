@@ -69,6 +69,21 @@
     if (![objects objectForKey:@"history"]) [objects setObject:[[NSMutableArray alloc] init] forKey:@"history"];
     if (![objects objectForKey:@"favorites"]) [objects setObject:[[NSMutableArray alloc] init] forKey:@"favorites"];    
     
+    // Make sure history and favorites are updated for 1.1 compatability
+    srand(time(NULL));         
+    for (NSMutableDictionary* v in [objects objectForKey:@"history"]) {
+        if (![v objectForKey:@"id"]) {
+            [v setValue:[NSNumber numberWithInt:rand()%1000000] forKey:@"id"];
+        }
+    }
+
+    for (NSMutableDictionary* v in [objects objectForKey:@"favorites"]) {
+        if (![v objectForKey:@"id"]) {
+            [v setValue:[NSNumber numberWithInt:rand()%1000000] forKey:@"id"];
+        }
+    }
+    
+    
     return objects;
 }
 
