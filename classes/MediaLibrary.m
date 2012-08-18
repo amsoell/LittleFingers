@@ -45,291 +45,11 @@
 - (NSArray*)mediaOnDevice {
     NSArray* videos;
     
-    if (true) {
-        [[NSUserDefaults standardUserDefaults] synchronize];            
-        // Take a look at the movies library and determine media types
-        MPMediaPropertyPredicate *predicate = [MPMediaPropertyPredicate predicateWithValue:[NSNumber numberWithInteger:MPMediaTypeAnyVideo] forProperty:MPMediaItemPropertyMediaType];    
-        MPMediaQuery *videoQuery = [[MPMediaQuery alloc] initWithFilterPredicates:[NSSet setWithObject:predicate]];    
-        videos = [videoQuery items];   
-    } else {
-        // THIS TEST DATA DOESN'T WORK ANYMORE. GOTTA FIX IT.
-        NSMutableDictionary* c;    
-        NSMutableArray *v    ;
-        NSArray* details;
-        
-        // iTunes U
-        {
-            details = [NSArray arrayWithObjects:
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"12345", @"id",
-                        @"Polymorphism", @"title", 
-                        @"12345", @"id",
-                        @"", @"url", 
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Jump Start Java", @"title", 
-                        @"12346", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Jump Start C#", @"title", 
-                        @"12347", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Jump Start Objective C", @"title", 
-                        @"12348", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Introduction to C Style Syntax", @"title", 
-                        @"12349", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       
-                       nil];
-        }
-        v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_ITUNESU", nil), @"title", v, @"media", nil];    
-        [collections setObject:c forKey:@"ITunesU"];       
-        
-        // Music Videos
-        {
-            details = [NSArray arrayWithObjects:
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Thriller", @"title", 
-                        @"123410", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Fell in Love with a Girl", @"title", 
-                        @"123411", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Clint Eastwood", @"title", 
-                        @"123412", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       nil];
-        }
-        v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_MUSICVIDEOS", nil), @"title", v, @"media", nil];    
-        [collections setObject:c forKey:@"MusicVideo"];    
-        
-        // Podcasts
-        {
-            details = [NSArray arrayWithObjects:
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Gov't to makeup artists: Put down the blush, or we'll shut you down", @"title", 
-                        @"123413", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Is your state pulling a medical CON job?", @"title", 
-                        @"123414", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Caveman Blogger Fights for Free Speech and Internet Freedom", @"title", 
-                        @"123415", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Should You Need the Government's Permission to Work?", @"title", 
-                        @"123416", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       nil];
-        }
-        v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_PODCASTS", nil), @"title", v, @"media", nil];    
-        [collections setObject:c forKey:@"VideoPodcast"];        
-        
-        // TV
-        {
-            details = [NSArray arrayWithObjects:
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Turtle Tracks", @"title", 
-                        @"123417", @"id",
-                        @"file://localhost/Users/asoell/Library/Application%20Support/iPhone%20Simulator/5.1/Applications/4342A7E9-87BA-488E-816B-DBC1A02EDA69/Documents/sample.mov", @"url", 
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Enter the Shredder", @"title", 
-                        @"123418", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"A Thing About Rats", @"title", 
-                        @"123419", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Hot-Rodding Teenagers from Dimension X", @"title", 
-                        @"123420", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Shredder & Splintered", @"title", 
-                        @"123421", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"The Fabulous Belding Boys", @"title", 
-                        @"123422", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],   
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Breaking Up is Hard to Undo", @"title", 
-                        @"123422", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],      
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"The Glee Club", @"title", 
-                        @"123423", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],      
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"The Last Dance", @"title", 
-                        @"123425", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Zack's Birthday Party", @"title", 
-                        @"123426", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],               
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"The Aftermath", @"title", 
-                        @"123427", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],                    nil];
-        }
-        v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_TVSHOWS", nil), @"title", v, @"media", nil];    
-        [collections setObject:c forKey:@"TVShow"];
-        
-        // Movies
-        {
-            details = [NSArray arrayWithObjects:
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Beauty and the Beast", @"title", 
-                        @"1231", @"id",
-                        @"file://localhost/Users/asoell/Library/Application%20Support/iPhone%20Simulator/5.1/Applications/4342A7E9-87BA-488E-816B-DBC1A02EDA69/Documents/BeautyAndTheBeast.mp4", @"url", 
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Cinderella", @"title", 
-                        @"123428", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Ice Age", @"title", 
-                        @"123429", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Madagascar", @"title", 
-                        @"123430", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Madagascar 2", @"title", 
-                        @"123431", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Sleeping Beauty", @"title", 
-                        @"123432", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],   
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Tangled", @"title", 
-                        @"1232", @"id",
-                        @"file://localhost/Users/asoell/Library/Application%20Support/iPhone%20Simulator/5.1/Applications/4342A7E9-87BA-488E-816B-DBC1A02EDA69/Documents/Tangled.mp4", @"url", 
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],      
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Toy Story", @"title", 
-                        @"123433", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],      
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Toy Story 2", @"title", 
-                        @"123434", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Toy Story 3", @"title", 
-                        @"123435", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],               
-                       nil];
-        }
-        v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_MOVIES", nil), @"title", v, @"media", nil];    
-        [collections setObject:c forKey:@"Movie"];    
-        
-        // iTunes Sharing
-        {
-            details = [NSArray arrayWithObjects:
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Lucy's first steps", @"title", 
-                        @"123436", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"Halloween 2011", @"title", 
-                        @"123437", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                        @"2010 Year in Review", @"title", 
-                        @"123438", @"id",
-                        @"", @"url",  
-                        [NSNumber numberWithBool:NO], @"hasProtectedContent",
-                        nil],        
-                       nil];
-        }
-        v = [NSMutableArray arrayWithArray:details];
-        c = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"TITLE_ITUNES", nil), @"title", v, @"media", nil];    
-        //    [mediaIndex.collections setObject:c forKey:@"iTunesShared"];        
-    }
+    [[NSUserDefaults standardUserDefaults] synchronize];            
+    // Take a look at the movies library and determine media types
+    MPMediaPropertyPredicate *predicate = [MPMediaPropertyPredicate predicateWithValue:[NSNumber numberWithInteger:MPMediaTypeAnyVideo] forProperty:MPMediaItemPropertyMediaType];    
+    MPMediaQuery *videoQuery = [[MPMediaQuery alloc] initWithFilterPredicates:[NSSet setWithObject:predicate]];    
+    videos = [videoQuery items];   
 
     return videos;
 }
@@ -345,17 +65,23 @@
         [self buildIndex];        
     }
 
+#if TARGET_IPHONE_SIMULATOR
+#else
     [self purgeRemoved];
     [self addNew];
     [self save];
+#endif
 }
 
 - (void)save {
+#if TARGET_IPHONE_SIMULATOR
+#else
     if ([collections writeToFile:[[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"] stringByAppendingPathComponent:@"mediaLibrary.plist"] atomically:NO]) {
         NSLog(@"Media Library saved successfully");
     } else {
         NSLog(@"COULDN'T SAVE MEDIA LIBRARY");
     }
+#endif
 }
 
 - (void)buildIndex {

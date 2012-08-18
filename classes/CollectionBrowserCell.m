@@ -51,7 +51,7 @@
         hours   = [NSNumber numberWithInt:seconds.intValue / 3600];
         seconds = [NSNumber numberWithInt:seconds.intValue - (hours.intValue*3600)];
         minutes = [NSNumber numberWithInt:seconds.intValue / 60];
-        seconds = [NSNumber numberWithInt:seconds.intValue - (hours.intValue*3600) - (minutes.intValue*60)];        
+        seconds = [NSNumber numberWithInt:seconds.intValue - (minutes.intValue*60)];        
         
         if (hours.intValue > 0) [dur appendFormat:@"%d hour%@, ", hours.intValue, (hours.intValue==1)?@"":@"s"];
         if (minutes.intValue > 0) [dur appendFormat:@"%d minute%@, ", minutes.intValue, (minutes.intValue==1)?@"":@"s"];        
