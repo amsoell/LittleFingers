@@ -4,8 +4,6 @@
 #import "ATMHudQueueItem.h"
 #import <QuartzCore/QuartzCore.h>
 
-//#import "PinDisplay.h"
-
 /* Asset keys */
 NSString * const kTracksKey         = @"tracks";
 NSString * const kPlayableKey		= @"playable";
@@ -61,7 +59,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 #pragma mark -
 @implementation PlaybackViewController
 
-@synthesize mPlayer, mPlayerItem, mPlaybackView, mToolbar, mPlayButton, mStopButton, mScrubber, swipeHistory, hud, videotitle;
+@synthesize mPlayer, mPlayerItem, mPlaybackView, mToolbar, mPlayButton, mStopButton, mScrubber, swipeHistory, hud, videotitle, playCount;
 
 #pragma mark Asset URL
 
@@ -69,6 +67,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 {
 	if (mURL != URL)
 	{
+        playCount = 0;
 		mURL = [URL copy];
 		
         /*
@@ -109,10 +108,11 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 }
 
 - (void)playMedia {
+    NSLog(@"playing (%d)", ++playCount);
 	/* If we are at the end of the movie, we must seek to the beginning first 
      before starting playback. */
-	if (YES == seekToZeroBeforePlay) 
-	{
+	if (YES == seekToZeroBeforePlay) {
+        NSLog(@"seeking to zero");
 		seekToZeroBeforePlay = NO;
 		[mPlayer seekToTime:kCMTimeZero];
 	}
@@ -121,7 +121,9 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     [TestFlight passCheckpoint:@"Played video"];
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Played video" attributes:[NSDictionary dictionaryWithObjectsAndKeys:videotitle, @"Title", [[NSUserDefaults standardUserDefaults] stringForKey:@"autolock"], @"autolock", [[NSUserDefaults standardUserDefaults] stringForKey:@"repeat"], @"repeat", nil]];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"autolock"] && ![[[self navigationController] navigationBar] isHidden]) {
+    if (playCount<=1 && 
+        [[NSUserDefaults standardUserDefaults] boolForKey:@"autolock"] && 
+        ![[[self navigationController] navigationBar] isHidden]) {
         [self lockScreen:nil];
     }
 	
@@ -219,9 +221,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 /* Show the stop button in the movie player controller. */
 -(void)showStopButton
 {
-    NSLog(@"show stop button");
     NSMutableArray *toolbarItems = [NSMutableArray arrayWithArray:[mToolbar items]];
-    NSLog(@"toolbar items: %@", toolbarItems);
     if (toolbarItems && (toolbarItems.count>0)) {
         [toolbarItems replaceObjectAtIndex:0 withObject:mStopButton];
         mToolbar.items = toolbarItems;
@@ -232,8 +232,6 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 -(void)showPlayButton
 {
     NSMutableArray *toolbarItems = [NSMutableArray arrayWithArray:[mToolbar items]];
-    NSLog(@"toolbarItems: %@", toolbarItems);
-    NSLog(@"mToolbar items: %@", [mToolbar items]);
     if (toolbarItems && (toolbarItems.count>0)) {
         [toolbarItems replaceObjectAtIndex:0 withObject:mPlayButton];
         mToolbar.items = toolbarItems;
@@ -408,8 +406,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 #pragma mark
 #pragma mark View Controller
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
 	{
 		mPlayer = nil;		
@@ -420,8 +417,9 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	return self;
 }
 
-- (id)init
-{
+- (id)init {
+    playCount = 0;
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) 
     {
         return [self initWithNibName:@"PlaybackView-iPad" bundle:nil];
@@ -432,8 +430,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 	}
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     self.mPlaybackView = nil;
 	
     self.mToolbar = nil;
@@ -446,8 +443,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 
 
 
-- (void)viewDidLoad
-{    
+- (void)viewDidLoad {    
 	mPlayer = nil;
     swipeHistory = [[NSMutableString alloc] initWithString:@""];
 
@@ -754,6 +750,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
 /* Called when the player item has played to its end time. */
 - (void)playerItemDidReachEnd:(NSNotification *)notification 
 {
+    NSLog(@"did reach end");
 	/* After the movie has played to its end time, seek back to time zero 
 		to play it again. */
 	seekToZeroBeforePlay = YES;
@@ -762,6 +759,7 @@ static void *PlaybackViewControllerCurrentItemObservationContext = &PlaybackView
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Video reached end" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:@"repeat"], @"repeat", nil]];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"repeat"]) {    
+        NSLog(@"attempting replay");
         [self playMedia];
     }
 }

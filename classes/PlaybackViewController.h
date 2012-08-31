@@ -28,6 +28,7 @@
 	ATMHud *hud;   
     NSString* videotitle;
     UILabel *reminder;
+    int playCount;
 }
 
 @property (nonatomic, copy) NSURL* URL;
@@ -41,6 +42,7 @@
 @property (retain) NSMutableString* swipeHistory;
 @property (nonatomic, retain) ATMHud *hud;
 @property (nonatomic, strong) NSString *videotitle;
+@property (nonatomic) int playCount;
 
 - (IBAction)play:(id)sender;
 - (void)playMedia;
