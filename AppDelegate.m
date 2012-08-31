@@ -48,12 +48,20 @@
 
 - (NSString*)getMarksPath {
     NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"marks.plist"];
+    NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];        
+    NSString *privDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/privdata"];    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:privDirectory isDirectory:nil]) {
+        // Create the privdata folder
+        if ([[NSFileManager defaultManager] createDirectoryAtPath:privDirectory withIntermediateDirectories:YES attributes:nil error:nil]) {
+            // Move the marks.plist file if it exists in the Documents folder. Version 1.0.x used to keep it there
+            [[NSFileManager defaultManager] moveItemAtPath:[documentsDirectory stringByAppendingPathComponent:@"marks.plist"] toPath:[privDirectory stringByAppendingPathComponent:@"marks.plist"] error:nil];
+        }
+    }
+    
+    NSString *path = [privDirectory stringByAppendingPathComponent:@"marks.plist"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    if (![fileManager fileExistsAtPath: path]) {
+    if (![fileManager fileExistsAtPath:path]) {
         NSString *bundle = [[NSBundle mainBundle] pathForResource:@"marks" ofType:@"plist"];
         
         [fileManager copyItemAtPath:bundle toPath:path error:&error];
