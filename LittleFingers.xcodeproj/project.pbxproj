@@ -19,6 +19,8 @@
 		DE47B47A15B23EF00023B179 /* LifePreserver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE47B47615B23EF00023B179 /* LifePreserver@2x.png */; };
 		DE47B47B15B23EF00023B179 /* LifePreserverLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = DE47B47715B23EF00023B179 /* LifePreserverLarge.png */; };
 		DE47B47C15B23EF00023B179 /* LifePreserverLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE47B47815B23EF00023B179 /* LifePreserverLarge@2x.png */; };
+		DE6A89FC15F12AC10074F3FB /* NSData+Gzip.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6A89FB15F12AC10074F3FB /* NSData+Gzip.m */; };
+		DE6A89FF15F132280074F3FB /* UIDevice+Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6A89FE15F132280074F3FB /* UIDevice+Hardware.m */; };
 		DE81847C15A8BAC7005C9F9F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81847A15A8BAC7005C9F9F /* libTestFlight.a */; };
 		DE81848615A8BBF2005C9F9F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81848515A8BBF2005C9F9F /* libz.dylib */; };
 		DE81849715A8C5D9005C9F9F /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DE81849115A8C5D9005C9F9F /* LocalyticsDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -203,6 +205,10 @@
 		DE47B47615B23EF00023B179 /* LifePreserver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LifePreserver@2x.png"; sourceTree = "<group>"; };
 		DE47B47715B23EF00023B179 /* LifePreserverLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LifePreserverLarge.png; sourceTree = "<group>"; };
 		DE47B47815B23EF00023B179 /* LifePreserverLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LifePreserverLarge@2x.png"; sourceTree = "<group>"; };
+		DE6A89FA15F12AC10074F3FB /* NSData+Gzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Gzip.h"; sourceTree = "<group>"; };
+		DE6A89FB15F12AC10074F3FB /* NSData+Gzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Gzip.m"; sourceTree = "<group>"; };
+		DE6A89FD15F132280074F3FB /* UIDevice+Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Hardware.h"; sourceTree = "<group>"; };
+		DE6A89FE15F132280074F3FB /* UIDevice+Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Hardware.m"; sourceTree = "<group>"; };
 		DE81847A15A8BAC7005C9F9F /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		DE81847B15A8BAC7005C9F9F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		DE81848515A8BBF2005C9F9F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -601,6 +607,10 @@
 				DED85BA115B06C1500001A66 /* Welcome */,
 				DEE640EE15B66780000CAD2D /* SPDeepCopy.h */,
 				DEE640EF15B667D4000CAD2D /* SPDeepCopy.m */,
+				DE6A89FA15F12AC10074F3FB /* NSData+Gzip.h */,
+				DE6A89FB15F12AC10074F3FB /* NSData+Gzip.m */,
+				DE6A89FD15F132280074F3FB /* UIDevice+Hardware.h */,
+				DE6A89FE15F132280074F3FB /* UIDevice+Hardware.m */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -1180,6 +1190,8 @@
 				DE9FE9FF15DA9D9600308D8B /* CollectionHeader.m in Sources */,
 				DE009D0715DAECE1009C4E82 /* CollectionTable.m in Sources */,
 				DECED66915DE7BE800DD1AAF /* WelcomeView.m in Sources */,
+				DE6A89FC15F12AC10074F3FB /* NSData+Gzip.m in Sources */,
+				DE6A89FF15F132280074F3FB /* UIDevice+Hardware.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

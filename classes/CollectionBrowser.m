@@ -5,6 +5,8 @@
 #import "CollectionTable.h"
 #import "PlaybackViewController.h"
 #import "SPDeepCopy.h"
+#import "NSData+Gzip.h"
+#import "UIDevice+Hardware.h"
 #import <CoreMedia/CoreMedia.h>
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
@@ -389,8 +391,17 @@
                                     [NSDictionary dictionaryWithContentsOfFile:[[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"] stringByAppendingPathComponent:@"mediaLibrary.plist"]], @"mediaLibrary",
                                     [NSDictionary dictionaryWithContentsOfFile:[sharedAppDelegate getMarksPath]], @"marks",
                                     [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:prevSelected.section]] objectAtIndex:prevSelected.row], @"selectedIndex",
+                                    [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [[UIDevice currentDevice] model], @"model",
+                                     [[UIDevice currentDevice] platform], @"platform",
+                                     [[UIDevice currentDevice] systemVersion], @"systemVersion",
+                                     [[NSLocale preferredLanguages] objectAtIndex:0], @"language",
+                                     [[NSLocale currentLocale] localeIdentifier], @"localeIdentifier",
+                                     [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"], @"appVersion",
+                                     [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], @"appBuild",                                     
+                                     nil], @"device",
                                     nil];
-        [mailViewController addAttachmentData:[NSPropertyListSerialization dataFromPropertyList:dataDump format:NSPropertyListXMLFormat_v1_0 errorDescription:nil] mimeType:@"application/xml" fileName:@"errorLog.plist"];
+        [mailViewController addAttachmentData:[[NSPropertyListSerialization dataFromPropertyList:dataDump format:NSPropertyListXMLFormat_v1_0 errorDescription:nil] gzipDeflate] mimeType:@"application/xml" fileName:@"errorLog.plist.gz"];
         
 
         [self presentModalViewController:mailViewController animated:YES];
