@@ -15,7 +15,7 @@
 
 @implementation CollectionBrowser
 @synthesize dataSource, dataSourceWithoutProtectedContent;
-@synthesize tv, intro, videoPlaybackController, emptyText, disableSecondaryDataSource;
+@synthesize tv, intro, videoPlaybackController, emptyText, disableSecondaryDataSource, prevSelected;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -197,10 +197,26 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (buttonIndex == 1) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"hideprotected"];
-        [sharedAppDelegate settingsChanged];
-	}
+    NSLog(@"buttonIndex: %d", alertView.tag);
+    switch (alertView.tag) {
+        case 1: // Hide DRM alert view
+            if (buttonIndex == 1) {
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"hideprotected"];
+                [sharedAppDelegate settingsChanged];
+            }
+            break;
+        case 2: // Handle missing URL alert view
+            NSLog(@"handle missing url alertview");
+            switch (buttonIndex) {
+                case 1: // Open videos app
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"videos://"]];
+                    break;
+                case 2: // Send support email
+                    [self actionEmailComposer];
+                    break;
+            }
+    }
+        
 }
 
 
@@ -319,7 +335,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES]; 
+    [self setPrevSelected:indexPath];
     
     NSArray* itemKeys = [[self dataSourceRef] allKeys];            
     NSDictionary *item = [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
@@ -331,11 +348,15 @@
         //todo: let user hide them
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"CANNOT_PLAY", nil) message:[NSString stringWithFormat:NSLocalizedString(@"CANNOT_PLAY_DRM", nil), [sharedAppDelegate shortAppName]] delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:nil];
         [alert addButtonWithTitle:NSLocalizedString(@"YES", nil)];
+        [alert setTag:1];
 		[alert show];        
-    } else if ([item objectForKey:@"url"] == nil) {
+    } else if (([item objectForKey:@"url"] == nil) || [[item objectForKey:@"url"] isEqualToString:@""]) {
         // No URL. Probably in the cloud
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"CANNOT_PLAY", nil) message:NSLocalizedString(@"CANNOT_PLAY_ICLOUD", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-		[alert show];        
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"CANNOT_PLAY", nil) message:NSLocalizedString(@"CANNOT_PLAY_MISSING_URL", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) otherButtonTitles:nil];
+        [alert addButtonWithTitle:NSLocalizedString(@"OPEN_VIDEO", nil)];        
+        [alert addButtonWithTitle:NSLocalizedString(@"TROUBLESHOOT", nil)];        
+        [alert setTag:2];
+		[alert show];            
     } else {
         
         // Log it in history
@@ -354,5 +375,39 @@
         }        
     }
 }
+
+- (void)actionEmailComposer {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        mailViewController.mailComposeDelegate = self;
+        [mailViewController setToRecipients:[NSArray arrayWithObject:[NSString stringWithString:@"support@littlefingersapp.com"]]];
+        [mailViewController setSubject:NSLocalizedString(@"TROUBLESHOOTING_EMAIL_SUBJECT_CANNOT_PLAY_MISSING_URL", nil)];
+        [mailViewController setMessageBody:NSLocalizedString(@"TROUBLESHOOTING_EMAIL_BODY_CANNOT_PLAY_MISSING_URL", nil) isHTML:NO];
+
+        NSArray* itemKeys = [[self dataSourceRef] allKeys];            
+        NSDictionary* dataDump = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSDictionary dictionaryWithContentsOfFile:[[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"] stringByAppendingPathComponent:@"mediaLibrary.plist"]], @"mediaLibrary",
+                                    [NSDictionary dictionaryWithContentsOfFile:[sharedAppDelegate getMarksPath]], @"marks",
+                                    [[[self dataSourceRef] objectForKey:[itemKeys objectAtIndex:prevSelected.section]] objectAtIndex:prevSelected.row], @"selectedIndex",
+                                    nil];
+        [mailViewController addAttachmentData:[NSPropertyListSerialization dataFromPropertyList:dataDump format:NSPropertyListXMLFormat_v1_0 errorDescription:nil] mimeType:@"application/xml" fileName:@"errorLog.plist"];
+        
+
+        [self presentModalViewController:mailViewController animated:YES];
+          
+    } else {
+        NSLog(@"Device is unable to send email in its current state.");
+    }          
+}
+
+-(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    [self dismissModalViewControllerAnimated:YES];
+    if (result == MFMailComposeResultSent) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"THANKS", nil) message:NSLocalizedString(@"TROUBLESHOOTING_EMAIL_SENT", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+		[alert show];        
+        
+    }
+}
+
 
 @end

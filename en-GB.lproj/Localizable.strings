@@ -4,6 +4,13 @@
 "OFF" = "Off";
 "ON" = "On";
 "DONE" = "Done";
+"CANCEL" = "Cancel";
+"THANKS" = "Thank you";
+"OPEN_VIDEO" = "Open Videos app";
+"TROUBLESHOOT" = "E-mail support";
+"TROUBLESHOOTING_EMAIL_SUBJECT_CANNOT_PLAY_MISSING_URL" = "LittleFingers support: Cannot play video";
+"TROUBLESHOOTING_EMAIL_BODY_CANNOT_PLAY_MISSING_URL" = "Help! I'm having trouble playing one of my movies in LittleFingers\n\n(Please include whatever details are appropriate here)";
+"TROUBLESHOOTING_EMAIL_SENT" = "Thank you for contacting support, we will be in touch with you shortly to help get your issue resolved!";
 "RECENT" = "Recent";
 "FAVORITES" = "Favourites";
 "HOME" = "Home";
@@ -21,7 +28,7 @@
 "CAMERAROLL_ACCESS_DENIED" = "Camera Roll Access Unavailable";
 "CANNOT_PLAY" = "Cannot play";
 "CANNOT_PLAY_DRM" = "This video contains content protection that doesn't allow us to play it. Would you like to hide similar unplayable videos?";
-"CANNOT_PLAY_ICLOUD" = "This video does not have an associated address. Please either download it from iCloud, or contact support@littlefingersapp.com for assistance";
+"CANNOT_PLAY_MISSING_URL" = "This video file cannot be found. This may mean that it needs to be redownloaded. Please use the default Movies app to play it, and then try again in LittleFingers. If you continue to get this message, click the Troubleshoot button to contact support to help get this issue resolved.";
 "HUD_LOCKED" = "Locked! To unlock, swipe your fingers down in the following order:";
 "HUD_SUCCESS" =  "Success!";
 "HUD_UNLOCKING" = "Unlocking...";
