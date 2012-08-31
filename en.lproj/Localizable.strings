@@ -6,11 +6,13 @@
 "DONE" = "Done";
 "CANCEL" = "Cancel";
 "THANKS" = "Thank you";
+"ERROR" = "Oops";
 "OPEN_VIDEO" = "Open Videos app";
 "TROUBLESHOOT" = "Email support";
 "TROUBLESHOOTING_EMAIL_SUBJECT_CANNOT_PLAY_MISSING_URL" = "LittleFingers support: Cannot play video";
 "TROUBLESHOOTING_EMAIL_BODY_CANNOT_PLAY_MISSING_URL" = "Help! I'm having trouble playing one of my movies in LittleFingers\n\n(Please include whatever details are appropriate here)";
 "TROUBLESHOOTING_EMAIL_SENT" = "Thank you for contacting support, we will be in touch with you shortly to help get your issue resolved!";
+"TROUBLESHOOTING_EMAIL_NOT_CONFIGURED" = "This device is not configured to send email. Please set up an email account and try again";
 "RECENT" = "Recent";
 "FAVORITES" = "Favorites";
 "HOME" = "Home";

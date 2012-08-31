@@ -367,7 +367,7 @@
         [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Played video" attributes:[NSDictionary dictionaryWithObject:[[NSDictionary dictionaryWithDictionary:item] objectForKey:@"title"] forKey:@"Title"]];
         [TestFlight passCheckpoint:@"Selected video"];
         
-        AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[item objectForKey:@"url"]] options:nil];
+        AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:[item objectForKey:@"url"]] options:nil];
 
         if (urlAsset) {
             NSLog(@"Playing from asset URL");
@@ -407,7 +407,9 @@
         [self presentModalViewController:mailViewController animated:YES];
           
     } else {
-        NSLog(@"Device is unable to send email in its current state.");
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ERROR", nil) message:NSLocalizedString(@"TROUBLESHOOTING_EMAIL_NOT_CONFIGURED", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+		[alert show];        
+
     }          
 }
 

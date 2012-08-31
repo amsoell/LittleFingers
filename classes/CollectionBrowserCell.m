@@ -78,7 +78,7 @@
         [self.thumbnail setImage:image];
     } else {
         NSLog(@"generating thumb for: %@", [asset objectForKey:@"url"]);
-        AVAsset *a = [AVAsset assetWithURL:[NSURL URLWithString:[asset objectForKey:@"url"]]];
+        AVAsset *a = [AVAsset assetWithURL:[NSURL fileURLWithPath:[asset objectForKey:@"url"]]];
         generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:a];	
         generator.appliesPreferredTrackTransform = YES;
         generator.maximumSize = CGSizeMake(384.0, 256.0);
