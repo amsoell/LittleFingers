@@ -78,7 +78,15 @@
         [self.thumbnail setImage:image];
     } else {
         NSLog(@"generating thumb for: %@", [asset objectForKey:@"url"]);
-        AVAsset *a = [AVAsset assetWithURL:[NSURL fileURLWithPath:[asset objectForKey:@"url"]]];
+        
+        NSURL* vidUrl;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[asset objectForKey:@"url"]]) {
+            vidUrl = [NSURL fileURLWithPath:[asset objectForKey:@"url"]];
+        } else {
+            vidUrl = [NSURL URLWithString:[asset objectForKey:@"url"]];            
+        }        
+        
+        AVAsset *a = [AVAsset assetWithURL:vidUrl];
         generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:a];	
         generator.appliesPreferredTrackTransform = YES;
         generator.maximumSize = CGSizeMake(384.0, 256.0);

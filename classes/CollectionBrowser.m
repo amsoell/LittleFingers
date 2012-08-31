@@ -367,7 +367,14 @@
         [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Played video" attributes:[NSDictionary dictionaryWithObject:[[NSDictionary dictionaryWithDictionary:item] objectForKey:@"title"] forKey:@"Title"]];
         [TestFlight passCheckpoint:@"Selected video"];
         
-        AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:[item objectForKey:@"url"]] options:nil];
+        NSURL* vidUrl;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[item objectForKey:@"url"]]) {
+            vidUrl = [NSURL fileURLWithPath:[item objectForKey:@"url"]];
+        } else {
+            vidUrl = [NSURL URLWithString:[item objectForKey:@"url"]];            
+        }
+        
+        AVURLAsset* urlAsset = [[AVURLAsset alloc] initWithURL:vidUrl options:nil];
 
         if (urlAsset) {
             NSLog(@"Playing from asset URL");
