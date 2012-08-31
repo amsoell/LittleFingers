@@ -431,7 +431,7 @@
         UIImage* image = [UIImage imageNamed:key];
         vc.ng_tabBarItem = [NGTabBarItem itemWithTitle:[[mediaIndex.collections objectForKey:key] objectForKey:@"title"] image:image];    
         vc.ng_tabBarItem.mediaIndex = key;
-        vc.title = key;
+        vc.title = [[mediaIndex.collections objectForKey:key] objectForKey:@"title"];
         [viewControllers addObject:vc];
     }
     NSLog(@"ending loop");
